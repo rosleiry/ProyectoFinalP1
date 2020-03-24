@@ -10,6 +10,7 @@ public class Pedido {
 	private String cedulaUsuario;
 	private int IDpedido;
 	private float precioManodeObra;
+	
 	public Pedido(String cedulaUsuario, int iDpedido, float precioManodeObra) {
 		super();
 		this.componentes = new ArrayList<Componente>();

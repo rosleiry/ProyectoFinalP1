@@ -6,12 +6,12 @@ public class Tienda {
 
 	
 	private ArrayList<Pedido> pedidos;
-	private ArrayList<componente> componentes;
+	private ArrayList<Usuario> usuarios;
 	
 	public Tienda() {
 		super();
 		this.pedidos = new ArrayList<Pedido>();
-		this.componentes = new ArrayList<Componentes>();
+		this.usuarios = new ArrayList<Usuario>();
 	}
 
 	public ArrayList<Pedido> getPedidos() {
@@ -22,12 +22,20 @@ public class Tienda {
 		this.pedidos = pedidos;
 	}
 
-	public ArrayList<componente> getComponentes() {
-		return componentes;
+	public ArrayList<Usuario> getUsuarios() {
+		return usuarios;
 	}
 
-	public void setComponentes(ArrayList<componente> componentes) {
-		this.componentes = componentes;
+	public void setUsuarios(ArrayList<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+	
+	public void agregarPedido(Pedido nuevoPedido) {
+		pedidos.add(nuevoPedido);
+	}
+	
+	public void agregarUsuario(Usuario nuevoUsuario) {
+		usuarios.add(nuevoUsuario);
 	}
 	
 	
