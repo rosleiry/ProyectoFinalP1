@@ -66,4 +66,18 @@ public class Tienda {
 		}
 		return aux;
 	}
+	
+	public Usuario buscarUsuariobyCedula(String cedula) {
+		
+		boolean encontrado = false;
+		Iterator<Usuario> i = usuarios.iterator();
+		Usuario aux = null;
+		
+		while(!encontrado && i.hasNext()) {
+			aux = i.next();
+			if(aux.getCedula().equalsIgnoreCase(cedula))
+				encontrado = true;
+		}
+		return aux;
+	}
 }
