@@ -25,9 +25,7 @@ public class Pedido {
 	public void setComponentes(ArrayList<Componente> componentes) {
 		this.componentes = componentes;
 	}
-	public float getPrecioPedido() {
-		return precioPedido;
-	}
+	
 	public void setPrecioPedido(float precioPedido) {
 		this.precioPedido = precioPedido;
 	}
@@ -50,5 +48,19 @@ public class Pedido {
 		this.precioManodeObra = precioManodeObra;
 	}
 	
+	public void agregarComponente(Componente nuevoComponente) {
+		componentes.add(nuevoComponente);
+	}
 	
+	public float getPrecioPedido() {
+		float aux = 0;
+		
+		for (Componente componente : componentes) {
+			aux += componente.getPrecioComp();
+		}
+		
+		aux += precioManodeObra;
+		
+		return aux;
+	}
 }

@@ -1,6 +1,7 @@
 package logico;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Tienda {
 
@@ -38,5 +39,31 @@ public class Tienda {
 		usuarios.add(nuevoUsuario);
 	}
 	
+	public Pedido buscarPedidobyID(int ID) {
+		
+		boolean encontrado = false;
+		Iterator<Pedido> i = pedidos.iterator();
+		Pedido aux = null;
+		
+		while(!encontrado && i.hasNext()) {
+			aux = i.next();
+			if(aux.getIDpedido() == ID)
+				encontrado = true;
+		}
+		return aux;
+	}
 	
+	public Usuario buscarUsuariobyNombre(String nombre) {
+		
+		boolean encontrado = false;
+		Iterator<Usuario> i = usuarios.iterator();
+		Usuario aux = null;
+		
+		while(!encontrado && i.hasNext()) {
+			aux = i.next();
+			if(aux.getNombre().equalsIgnoreCase(nombre))
+				encontrado = true;
+		}
+		return aux;
+	}
 }
