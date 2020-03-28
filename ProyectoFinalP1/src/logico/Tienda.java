@@ -8,11 +8,13 @@ public class Tienda {
 	
 	private ArrayList<Pedido> pedidos;
 	private ArrayList<Usuario> usuarios;
+	private ArrayList<Componente> componentes;
 	
 	public Tienda() {
 		super();
 		this.pedidos = new ArrayList<Pedido>();
 		this.usuarios = new ArrayList<Usuario>();
+		this.componentes = new ArrayList<Componente>();
 	}
 
 	public ArrayList<Pedido> getPedidos() {
@@ -31,6 +33,14 @@ public class Tienda {
 		this.usuarios = usuarios;
 	}
 	
+	public ArrayList<Componente> getComponentes() {
+		return componentes;
+	}
+
+	public void setComponentes(ArrayList<Componente> componentes) {
+		this.componentes = componentes;
+	}
+	
 	public void agregarPedido(Pedido nuevoPedido) {
 		pedidos.add(nuevoPedido);
 	}
@@ -38,6 +48,26 @@ public class Tienda {
 	public void agregarUsuario(Usuario nuevoUsuario) {
 		usuarios.add(nuevoUsuario);
 	}
+	
+	public void agregarComponente(Componente nuevoComponente) {
+		componentes.add(nuevoComponente);
+	}
+	
+	
+	public Componente buscarComponentebySerial(int numSerial) {
+		
+		boolean encontrado = false;
+		Iterator<Componente> i = componentes.iterator();
+		Componente aux = null;
+		
+		while(!encontrado && i.hasNext()) {
+			aux = i.next();
+			if(aux.getNumSerie() == numSerial)
+				encontrado = true;
+		}
+		return aux;
+	}
+	
 	
 	public Pedido buscarPedidobyID(int ID) {
 		
@@ -53,19 +83,6 @@ public class Tienda {
 		return aux;
 	}
 	
-	public Usuario buscarUsuariobyNombre(String nombre) {
-		
-		boolean encontrado = false;
-		Iterator<Usuario> i = usuarios.iterator();
-		Usuario aux = null;
-		
-		while(!encontrado && i.hasNext()) {
-			aux = i.next();
-			if(aux.getNombre().equalsIgnoreCase(nombre))
-				encontrado = true;
-		}
-		return aux;
-	}
 	
 	public Usuario buscarUsuariobyCedula(String cedula) {
 		
@@ -79,5 +96,10 @@ public class Tienda {
 				encontrado = true;
 		}
 		return aux;
+	}
+	
+	
+	public void cargarDatos() {
+		
 	}
 }

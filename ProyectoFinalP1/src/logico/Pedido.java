@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Pedido {
+public class Pedido implements Serializable {
 
 	
 	private ArrayList<Componente> componentes;
@@ -11,13 +12,13 @@ public class Pedido {
 	private int IDpedido;
 	private float precioManodeObra;
 	
-	public Pedido(String cedulaUsuario, int iDpedido, float precioManodeObra) {
+	public Pedido(String cedulaUsuario, int iDpedido) {
 		super();
 		this.componentes = new ArrayList<Componente>();
 		this.precioPedido = 0;
 		this.cedulaUsuario = cedulaUsuario;
 		this.IDpedido = iDpedido;
-		this.precioManodeObra = precioManodeObra;
+		this.precioManodeObra = 0;
 	}
 	public ArrayList<Componente> getComponentes() {
 		return componentes;
@@ -50,6 +51,13 @@ public class Pedido {
 	
 	public void agregarComponente(Componente nuevoComponente) {
 		componentes.add(nuevoComponente);
+	}
+	
+	public void isBuilded(boolean aux) {
+		
+		if(aux)
+			this.precioManodeObra = 500;
+		
 	}
 	
 	public float getPrecioPedido() {

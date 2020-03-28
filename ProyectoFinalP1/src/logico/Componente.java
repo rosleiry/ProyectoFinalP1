@@ -1,6 +1,8 @@
 package logico;
 
-public abstract class Componente {
+import java.io.Serializable;
+
+public abstract class Componente implements Serializable {
 
 	protected int cantDisponible;
 	protected int numSerie;
