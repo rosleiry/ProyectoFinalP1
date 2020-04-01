@@ -2,6 +2,10 @@ package logico;
 
 public class Processor extends Componente{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String modelo;
 	private String tipoSocket;
 	private float velDelProc;

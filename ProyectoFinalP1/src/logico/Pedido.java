@@ -6,11 +6,16 @@ import java.util.ArrayList;
 public class Pedido implements Serializable {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Componente> componentes;
 	private float precioPedido;
 	private String cedulaUsuario;
 	private int IDpedido;
 	private float precioManodeObra;
+	private String estadoPedido;
 	
 	public Pedido(String cedulaUsuario, int iDpedido) {
 		super();
@@ -19,6 +24,7 @@ public class Pedido implements Serializable {
 		this.cedulaUsuario = cedulaUsuario;
 		this.IDpedido = iDpedido;
 		this.precioManodeObra = 0;
+		this.estadoPedido = "";
 	}
 	public ArrayList<Componente> getComponentes() {
 		return componentes;
@@ -49,6 +55,12 @@ public class Pedido implements Serializable {
 		this.precioManodeObra = precioManodeObra;
 	}
 	
+	public String getEstadoPedido() {
+		return estadoPedido;
+	}
+	public void setEstadoPedido(String estadoPedido) {
+		this.estadoPedido = estadoPedido;
+	}
 	public void agregarComponente(Componente nuevoComponente) {
 		componentes.add(nuevoComponente);
 	}

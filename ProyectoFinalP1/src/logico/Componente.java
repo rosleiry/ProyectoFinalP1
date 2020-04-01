@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public abstract class Componente implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected int cantDisponible;
 	protected int numSerie;
 	protected float precioComp;
