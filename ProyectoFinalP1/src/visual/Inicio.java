@@ -1,77 +1,84 @@
 package visual;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.EventQueue;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import java.awt.Font;
 import java.awt.Color;
+import java.awt.Font;
 import javax.swing.SwingConstants;
+import java.awt.Button;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
-public class Inicio extends JDialog {
+public class Inicio extends JFrame {
 
-	private final JPanel contentPanel = new JPanel();
+	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			Inicio dialog = new Inicio();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Inicio frame = new Inicio();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
-	 * Create the dialog.
+	 * Create the frame.
 	 */
 	public Inicio() {
-		setBounds(100, 100, 650, 432);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
-		{
-			JPanel panel = new JPanel();
-			panel.setBackground(new Color(255, 153, 0));
-			panel.setBounds(0, 0, 634, 61);
-			contentPanel.add(panel);
-			panel.setLayout(null);
-			{
-				JLabel lblNewLabel = new JLabel("BIENVENIDO");
-				lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-				lblNewLabel.setForeground(new Color(255, 255, 255));
-				lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
-				lblNewLabel.setBounds(0, 0, 634, 61);
-				panel.add(lblNewLabel);
-			}
-			
-			JLabel lblNewLabel_2 = new JLabel("esto lo podemos quitar");
-			lblNewLabel_2.setBounds(413, 11, 173, 14);
-			panel.add(lblNewLabel_2);
-		}
-		{
-			JPanel panel = new JPanel();
-			panel.setBackground(new Color(204, 204, 204));
-			panel.setBounds(0, 60, 634, 333);
-			contentPanel.add(panel);
-			panel.setLayout(null);
-			
-			JButton btnNewButton = new JButton("COMENZAR");
-			btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-			btnNewButton.setBounds(513, 299, 111, 23);
-			panel.add(btnNewButton);
-			
-			JLabel lblNewLabel_1 = new JLabel("logo");
-			lblNewLabel_1.setBounds(247, 111, 46, 14);
-			panel.add(lblNewLabel_1);
-		}
+		setTitle("Nombre de la empresa/Inicio");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\logo.png"));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 650, 433);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 634, 394);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 153, 0));
+		panel_1.setBounds(0, 0, 634, 61);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("BIENVENIDO");
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setBackground(new Color(255, 255, 255));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(0, 0, 634, 61);
+		panel_1.add(lblNewLabel);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(0, 60, 634, 334);
+		panel.add(panel_2);
+		panel_2.setLayout(null);
+		
+		Button button = new Button("COMENZAR");
+		button.setBounds(554, 302, 70, 22);
+		panel_2.add(button);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\logo256.png"));
+		lblNewLabel_1.setBounds(185, 25, 256, 256);
+		panel_2.add(lblNewLabel_1);
 	}
+
 }
