@@ -50,7 +50,7 @@ public class ListaComponentes extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaComponentes() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\logo.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaComponentes.class.getResource("/iconos/logo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 432);
 		contentPane = new JPanel();
@@ -72,14 +72,14 @@ public class ListaComponentes extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnDiscosDuros.setIcon(new ImageIcon("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\harddrive.png"));
+		btnDiscosDuros.setIcon(new ImageIcon(ListaComponentes.class.getResource("/iconos/harddrive.png")));
 		btnDiscosDuros.setFont(new Font("Times New Roman", Font.BOLD, 11));
 		btnDiscosDuros.setBounds(0, 0, 166, 54);
 		panel.add(btnDiscosDuros);
 		
 		JButton btnMemoriasRam = new JButton("MEMORIAS RAM");
 		btnMemoriasRam.setHorizontalAlignment(SwingConstants.LEFT);
-		btnMemoriasRam.setIcon(new ImageIcon("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\ram-memory.png"));
+		btnMemoriasRam.setIcon(new ImageIcon(ListaComponentes.class.getResource("/iconos/ram-memory.png")));
 		btnMemoriasRam.setFont(new Font("Times New Roman", Font.BOLD, 11));
 		btnMemoriasRam.setBounds(0, 54, 166, 54);
 		panel.add(btnMemoriasRam);
@@ -92,14 +92,14 @@ public class ListaComponentes extends JFrame {
 		
 		JButton btnProcesadores = new JButton("PROCESADORES");
 		btnProcesadores.setHorizontalAlignment(SwingConstants.LEFT);
-		btnProcesadores.setIcon(new ImageIcon("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\processor.png"));
+		btnProcesadores.setIcon(new ImageIcon(ListaComponentes.class.getResource("/iconos/processor.png")));
 		btnProcesadores.setFont(new Font("Times New Roman", Font.BOLD, 11));
 		btnProcesadores.setBounds(0, 162, 166, 54);
 		panel.add(btnProcesadores);
 		
 		JButton btnTarjetasMadre = new JButton("TARJETAS MADRE");
 		btnTarjetasMadre.setHorizontalAlignment(SwingConstants.LEFT);
-		btnTarjetasMadre.setIcon(new ImageIcon("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\motherboard.png"));
+		btnTarjetasMadre.setIcon(new ImageIcon(ListaComponentes.class.getResource("/iconos/motherboard.png")));
 		btnTarjetasMadre.setFont(new Font("Times New Roman", Font.BOLD, 11));
 		btnTarjetasMadre.setBounds(0, 216, 166, 54);
 		panel.add(btnTarjetasMadre);

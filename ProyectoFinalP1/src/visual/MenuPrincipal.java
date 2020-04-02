@@ -38,7 +38,7 @@ public class MenuPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public MenuPrincipal() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\logo.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("/iconos/logo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 432);
 		contentPane = new JPanel();
@@ -69,19 +69,19 @@ public class MenuPrincipal extends JFrame {
 		panel_2.setLayout(null);
 		
 		JButton btnComponentes = new JButton("COMPONENTES");
-		btnComponentes.setIcon(new ImageIcon("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\componentes64.png"));
+		btnComponentes.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/iconos/componentes64.png")));
 		btnComponentes.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnComponentes.setBounds(0, 0, 211, 333);
 		panel_2.add(btnComponentes);
 		
 		JButton btnUsuarios = new JButton("USUARIOS");
-		btnUsuarios.setIcon(new ImageIcon("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\user64.png"));
+		btnUsuarios.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/iconos/user64.png")));
 		btnUsuarios.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnUsuarios.setBounds(209, 0, 214, 333);
 		panel_2.add(btnUsuarios);
 		
 		JButton btnPedidos = new JButton("PEDIDOS");
-		btnPedidos.setIcon(new ImageIcon("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\pedidos64.png"));
+		btnPedidos.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/iconos/pedidos64.png")));
 		btnPedidos.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnPedidos.setBounds(420, 0, 214, 333);
 		panel_2.add(btnPedidos);

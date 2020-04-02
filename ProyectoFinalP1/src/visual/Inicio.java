@@ -39,7 +39,7 @@ public class Inicio extends JFrame {
 	 */
 	public Inicio() {
 		setTitle("Nombre de la empresa/Inicio");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\logo.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/iconos/logo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 433);
 		contentPane = new JPanel();
@@ -76,7 +76,7 @@ public class Inicio extends JFrame {
 		panel_2.add(button);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\logo256.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(Inicio.class.getResource("/iconos/logo256.png")));
 		lblNewLabel_1.setBounds(185, 25, 256, 256);
 		panel_2.add(lblNewLabel_1);
 	}
