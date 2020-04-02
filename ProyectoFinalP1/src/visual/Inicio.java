@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
@@ -13,8 +15,10 @@ import javax.swing.SwingConstants;
 import java.awt.Button;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Inicio extends JFrame {
+public class Inicio extends JFrame{
 
 	private JPanel contentPane;
 
@@ -71,14 +75,25 @@ public class Inicio extends JFrame {
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
-		Button button = new Button("COMENZAR");
-		button.setBounds(554, 302, 70, 22);
-		panel_2.add(button);
+		Button btnComenzar = new Button("COMENZAR");
+		btnComenzar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnComenzarActionPerformed(e);
+			}
+		});
+		btnComenzar.setBounds(554, 302, 70, 22);
+		panel_2.add(btnComenzar);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(Inicio.class.getResource("/iconos/logo256.png")));
 		lblNewLabel_1.setBounds(185, 25, 256, 256);
 		panel_2.add(lblNewLabel_1);
 	}
+	
+    private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {
+        MenuPrincipal menuP = new MenuPrincipal();
+        menuP.setVisible(true);
+        this.dispose();
+    }
 
 }

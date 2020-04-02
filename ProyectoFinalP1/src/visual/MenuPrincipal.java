@@ -13,6 +13,8 @@ import java.awt.Button;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MenuPrincipal extends JFrame {
 
@@ -69,21 +71,55 @@ public class MenuPrincipal extends JFrame {
 		panel_2.setLayout(null);
 		
 		JButton btnComponentes = new JButton("COMPONENTES");
+		btnComponentes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnComponentesActionPerformed(e);
+			}
+		});
 		btnComponentes.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/iconos/componentes64.png")));
 		btnComponentes.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnComponentes.setBounds(0, 0, 211, 333);
 		panel_2.add(btnComponentes);
 		
 		JButton btnUsuarios = new JButton("USUARIOS");
+		btnUsuarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnUsuariosActionPerformed(e);
+			}
+		});
 		btnUsuarios.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/iconos/user64.png")));
 		btnUsuarios.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnUsuarios.setBounds(209, 0, 214, 333);
 		panel_2.add(btnUsuarios);
 		
 		JButton btnPedidos = new JButton("PEDIDOS");
+		btnPedidos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnPedidosActionPerformed(e);
+			}
+		});
 		btnPedidos.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/iconos/pedidos64.png")));
 		btnPedidos.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		btnPedidos.setBounds(420, 0, 214, 333);
 		panel_2.add(btnPedidos);
 	}
+	
+    private void btnComponentesActionPerformed(java.awt.event.ActionEvent evt) {
+        ListaComponentes comp = new ListaComponentes();
+        comp.setVisible(true);
+        this.dispose();
+    }
+    
+    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {
+        Usuarios user = new Usuarios();
+        user.setVisible(true);
+        this.dispose();
+    }
+    
+    private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {
+        Pedidos ped = new Pedidos();
+        ped.setVisible(true);
+        this.dispose();
+    }
+    
 }

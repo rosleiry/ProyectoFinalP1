@@ -105,6 +105,11 @@ public class ListaComponentes extends JFrame {
 		panel.add(btnTarjetasMadre);
 		
 		JButton btnVolverAMenu = new JButton("VOLVER A MENU");
+		btnVolverAMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnVolverAMenuActionPerformed(e);
+			}
+		});
 		btnVolverAMenu.setHorizontalAlignment(SwingConstants.LEFT);
 		btnVolverAMenu.setFont(new Font("Times New Roman", Font.BOLD, 11));
 		btnVolverAMenu.setBounds(0, 270, 166, 59);
@@ -151,4 +156,10 @@ public class ListaComponentes extends JFrame {
 		scrollBar.setBounds(443, 0, 17, 285);
 		panel_3.add(scrollBar);
 	}
+	
+    private void btnVolverAMenuActionPerformed(java.awt.event.ActionEvent evt) {
+        MenuPrincipal menuP = new MenuPrincipal();
+        menuP.setVisible(true);
+        this.dispose();
+    }
 }
