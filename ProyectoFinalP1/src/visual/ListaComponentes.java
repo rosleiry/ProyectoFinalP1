@@ -19,6 +19,11 @@ import java.awt.Checkbox;
 import java.awt.Choice;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Toolkit;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ListaComponentes extends JFrame {
 
@@ -45,6 +50,7 @@ public class ListaComponentes extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaComponentes() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\logo.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 432);
 		contentPane = new JPanel();
@@ -54,53 +60,55 @@ public class ListaComponentes extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 0, 51));
+		panel.setBackground(Color.LIGHT_GRAY);
 		panel.setForeground(new Color(47, 79, 79));
-		panel.setBounds(0, 72, 163, 321);
+		panel.setBounds(0, 64, 166, 329);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		Button button = new Button("DISCOS DUROS");
-		button.setForeground(new Color(255, 255, 255));
-		button.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		button.setBackground(new Color(0, 0, 51));
-		button.setBounds(0, 0, 161, 33);
-		panel.add(button);
+		JButton btnDiscosDuros = new JButton("DISCOS DUROS");
+		btnDiscosDuros.setHorizontalAlignment(SwingConstants.LEFT);
+		btnDiscosDuros.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnDiscosDuros.setIcon(new ImageIcon("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\harddrive.png"));
+		btnDiscosDuros.setFont(new Font("Times New Roman", Font.BOLD, 11));
+		btnDiscosDuros.setBounds(0, 0, 166, 54);
+		panel.add(btnDiscosDuros);
 		
-		Button button_1 = new Button("PERIFERICOS");
-		button_1.setForeground(Color.WHITE);
-		button_1.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		button_1.setBackground(new Color(0, 0, 51));
-		button_1.setBounds(0, 78, 161, 33);
-		panel.add(button_1);
+		JButton btnMemoriasRam = new JButton("MEMORIAS RAM");
+		btnMemoriasRam.setHorizontalAlignment(SwingConstants.LEFT);
+		btnMemoriasRam.setIcon(new ImageIcon("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\ram-memory.png"));
+		btnMemoriasRam.setFont(new Font("Times New Roman", Font.BOLD, 11));
+		btnMemoriasRam.setBounds(0, 54, 166, 54);
+		panel.add(btnMemoriasRam);
 		
-		Button button_2 = new Button("PROCESADORES");
-		button_2.setForeground(Color.WHITE);
-		button_2.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		button_2.setBackground(new Color(0, 0, 51));
-		button_2.setBounds(0, 117, 161, 33);
-		panel.add(button_2);
+		JButton btnPerifericos = new JButton("PERIFERICOS");
+		btnPerifericos.setHorizontalAlignment(SwingConstants.LEFT);
+		btnPerifericos.setFont(new Font("Times New Roman", Font.BOLD, 11));
+		btnPerifericos.setBounds(0, 108, 166, 54);
+		panel.add(btnPerifericos);
 		
-		Button button_3 = new Button("MEMORIAS RAM");
-		button_3.setForeground(Color.WHITE);
-		button_3.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		button_3.setBackground(new Color(0, 0, 51));
-		button_3.setBounds(0, 39, 161, 33);
-		panel.add(button_3);
+		JButton btnProcesadores = new JButton("PROCESADORES");
+		btnProcesadores.setHorizontalAlignment(SwingConstants.LEFT);
+		btnProcesadores.setIcon(new ImageIcon("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\processor.png"));
+		btnProcesadores.setFont(new Font("Times New Roman", Font.BOLD, 11));
+		btnProcesadores.setBounds(0, 162, 166, 54);
+		panel.add(btnProcesadores);
 		
-		Button button_4 = new Button("TARJETAS MADRE");
-		button_4.setForeground(Color.WHITE);
-		button_4.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		button_4.setBackground(new Color(0, 0, 51));
-		button_4.setBounds(0, 156, 161, 33);
-		panel.add(button_4);
+		JButton btnTarjetasMadre = new JButton("TARJETAS MADRE");
+		btnTarjetasMadre.setHorizontalAlignment(SwingConstants.LEFT);
+		btnTarjetasMadre.setIcon(new ImageIcon("C:\\Users\\Administrator\\git\\ProyectoFinalP1\\ProyectoFinalP1\\src\\iconos\\motherboard.png"));
+		btnTarjetasMadre.setFont(new Font("Times New Roman", Font.BOLD, 11));
+		btnTarjetasMadre.setBounds(0, 216, 166, 54);
+		panel.add(btnTarjetasMadre);
 		
-		Button button_5 = new Button("VOLVER");
-		button_5.setForeground(Color.WHITE);
-		button_5.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		button_5.setBackground(new Color(0, 0, 51));
-		button_5.setBounds(0, 195, 161, 33);
-		panel.add(button_5);
+		JButton btnVolverAMenu = new JButton("VOLVER A MENU");
+		btnVolverAMenu.setHorizontalAlignment(SwingConstants.LEFT);
+		btnVolverAMenu.setFont(new Font("Times New Roman", Font.BOLD, 11));
+		btnVolverAMenu.setBounds(0, 270, 166, 59);
+		panel.add(btnVolverAMenu);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 153, 0));
