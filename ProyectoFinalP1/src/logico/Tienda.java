@@ -1,7 +1,5 @@
 package logico;
 
-import java.io.EOFException;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -19,7 +17,7 @@ public class Tienda {
 	private ArrayList<Pedido> pedidosPendientes;
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<Componente> componentes;
-	private static Tienda tienda;
+	private static Tienda tienda = null;
 	
 	
 	public Tienda() {
@@ -38,6 +36,26 @@ public class Tienda {
 		return tienda;
 	}
 	
+	public ArrayList<Pedido> getPedidosPendientes() {
+		return pedidosPendientes;
+	}
+
+
+	public void setPedidosPendientes(ArrayList<Pedido> pedidosPendientes) {
+		this.pedidosPendientes = pedidosPendientes;
+	}
+
+
+	public static Tienda getTienda() {
+		return tienda;
+	}
+
+
+	public static void setTienda(Tienda tienda) {
+		Tienda.tienda = tienda;
+	}
+
+
 	public ArrayList<Pedido> getPedidosPagados() {
 		return pedidosPagados;
 	}
@@ -79,36 +97,21 @@ public class Tienda {
 	
 	
 	public void agregarPedido(Pedido nuevoPedido) {
+	
+		if(nuevoPedido.getEstadoPedido().equalsIgnoreCase("Pagado")) {
+			pedidosPagados.add(nuevoPedido);
+			guardarDatos();
+		} else if(nuevoPedido.getEstadoPedido().equalsIgnoreCase("Pendiente")) {
+			pedidosPendientes.add(nuevoPedido);
+			guardarDatos();
+		}	
 		
-		try {
-			if(nuevoPedido.getEstadoPedido().equalsIgnoreCase("Pagado")) {
-				pedidosPagados.add(nuevoPedido);
-				guardarDatosPedidosPagados();
-			} else if(nuevoPedido.getEstadoPedido().equalsIgnoreCase("Pendiente")) {
-				pedidosPendientes.add(nuevoPedido);
-				guardarDatosPedidosPendientes();
-			}	
-		} catch (FileNotFoundException e) {
-			System.out.println("Error: Archivo no encontrado");
-		} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-		}
 	}
 	
 	
 	public void agregarUsuario(Usuario nuevoUsuario) {
-		
-		try {
 			usuarios.add(nuevoUsuario);
-			guardarDatosUsuarios();
-		} catch (FileNotFoundException e) {
-			System.out.println("Error: Archivo no encontrado");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+			guardarDatos();
 	}
 	
 	public void agregarComponente(Componente nuevoComponente) {
@@ -182,10 +185,15 @@ public class Tienda {
 	
 	public void cargarDatos() {
 		try {
-			cargarDatosComponentes();
-			cargarDatosUsuarios();
-			cargarDatosPedidosPendientes();
-			cargarDatosPedidosPagados();
+			FileInputStream input = new FileInputStream("Data/Tienda.dat");
+			ObjectInputStream inputTienda = new ObjectInputStream(input);
+			
+			Tienda aux = (Tienda) inputTienda.readObject();
+			Tienda.setTienda(aux);
+			
+			inputTienda.close();
+			input.close();
+			
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error: Clase no encontrada");
 		} catch(FileNotFoundException e) {
@@ -195,134 +203,25 @@ public class Tienda {
 		}
 	}
 
-	private void cargarDatosUsuarios() throws ClassNotFoundException, IOException {
-		File archivoUsuarios = new File("Usuarios.dat");
-		FileInputStream input = new FileInputStream(archivoUsuarios);
-		ObjectInputStream inputUsuarios = new ObjectInputStream(input);
-		
-		try {
-			while(true) {
-				Usuario aux = (Usuario) inputUsuarios.readObject();
-				agregarUsuario(aux);
-			}
-		} catch(EOFException e) {}
-		
-		inputUsuarios.close();
-		input.close();
-	}
 
-	private void cargarDatosPedidosPagados() throws IOException, ClassNotFoundException {
-		File archivoPedidosPagados = new File("pedidospagados.dat");
-		FileInputStream input = new FileInputStream(archivoPedidosPagados);
-		ObjectInputStream inputPedidosPagados = new ObjectInputStream(input);		
-	
-		try {
-			while(true) {
-				Pedido aux = (Pedido) inputPedidosPagados.readObject();
-				agregarPedido(aux);
-			}
-		}catch(EOFException e) {}
-		
-		inputPedidosPagados.close();
-		input.close();
-	}
-	
-	private void cargarDatosPedidosPendientes() throws IOException, ClassNotFoundException {
-		File archivoPedidosPendientes = new File("pedidospendientes.dat");
-		FileInputStream input = new FileInputStream(archivoPedidosPendientes);
-		ObjectInputStream inputPedidosPendientes = new ObjectInputStream(input);		
-	
-		try {
-			while(true) {
-				Pedido aux = (Pedido) inputPedidosPendientes.readObject();
-				agregarPedido(aux);
-			}
-		}catch(EOFException e) {}
-		
-		inputPedidosPendientes.close();
-		input.close();
-	}
-
-	private void cargarDatosComponentes() throws IOException, ClassNotFoundException {
-		File archivoComponentes = new File("componentes.dat");
-		FileInputStream input = new FileInputStream(archivoComponentes);
-		ObjectInputStream inputComponentes = new ObjectInputStream(input);		
-	
-		try {
-			while(true) {
-				Componente aux = (Componente) inputComponentes.readObject();
-				agregarComponente(aux);
-			}
-		}catch(EOFException e) {}
-		
-		inputComponentes.close();
-		input.close();
-	}
-	
 	public void guardarDatos() {
-		try {
-			guardarDatosComponentes();
-			guardarDatosUsuarios();
-			guardarDatosPedidosPagados();
-			guardarDatosPedidosPendientes();
-		} catch (FileNotFoundException e) {
+		
+		try {	
+			 FileOutputStream output = new FileOutputStream("Data/Tienda.dat");
+			 ObjectOutputStream outputTienda = new ObjectOutputStream(output);
+			  
+			 outputTienda.writeObject(tienda);
+				
+			 outputTienda.close();
+			 output.close();
+		
+		}catch (FileNotFoundException e) {
 			System.out.println("Error: Archivo no Encontrado");
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 	}
-
-	private void guardarDatosPedidosPagados() throws IOException, FileNotFoundException  {
-		File archivoPedidosPagados = new File("pedidospagados.dat");
-		FileOutputStream output = new FileOutputStream(archivoPedidosPagados);
-		ObjectOutputStream outputPedidos = new ObjectOutputStream(output);
-		
-		for(Pedido p : pedidosPagados) {
-			outputPedidos.writeObject(p);
-		}
-		
-		outputPedidos.close();
-		output.close();
-	}
-	
-	private void guardarDatosPedidosPendientes() throws IOException, FileNotFoundException  {
-		File archivoPedidosPendientes = new File("pedidospendientes.dat");
-		FileOutputStream output = new FileOutputStream(archivoPedidosPendientes);
-		ObjectOutputStream outputPedidos = new ObjectOutputStream(output);
-		
-		for(Pedido p : pedidosPendientes) {
-			outputPedidos.writeObject(p);
-		}
-		
-		outputPedidos.close();
-		output.close();
-	}
-
-	private void guardarDatosUsuarios() throws IOException, FileNotFoundException {
-		File archivoUsuarios = new File("Usuarios.dat");
-		FileOutputStream output = new FileOutputStream(archivoUsuarios);
-		ObjectOutputStream outputUsuarios = new ObjectOutputStream(output);
-		
-		for(Usuario u: usuarios) {
-			outputUsuarios.writeObject(u);
-		}
-		
-		outputUsuarios.close();
-		output.close();
-		
-	}
-
-	private void guardarDatosComponentes() throws IOException, FileNotFoundException{
-		File archivoComponentes = new File("componentes.dat");
-		FileOutputStream output = new FileOutputStream(archivoComponentes);
-		ObjectOutputStream outputComponentes = new ObjectOutputStream(output);
-		
-		for(Componente c : componentes) {
-			outputComponentes.writeObject(c);
-		}
-		
-		outputComponentes.close();
-		output.close();
-	}
 }
+	
+	
