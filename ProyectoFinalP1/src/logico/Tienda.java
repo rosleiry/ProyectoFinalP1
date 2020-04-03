@@ -6,13 +6,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public class Tienda {
+public class Tienda implements Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Pedido> pedidosPagados;
 	private ArrayList<Pedido> pedidosPendientes;
 	private ArrayList<Usuario> usuarios;
