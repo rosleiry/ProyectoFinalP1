@@ -14,8 +14,8 @@ public class MotherBoard extends Componente{
 	private ArrayList<Componente> conexionHD;
 	
 	
-	public MotherBoard(int cantDisponible, int numSerie, float precioComp, String marca, String tipoSocket, String modelo, String tipoMemoriaRam) {
-		super(cantDisponible, numSerie, precioComp, marca);
+	public MotherBoard(int cantDisponible, float precioComp, String marca, String tipoSocket, String modelo, String tipoMemoriaRam) {
+		super(cantDisponible, precioComp, marca);
 		this.tipoSocket = tipoSocket;
 		this.modelo = modelo;
 		this.tipoMemoriaRam = tipoMemoriaRam;

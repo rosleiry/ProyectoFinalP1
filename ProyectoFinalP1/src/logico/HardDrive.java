@@ -12,8 +12,8 @@ public class HardDrive extends Componente{
 	private String tipoDrive;
 	
 	
-	public HardDrive(int cantDisponible, int numSerie, float precioComp, String marca, String modelo,String tipoDrive, int capacidadAl, String tipoConexion) {
-		super(cantDisponible, numSerie, precioComp, marca);
+	public HardDrive(int cantDisponible, float precioComp, String marca, String modelo,String tipoDrive, int capacidadAl, String tipoConexion) {
+		super(cantDisponible, precioComp, marca);
 		this.modelo = modelo;
 		this.capacidadAl = capacidadAl;
 		this.tipoConexion = tipoConexion;

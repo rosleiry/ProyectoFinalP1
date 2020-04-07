@@ -17,12 +17,12 @@ public class Pedido implements Serializable {
 	private float precioManodeObra;
 	private String estadoPedido;
 	
-	public Pedido(String cedulaUsuario, int iDpedido) {
+	public Pedido(String cedulaUsuario) {
 		super();
 		this.componentes = new ArrayList<Componente>();
 		this.precioPedido = 0;
 		this.cedulaUsuario = cedulaUsuario;
-		this.IDpedido = iDpedido;
+		this.IDpedido = 0;
 		this.precioManodeObra = 0;
 		this.estadoPedido = "";
 	}

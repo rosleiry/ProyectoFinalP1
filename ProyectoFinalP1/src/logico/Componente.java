@@ -13,10 +13,10 @@ public abstract class Componente implements Serializable {
 	protected float precioComp;
 	protected String marca;
 	
-	public Componente(int cantDisponible, int numSerie, float precioComp, String marca) {
+	public Componente(int cantDisponible, float precioComp, String marca) {
 		super();
 		this.cantDisponible = cantDisponible;
-		this.numSerie = numSerie;
+		this.numSerie = 0;
 		this.precioComp = precioComp;
 		this.marca = marca;
 	}

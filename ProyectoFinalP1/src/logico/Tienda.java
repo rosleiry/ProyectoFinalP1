@@ -8,7 +8,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.stream.Collectors;
 
 
 public class Tienda implements Serializable{
@@ -23,7 +25,8 @@ public class Tienda implements Serializable{
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<Componente> componentes;
 	private static Tienda tienda = null;
-	
+	private static int serialComponente = 0;
+	private static int IDpedido = 0;
 	
 	public Tienda() {
 		super();
@@ -103,6 +106,9 @@ public class Tienda implements Serializable{
 	
 	public void agregarPedido(Pedido nuevoPedido) {
 	
+		IDpedido++;
+		nuevoPedido.setIDpedido(IDpedido);
+		
 		if(nuevoPedido.getEstadoPedido().equalsIgnoreCase("Pagado")) {
 			pedidosPagados.add(nuevoPedido);
 			guardarDatos();
@@ -123,10 +129,15 @@ public class Tienda implements Serializable{
 		
 		Componente c = buscarComponentebySerial(nuevoComponente.getNumSerie());
 		
-		if(c == null)
+		if(c == null) {
+			serialComponente++;
+			nuevoComponente.setNumSerie(serialComponente);
 			componentes.add(nuevoComponente);
-		else
+		}else {
 			c.setCantDisponible(c.getCantDisponible() + nuevoComponente.getCantDisponible());
+		}
+		
+		guardarDatos();
 	}
 	
 	
@@ -226,6 +237,26 @@ public class Tienda implements Serializable{
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public ArrayList<Componente>  ordenarComponentesHightoLow() {
+		
+		ArrayList<Componente> aux =	new ArrayList<Componente>();
+		aux = (ArrayList<Componente>) this.componentes.stream()
+				.sorted(Comparator.comparing(Componente::getPrecioComp).reversed())
+				.collect(Collectors.toList());
+		
+		return aux;
+	}
+	
+	public ArrayList<Componente>  ordenarComponentesLowtoHigh() {
+		
+		ArrayList<Componente> aux =	new ArrayList<Componente>();
+		aux = (ArrayList<Componente>) this.componentes.stream()
+				.sorted(Comparator.comparing(Componente::getPrecioComp))
+				.collect(Collectors.toList());
+		
+		return aux;
 	}
 }
 	

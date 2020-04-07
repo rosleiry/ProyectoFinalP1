@@ -11,8 +11,8 @@ public class Processor extends Componente{
 	private float velDelProc;
 	
 	
-	public Processor(int cantDisponible, int numSerie, float precioComp, String marca, String modelo, String tipoSocket, float velDelProc) {
-		super(cantDisponible, numSerie, precioComp, marca);
+	public Processor(int cantDisponible, float precioComp, String marca, String modelo, String tipoSocket, float velDelProc) {
+		super(cantDisponible, precioComp, marca);
 		this.modelo = modelo;
 		this.tipoSocket = tipoSocket;
 		this.velDelProc = velDelProc;
