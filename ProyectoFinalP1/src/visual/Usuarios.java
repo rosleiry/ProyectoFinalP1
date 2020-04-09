@@ -24,6 +24,11 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
+import logico.Usuario;
+import logico.Tienda;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -33,8 +38,12 @@ import javax.swing.JTextField;
 public class Usuarios extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
+	private static JTable table;
+	private static Object[] fila;
 	private JTextField txtBuscarClientePor;
+	private static DefaultTableModel tableModel;
+	private int cedula;
+	
 
 
 	/**
@@ -79,11 +88,11 @@ public class Usuarios extends JFrame {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("LISTAR CLIENTES");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
-		lblNewLabel.setBounds(10, 0, 542, 65);
-		panel_1.add(lblNewLabel);
+		JLabel lblEncabezado = new JLabel("LISTAR CLIENTES");
+		lblEncabezado.setForeground(new Color(255, 255, 255));
+		lblEncabezado.setFont(new Font("Times New Roman", Font.BOLD, 30));
+		lblEncabezado.setBounds(10, 0, 542, 65);
+		panel_1.add(lblEncabezado);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(0, 64, 634, 329);
@@ -106,6 +115,20 @@ public class Usuarios extends JFrame {
 		);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			
+				if(table.getSelectedRow()>=0){
+	
+					int index = table.getSelectedRow();
+					cedula = (int)table.getModel().getValueAt(index, 0);
+					
+				}
+			}
+		});
+		tableModel = new DefaultTableModel();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -113,6 +136,7 @@ public class Usuarios extends JFrame {
 				"C\u00E9dula:", "Nombre:", "Tel\u00E9fono:", "Direcci\u00F3n:"
 			}
 		));
+		cargar(0);
 		scrollPane.setViewportView(table);
 		panel_3.setLayout(gl_panel_3);
 
@@ -131,10 +155,10 @@ public class Usuarios extends JFrame {
 		panel_2.add(txtBuscarClientePor);
 		txtBuscarClientePor.setColumns(10);
 		
-		JButton btnNewButton_1 = new JButton("BUSCAR");
-		btnNewButton_1.setIcon(null);
-		btnNewButton_1.setBounds(220, 10, 89, 23);
-		panel_2.add(btnNewButton_1);
+		JButton btnBuscarCliente = new JButton("BUSCAR");
+		btnBuscarCliente.setIcon(null);
+		btnBuscarCliente.setBounds(220, 10, 89, 23);
+		panel_2.add(btnBuscarCliente);
 	}
 	
     private void btnVolverAMenuActionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,4 +166,31 @@ public class Usuarios extends JFrame {
         menuP.setVisible(true);
         this.dispose();
     }
+    
+	public static void cargar(int selection) {
+		tableModel.setRowCount(0);
+		fila = new Object[tableModel.getColumnCount()];
+		switch (selection) {
+		case 0:
+			for (Usuario aux : Tienda.getInstance().getUsuarios()) {
+				fila[0] = aux.getCedula();
+				fila[1] = aux.getNombre();
+				fila[2] = aux.getTelefono();
+				fila[3] = aux.getDireccion();
+				tableModel.addRow(fila);
+			}
+
+		table.setModel(tableModel);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.getTableHeader().setReorderingAllowed(false);
+		TableColumnModel columnModel = table.getColumnModel();
+		columnModel.getColumn(0).setPreferredWidth(60);
+		columnModel.getColumn(1).setPreferredWidth(180);
+		columnModel.getColumn(2).setPreferredWidth(150);
+		columnModel.getColumn(3).setPreferredWidth(150);
+		
+		
+		
+	}
+	}
 }

@@ -13,6 +13,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
 public class Pedidos extends JFrame {
@@ -111,8 +112,14 @@ public class Pedidos extends JFrame {
 	        this.dispose();
 	    }
 	   
-	   private void btnAgregarPedidosActionPerformed(java.awt.event.ActionEvent evt) {
-		   AgregarPedidos add = new AgregarPedidos();
+	   private void btnAgregarPedidosActionPerformed(java.awt.event.ActionEvent evt){
+		   AgregarPedidos add = null;
+		try {
+			add = new AgregarPedidos();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		   add.setVisible(true);
 	        this.dispose();
 	    }
