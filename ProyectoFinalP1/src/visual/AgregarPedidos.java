@@ -7,13 +7,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Toolkit;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
+import logico.Componente;
+import logico.HardDrive;
+import logico.Processor;
+import logico.RAM;
 import logico.Tienda;
+import logico.Usuario;
 
 import javax.swing.UIManager;
 import javax.swing.JTextField;
@@ -21,6 +28,8 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
@@ -43,18 +52,6 @@ public class AgregarPedidos extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AgregarPedidos frame = new AgregarPedidos();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -125,8 +122,9 @@ public class AgregarPedidos extends JFrame {
 		lblTelefono.setBounds(344, 46, 46, 14);
 		panel_3.add(lblTelefono);
 		
-		txtCedula = new JTextField();
-		txtCedula.setEditable(false);
+		//txtCedula = new JTextField();
+		MaskFormatter maskCedula = new MaskFormatter("###-#######-#");
+		JFormattedTextField txtCedula = new JFormattedTextField(maskCedula);
 		txtCedula.setBounds(66, 18, 169, 20);
 		panel_3.add(txtCedula);
 		txtCedula.setColumns(10);
@@ -151,6 +149,20 @@ public class AgregarPedidos extends JFrame {
 		
 		
 		JButton btnBuscarCliente = new JButton("BUSCAR");
+		btnBuscarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Usuario u = Tienda.getInstance().buscarUsuariobyCedula(txtCedula.getText());
+				
+				if(u != null) {
+					txtNombreCliente.setText(u.getNombre());
+					txtDireccionCliente.setText(u.getDireccion());
+					txtTelefonoCliente.setText(u.getTelefono());
+				}else {
+					JOptionPane.showMessageDialog(null, "Usuario no encontrado", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
 		btnBuscarCliente.setBounds(245, 17, 89, 23);
 		panel_3.add(btnBuscarCliente);
 		
@@ -182,6 +194,8 @@ public class AgregarPedidos extends JFrame {
 		panel_5.setBounds(10, 35, 259, 93);
 		panel_4.add(panel_5);
 		
+	
+		
 		JList listComponentesDisp = new JList();
 		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
 		gl_panel_5.setHorizontalGroup(
@@ -193,7 +207,7 @@ public class AgregarPedidos extends JFrame {
 				.addComponent(listComponentesDisp, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
 		);
 		panel_5.setLayout(gl_panel_5);
-		
+	
 		JPanel panel_6 = new JPanel();
 		panel_6.setBounds(343, 35, 261, 93);
 		panel_4.add(panel_6);

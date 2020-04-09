@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import logico.Componente;
+import logico.HardDrive;
 import logico.Tienda;
 
 import java.awt.Color;
@@ -36,32 +38,23 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 public class ListaComponentes extends JFrame {
 
+	private static Object[] fila;
 	private JPanel contentPane;
 	private JTextField txtBuscar;
-	private JTable tableDiscosDuros;
-	private JTable tableRAM;
-	private JTable tableProcesador;
-	private JTable tableTarjetaMadre;
+	private static JTable tableDiscosDuros;
+	private static JTable tableRAM;
+	private static JTable tableProcesador;
+	private static JTable tableTarjetaMadre;
 
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ListaComponentes frame = new ListaComponentes();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
@@ -223,13 +216,13 @@ public class ListaComponentes extends JFrame {
 		);
 		
 		tableDiscosDuros = new JTable();
-		tableDiscosDuros.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
+		DefaultTableModel tablemodelDiscoDuro = new DefaultTableModel();
+		String[] columnDiscoDuro = {
 				"N\u00FAm serie:", "Disponibles:", "Precio:", "Marca:", "Modelo:", "Almacenamiento:", "Tipo conexi\u00F3n:"
-			}
-		));
+			};
+		tablemodelDiscoDuro.setColumnIdentifiers(columnDiscoDuro);
+		cargarDiscoduro(tablemodelDiscoDuro);
+		
 		scrollPane.setViewportView(tableDiscosDuros);
 		panelDiscoDuro.setLayout(gl_panelDiscoDuro);
 		
@@ -318,5 +311,27 @@ public class ListaComponentes extends JFrame {
         this.dispose();
     }
     
+    public static void cargarDiscoduro (DefaultTableModel tablemodelDiscoDuro) {
+    	
+    	tablemodelDiscoDuro.setRowCount(0);
+    	fila = new Object[tablemodelDiscoDuro.getColumnCount()];
+    	for(Componente c : Tienda.getInstance().getComponentes()) {
+    		fila[0] = c.getNumSerie();
+    		fila[1] = c.getCantDisponible();
+    		fila[2] = c.getPrecioComp();
+    		fila[3] = c.getMarca();
+    		if(c instanceof HardDrive) {
+    			fila[4] = ((HardDrive) c).getModelo();
+    			fila[5] = ((HardDrive) c).getCapacidadAl();
+    			fila[6] = ((HardDrive) c).getTipoConexion();
+    		}
+    	}
+    	
+    	tableDiscosDuros.setModel(tablemodelDiscoDuro);
+    	tableDiscosDuros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    	tableDiscosDuros.getTableHeader().setReorderingAllowed(false);
+    	TableColumnModel columnModel = tableDiscosDuros.getColumnModel();
+    	
+    }
 
 }
