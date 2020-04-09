@@ -45,6 +45,7 @@ public class MenuPrincipal extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("/iconos/logo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 432);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -107,7 +108,7 @@ public class MenuPrincipal extends JFrame {
 	}
 	
     private void btnComponentesActionPerformed(java.awt.event.ActionEvent evt) {
-        ListaComponentes comp = new ListaComponentes();
+        MenuComponentes comp = new MenuComponentes();
         comp.setVisible(true);
         this.dispose();
     }

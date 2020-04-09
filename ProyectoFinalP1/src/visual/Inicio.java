@@ -46,6 +46,7 @@ public class Inicio extends JFrame{
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/iconos/logo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 433);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

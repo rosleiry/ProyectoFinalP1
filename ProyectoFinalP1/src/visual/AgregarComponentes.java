@@ -23,13 +23,15 @@ import javax.swing.border.BevelBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class AgregarComponentes extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField txtMarca;
+	private JTextField txtNumSerie;
+	private JTextField txtPrecio;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -55,6 +57,7 @@ public class AgregarComponentes extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AgregarComponentes.class.getResource("/iconos/logo256.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 432);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -103,21 +106,21 @@ public class AgregarComponentes extends JFrame {
 		lblNewLabel_4.setBounds(10, 36, 90, 14);
 		panel_3.add(lblNewLabel_4);
 		
-		textField = new JTextField();
-		textField.setBounds(107, 33, 187, 20);
-		panel_3.add(textField);
-		textField.setColumns(10);
+		txtMarca = new JTextField();
+		txtMarca.setBounds(107, 33, 187, 20);
+		panel_3.add(txtMarca);
+		txtMarca.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setBounds(107, 8, 187, 20);
-		panel_3.add(textField_1);
-		textField_1.setColumns(10);
+		txtNumSerie = new JTextField();
+		txtNumSerie.setEditable(false);
+		txtNumSerie.setBounds(107, 8, 187, 20);
+		panel_3.add(txtNumSerie);
+		txtNumSerie.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(375, 33, 229, 20);
-		panel_3.add(textField_2);
-		textField_2.setColumns(10);
+		txtPrecio = new JTextField();
+		txtPrecio.setBounds(375, 33, 229, 20);
+		panel_3.add(txtPrecio);
+		txtPrecio.setColumns(10);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -141,7 +144,7 @@ public class AgregarComponentes extends JFrame {
 		panel_2.add(btnVolverMenu);
 		
 		JLabel lblNewLabel_5 = new JLabel("OPCIONES DEL COMPONENTE EN ESPECIFICO");
-		lblNewLabel_5.setBounds(10, 148, 245, 14);
+		lblNewLabel_5.setBounds(10, 148, 338, 14);
 		panel_2.add(lblNewLabel_5);
 		
 		JPanel panel_5 = new JPanel();
@@ -150,25 +153,37 @@ public class AgregarComponentes extends JFrame {
 		panel_5.setBounds(10, 83, 614, 54);
 		panel_2.add(panel_5);
 		
-		JRadioButton radioButton = new JRadioButton("Disco duro");
-		radioButton.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		radioButton.setBounds(35, 22, 109, 23);
-		panel_5.add(radioButton);
+		JRadioButton btnDiscoDuro = new JRadioButton("Disco duro");
+		buttonGroup.add(btnDiscoDuro);
+		btnDiscoDuro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnDiscoDuro.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		btnDiscoDuro.setBounds(35, 22, 109, 23);
+		panel_5.add(btnDiscoDuro);
 		
-		JRadioButton radioButton_1 = new JRadioButton("Tarjeta madre");
-		radioButton_1.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		radioButton_1.setBounds(179, 22, 109, 23);
-		panel_5.add(radioButton_1);
+		JRadioButton btnTarjetaMadre = new JRadioButton("Tarjeta madre");
+		buttonGroup.add(btnTarjetaMadre);
+		btnTarjetaMadre.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		btnTarjetaMadre.setBounds(179, 22, 109, 23);
+		panel_5.add(btnTarjetaMadre);
 		
-		JRadioButton radioButton_2 = new JRadioButton("Procesador");
-		radioButton_2.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		radioButton_2.setBounds(323, 22, 109, 23);
-		panel_5.add(radioButton_2);
+		JRadioButton btnProcesador = new JRadioButton("Procesador");
+		buttonGroup.add(btnProcesador);
+		btnProcesador.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		btnProcesador.setBounds(323, 22, 109, 23);
+		panel_5.add(btnProcesador);
 		
-		JRadioButton radioButton_3 = new JRadioButton("Memoria RAM");
-		radioButton_3.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		radioButton_3.setBounds(467, 22, 109, 23);
-		panel_5.add(radioButton_3);
+		JRadioButton btnMemoriaRam = new JRadioButton("Memoria RAM");
+		buttonGroup.add(btnMemoriaRam);
+		btnMemoriaRam.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		btnMemoriaRam.setBounds(467, 22, 109, 23);
+		panel_5.add(btnMemoriaRam);
+		
+		JLabel lblNewLabel_1 = new JLabel("Modelo:");
+		lblNewLabel_1.setBounds(20, 173, 46, 14);
+		panel_2.add(lblNewLabel_1);
 	}
 	
     private void btnVolverMenuActionPerformed(java.awt.event.ActionEvent evt) {
