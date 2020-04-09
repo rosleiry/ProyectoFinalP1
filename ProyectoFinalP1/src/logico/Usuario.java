@@ -12,12 +12,14 @@ public class Usuario implements Serializable {
 	private String nombre;
 	private String cedula;
 	private String direccion;
+	private String telefono;
 	
-	public Usuario(String nombre, String cedula, String direccion) {
+	public Usuario(String nombre, String cedula, String direccion, String telefono) {
 		super();
 		this.nombre = nombre;
 		this.cedula = cedula;
 		this.direccion = direccion;
+		this.telefono = telefono;
 	}
 
 	public String getNombre() {
@@ -42,6 +44,14 @@ public class Usuario implements Serializable {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 	
 	
