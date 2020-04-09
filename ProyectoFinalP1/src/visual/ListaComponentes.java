@@ -50,6 +50,7 @@ public class ListaComponentes extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaComponentes() {
+		setTitle("Tienda de computadoras RORO/Listar componentes");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaComponentes.class.getResource("/iconos/logo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 432);
@@ -74,37 +75,32 @@ public class ListaComponentes extends JFrame {
 		});
 		btnDiscosDuros.setIcon(new ImageIcon(ListaComponentes.class.getResource("/iconos/harddrive.png")));
 		btnDiscosDuros.setFont(new Font("Times New Roman", Font.BOLD, 11));
-		btnDiscosDuros.setBounds(0, 0, 166, 54);
+		btnDiscosDuros.setBounds(0, 0, 166, 65);
 		panel.add(btnDiscosDuros);
 		
 		JButton btnMemoriasRam = new JButton("MEMORIAS RAM");
 		btnMemoriasRam.setHorizontalAlignment(SwingConstants.LEFT);
 		btnMemoriasRam.setIcon(new ImageIcon(ListaComponentes.class.getResource("/iconos/ram-memory.png")));
 		btnMemoriasRam.setFont(new Font("Times New Roman", Font.BOLD, 11));
-		btnMemoriasRam.setBounds(0, 54, 166, 54);
+		btnMemoriasRam.setBounds(0, 65, 166, 65);
 		panel.add(btnMemoriasRam);
-		
-		JButton btnPerifericos = new JButton("PERIFERICOS");
-		btnPerifericos.setHorizontalAlignment(SwingConstants.LEFT);
-		btnPerifericos.setFont(new Font("Times New Roman", Font.BOLD, 11));
-		btnPerifericos.setBounds(0, 108, 166, 54);
-		panel.add(btnPerifericos);
 		
 		JButton btnProcesadores = new JButton("PROCESADORES");
 		btnProcesadores.setHorizontalAlignment(SwingConstants.LEFT);
 		btnProcesadores.setIcon(new ImageIcon(ListaComponentes.class.getResource("/iconos/processor.png")));
 		btnProcesadores.setFont(new Font("Times New Roman", Font.BOLD, 11));
-		btnProcesadores.setBounds(0, 162, 166, 54);
+		btnProcesadores.setBounds(0, 130, 166, 66);
 		panel.add(btnProcesadores);
 		
 		JButton btnTarjetasMadre = new JButton("TARJETAS MADRE");
 		btnTarjetasMadre.setHorizontalAlignment(SwingConstants.LEFT);
 		btnTarjetasMadre.setIcon(new ImageIcon(ListaComponentes.class.getResource("/iconos/motherboard.png")));
 		btnTarjetasMadre.setFont(new Font("Times New Roman", Font.BOLD, 11));
-		btnTarjetasMadre.setBounds(0, 216, 166, 54);
+		btnTarjetasMadre.setBounds(0, 196, 166, 66);
 		panel.add(btnTarjetasMadre);
 		
-		JButton btnVolverAMenu = new JButton("VOLVER A MENU");
+		JButton btnVolverAMenu = new JButton("");
+		btnVolverAMenu.setIcon(new ImageIcon(ListaComponentes.class.getResource("/iconos/return.png")));
 		btnVolverAMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnVolverAMenuActionPerformed(e);
@@ -112,11 +108,11 @@ public class ListaComponentes extends JFrame {
 		});
 		btnVolverAMenu.setHorizontalAlignment(SwingConstants.LEFT);
 		btnVolverAMenu.setFont(new Font("Times New Roman", Font.BOLD, 11));
-		btnVolverAMenu.setBounds(0, 270, 166, 59);
+		btnVolverAMenu.setBounds(0, 262, 166, 65);
 		panel.add(btnVolverAMenu);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 153, 0));
+		panel_1.setBackground(new Color(0, 0, 51));
 		panel_1.setBounds(0, 0, 634, 65);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
@@ -158,7 +154,7 @@ public class ListaComponentes extends JFrame {
 	}
 	
     private void btnVolverAMenuActionPerformed(java.awt.event.ActionEvent evt) {
-        MenuPrincipal menuP = new MenuPrincipal();
+        MenuComponentes menuP = new MenuComponentes();
         menuP.setVisible(true);
         this.dispose();
     }

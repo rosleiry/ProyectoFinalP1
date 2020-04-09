@@ -42,7 +42,7 @@ public class Inicio extends JFrame{
 	 * Create the frame.
 	 */
 	public Inicio() {
-		setTitle("Nombre de la empresa/Inicio");
+		setTitle("Tienda de computadoras RORO/Inicio");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/iconos/logo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 433);
@@ -57,7 +57,7 @@ public class Inicio extends JFrame{
 		panel.setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 153, 0));
+		panel_1.setBackground(new Color(0, 0, 51));
 		panel_1.setBounds(0, 0, 634, 61);
 		panel.add(panel_1);
 		panel_1.setLayout(null);

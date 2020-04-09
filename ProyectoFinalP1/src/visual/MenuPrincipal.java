@@ -40,6 +40,8 @@ public class MenuPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public MenuPrincipal() {
+		setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		setTitle("Tienda de computadoras RORO/Menu principal");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("/iconos/logo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 432);
@@ -54,7 +56,7 @@ public class MenuPrincipal extends JFrame {
 		panel.setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 153, 0));
+		panel_1.setBackground(new Color(0, 0, 51));
 		panel_1.setBounds(0, 0, 634, 61);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
