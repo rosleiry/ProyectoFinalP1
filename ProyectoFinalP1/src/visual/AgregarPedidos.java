@@ -29,6 +29,7 @@ public class AgregarPedidos extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField tfTotalPedido;
+	private JTextField textField_4;
 
 	/**
 	 * Launch the application.
@@ -53,14 +54,14 @@ public class AgregarPedidos extends JFrame {
 		setTitle("Tienda de computadoras RORO/Hacer pedido");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AgregarPedidos.class.getResource("/iconos/logo256.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 432);
+		setBounds(100, 100, 650, 468);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 634, 393);
+		panel.setBounds(0, 0, 634, 429);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -77,7 +78,7 @@ public class AgregarPedidos extends JFrame {
 		panel_1.add(lblNewLabel);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(0, 65, 634, 328);
+		panel_2.setBounds(0, 65, 634, 364);
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -134,7 +135,7 @@ public class AgregarPedidos extends JFrame {
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(null, "FACTURA", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_4.setBounds(10, 123, 614, 166);
+		panel_4.setBounds(10, 123, 614, 196);
 		panel_2.add(panel_4);
 		panel_4.setLayout(null);
 		
@@ -190,17 +191,43 @@ public class AgregarPedidos extends JFrame {
 		
 		tfTotalPedido = new JTextField();
 		tfTotalPedido.setEditable(false);
-		tfTotalPedido.setBounds(497, 139, 107, 20);
+		tfTotalPedido.setBounds(497, 165, 107, 20);
 		panel_4.add(tfTotalPedido);
 		tfTotalPedido.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("Total:");
 		lblNewLabel_7.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		lblNewLabel_7.setBounds(441, 142, 46, 14);
+		lblNewLabel_7.setBounds(450, 168, 46, 14);
 		panel_4.add(lblNewLabel_7);
 		
+		JLabel lblNewLabel_8 = new JLabel("\u00BFDesea recibir el equipo ensamblado?");
+		lblNewLabel_8.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		lblNewLabel_8.setBounds(10, 139, 185, 14);
+		panel_4.add(lblNewLabel_8);
+		
+		JButton btnSi = new JButton("");
+		btnSi.setBackground(new Color(0, 204, 0));
+		btnSi.setBounds(200, 135, 26, 23);
+		panel_4.add(btnSi);
+		
+		JButton btnNo = new JButton("");
+		btnNo.setBackground(new Color(255, 0, 0));
+		btnNo.setBounds(236, 135, 26, 23);
+		panel_4.add(btnNo);
+		
+		JLabel lblNewLabel_9 = new JLabel("Mano de obra:");
+		lblNewLabel_9.setFont(new Font("Times New Roman", Font.BOLD, 12));
+		lblNewLabel_9.setBounds(402, 139, 82, 14);
+		panel_4.add(lblNewLabel_9);
+		
+		textField_4 = new JTextField();
+		textField_4.setEditable(false);
+		textField_4.setBounds(497, 134, 107, 20);
+		panel_4.add(textField_4);
+		textField_4.setColumns(10);
+		
 		JButton btnNewButton_2 = new JButton("FACTURAR");
-		btnNewButton_2.setBounds(535, 294, 89, 23);
+		btnNewButton_2.setBounds(535, 330, 89, 23);
 		panel_2.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("VOLVER");
@@ -209,7 +236,7 @@ public class AgregarPedidos extends JFrame {
 				btnVolverMenuPedidosActionPerformed(e);
 			}
 		});
-		btnNewButton_3.setBounds(436, 294, 89, 23);
+		btnNewButton_3.setBounds(436, 330, 89, 23);
 		panel_2.add(btnNewButton_3);
 	}
 	

@@ -109,7 +109,7 @@ public class Usuarios extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Nombre:", "C\u00E9dula:", "Direcci\u00F3n:"
+				"C\u00E9dula:", "Nombre:", "Tel\u00E9fono:", "Direcci\u00F3n:"
 			}
 		));
 		scrollPane.setViewportView(table);
