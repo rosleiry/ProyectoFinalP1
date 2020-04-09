@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import logico.Tienda;
 
 import javax.swing.JLabel;
 import java.awt.Color;
@@ -17,6 +18,8 @@ import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Inicio extends JFrame{
 
@@ -29,6 +32,7 @@ public class Inicio extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Tienda.getInstance().cargarDatos();
 					Inicio frame = new Inicio();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -42,6 +46,12 @@ public class Inicio extends JFrame{
 	 * Create the frame.
 	 */
 	public Inicio() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Tienda.getInstance().guardarDatos();
+			}
+		});
 		setTitle("Tienda de computadoras RORO/Inicio");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/iconos/logo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

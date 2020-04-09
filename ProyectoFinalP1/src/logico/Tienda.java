@@ -25,8 +25,8 @@ public class Tienda implements Serializable{
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<Componente> componentes;
 	private static Tienda tienda = null;
-	private static int serialComponente = 0;
-	private static int IDpedido = 0;
+	private static int serialComponente = 1;
+	private static int IDpedido = 1;
 	
 	public Tienda() {
 		super();
@@ -37,6 +37,26 @@ public class Tienda implements Serializable{
 	}
 
 	
+	public static int getSerialComponente() {
+		return serialComponente;
+	}
+
+
+	public static void setSerialComponente(int serialComponente) {
+		Tienda.serialComponente = serialComponente;
+	}
+
+
+	public static int getIDpedido() {
+		return IDpedido;
+	}
+
+
+	public static void setIDpedido(int iDpedido) {
+		IDpedido = iDpedido;
+	}
+
+
 	public static Tienda getInstance(){
 		if(tienda == null){
 			tienda = new Tienda();
@@ -106,7 +126,7 @@ public class Tienda implements Serializable{
 	
 	public void agregarPedido(Pedido nuevoPedido) {
 	
-		IDpedido++;
+		
 		nuevoPedido.setIDpedido(IDpedido);
 		
 		if(nuevoPedido.getEstadoPedido().equalsIgnoreCase("Pagado")) {
@@ -116,6 +136,8 @@ public class Tienda implements Serializable{
 			pedidosPendientes.add(nuevoPedido);
 			guardarDatos();
 		}	
+		
+		IDpedido++;
 		
 	}
 	
@@ -130,9 +152,9 @@ public class Tienda implements Serializable{
 		Componente c = buscarComponentebySerial(nuevoComponente.getNumSerie());
 		
 		if(c == null) {
-			serialComponente++;
 			nuevoComponente.setNumSerie(serialComponente);
 			componentes.add(nuevoComponente);
+			serialComponente++;
 		}else {
 			c.setCantDisponible(c.getCantDisponible() + nuevoComponente.getCantDisponible());
 		}
