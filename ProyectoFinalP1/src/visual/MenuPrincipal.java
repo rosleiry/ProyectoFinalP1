@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logico.Tienda;
+
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
@@ -15,6 +18,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MenuPrincipal extends JFrame {
 
@@ -40,6 +45,12 @@ public class MenuPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public MenuPrincipal() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Tienda.getInstance().guardarDatos();
+			}
+		});
 		setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		setTitle("Tienda de computadoras RORO/Menu principal");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("/iconos/logo.png")));

@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logico.Tienda;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -24,6 +27,8 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class ListaComponentes extends JFrame {
 
@@ -50,6 +55,12 @@ public class ListaComponentes extends JFrame {
 	 * Create the frame.
 	 */
 	public ListaComponentes() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Tienda.getInstance().guardarDatos();
+			}
+		});
 		setTitle("Tienda de computadoras RORO/Listar componentes");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaComponentes.class.getResource("/iconos/logo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

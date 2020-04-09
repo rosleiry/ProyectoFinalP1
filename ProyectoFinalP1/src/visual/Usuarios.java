@@ -34,6 +34,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollBar;
 import javax.swing.JTextField;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Usuarios extends JFrame {
 
@@ -66,6 +68,12 @@ public class Usuarios extends JFrame {
 	 * Create the frame.
 	 */
 	public Usuarios() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Tienda.getInstance().guardarDatos();
+			}
+		});
 		setTitle("Tienda de computadoras RORO/Listar clientes");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuarios.class.getResource("/iconos/logo256.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

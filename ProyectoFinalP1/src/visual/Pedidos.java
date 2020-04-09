@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logico.Tienda;
+
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.ImageIcon;
@@ -15,6 +18,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Pedidos extends JFrame {
 
@@ -40,6 +45,12 @@ public class Pedidos extends JFrame {
 	 * Create the frame.
 	 */
 	public Pedidos() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Tienda.getInstance().guardarDatos();
+			}
+		});
 		setTitle("Tienda de computadoras RORO/ Menu pedidos");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Pedidos.class.getResource("/iconos/logo256.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

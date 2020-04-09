@@ -36,6 +36,8 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AgregarComponentes extends JFrame {
 
@@ -80,6 +82,12 @@ public class AgregarComponentes extends JFrame {
 	 * Create the frame.
 	 */
 	public AgregarComponentes() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Tienda.getInstance().guardarDatos();
+			}
+		});
 		setResizable(false);
 		setTitle("Tienda de computadoras/Agregar componentes");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AgregarComponentes.class.getResource("/iconos/logo256.png")));

@@ -12,6 +12,9 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
+
+import logico.Tienda;
+
 import javax.swing.UIManager;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -23,6 +26,8 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AgregarPedidos extends JFrame {
 
@@ -56,6 +61,12 @@ public class AgregarPedidos extends JFrame {
 	 * 
 	 */
 	public AgregarPedidos() throws ParseException {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Tienda.getInstance().guardarDatos();
+			}
+		});
 		setTitle("Tienda de computadoras RORO/Hacer pedido");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AgregarPedidos.class.getResource("/iconos/logo256.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
