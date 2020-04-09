@@ -25,8 +25,9 @@ public class Tienda implements Serializable{
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<Componente> componentes;
 	private static Tienda tienda = null;
-	private static int serialComponente = 1;
-	private static int IDpedido = 1;
+	private int serialComponente = 1;
+	private int IDpedido = 1;
+	
 	
 	public Tienda() {
 		super();
@@ -34,26 +35,27 @@ public class Tienda implements Serializable{
 		this.pedidosPendientes = new ArrayList<Pedido>();
 		this.usuarios = new ArrayList<Usuario>();
 		this.componentes = new ArrayList<Componente>();
+		
 	}
 
 	
-	public static int getSerialComponente() {
+	public int getSerialComponente() {
 		return serialComponente;
 	}
 
 
-	public static void setSerialComponente(int serialComponente) {
-		Tienda.serialComponente = serialComponente;
+	public void setSerialComponente(int serialComponente) {
+		this.serialComponente = serialComponente;
 	}
 
 
-	public static int getIDpedido() {
+	public int getIDpedido() {
 		return IDpedido;
 	}
 
 
-	public static void setIDpedido(int iDpedido) {
-		IDpedido = iDpedido;
+	public void setIDpedido(int iDpedido) {
+		this.IDpedido = iDpedido;
 	}
 
 
@@ -162,11 +164,7 @@ public class Tienda implements Serializable{
 		guardarDatos();
 	}
 	
-	
-	public void hacerPedido() {
-		
-	}
-	
+
 	public Componente buscarComponentebySerial(int numSerial) {
 		
 		boolean encontrado = false;

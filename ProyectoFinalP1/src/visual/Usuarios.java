@@ -192,10 +192,11 @@ public class Usuarios extends JFrame {
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		table.getTableHeader().setReorderingAllowed(false);
 		TableColumnModel columnModel = table.getColumnModel();
-		columnModel.getColumn(0).setPreferredWidth(60);
-		columnModel.getColumn(1).setPreferredWidth(180);
-		columnModel.getColumn(2).setPreferredWidth(150);
-		columnModel.getColumn(3).setPreferredWidth(150);
+		
+		 columnModel.getColumn(0).setPreferredWidth(60);
+		 columnModel.getColumn(1).setPreferredWidth(180);
+		 columnModel.getColumn(2).setPreferredWidth(150);
+		 columnModel.getColumn(3).setPreferredWidth(150);
 		
 		
 		

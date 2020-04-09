@@ -31,8 +31,8 @@ public class Inicio extends JFrame{
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				Tienda.getInstance().cargarDatos();
 				try {
-					Tienda.getInstance().cargarDatos();
 					Inicio frame = new Inicio();
 					frame.setVisible(true);
 				} catch (Exception e) {

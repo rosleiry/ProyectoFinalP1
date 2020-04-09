@@ -306,7 +306,7 @@ public class AgregarComponentes extends JFrame {
 		txtNumSerie.setBounds(107, 8, 187, 20);
 		panel_3.add(txtNumSerie);
 		txtNumSerie.setColumns(10);
-		txtNumSerie.setText(String.valueOf(Tienda.getSerialComponente()));
+		txtNumSerie.setText(String.valueOf(Tienda.getInstance().getSerialComponente()));
 		
 		txtPrecio = new JTextField();
 		txtPrecio.setBounds(375, 33, 218, 20);
@@ -455,7 +455,7 @@ public class AgregarComponentes extends JFrame {
 	}
 	
     private void reset() {
-    	txtNumSerie.setText(String.valueOf(Tienda.getSerialComponente()));
+    	txtNumSerie.setText(String.valueOf(Tienda.getInstance().getSerialComponente()));
     	txtPrecio.setText("");
     	txtMarca.setText("");
     	txtCantidad.setText("");
