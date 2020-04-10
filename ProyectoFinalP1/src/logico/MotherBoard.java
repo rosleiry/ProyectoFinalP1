@@ -11,16 +11,29 @@ public class MotherBoard extends Componente{
 	private String tipoSocket;
 	private String modelo;
 	private String tipoMemoriaRam;
-	private ArrayList<Componente> conexionHD;
+	private String conexionHD;
 	
 	
-	public MotherBoard(int cantDisponible, float precioComp, String marca, String tipoSocket, String modelo, String tipoMemoriaRam) {
+	public MotherBoard(int cantDisponible, float precioComp, String marca, String tipoSocket, String modelo, String tipoMemoriaRam, String conexionHD) {
 		super(cantDisponible, precioComp, marca);
 		this.tipoSocket = tipoSocket;
 		this.modelo = modelo;
 		this.tipoMemoriaRam = tipoMemoriaRam;
-		this.conexionHD = new ArrayList<Componente>();
+		this.conexionHD = conexionHD;
 	}
+
+	
+
+	public String getConexionHD() {
+		return conexionHD;
+	}
+
+
+
+	public void setConexionHD(String conexionHD) {
+		this.conexionHD = conexionHD;
+	}
+
 
 
 	public String getTipoSocket() {
@@ -51,17 +64,4 @@ public class MotherBoard extends Componente{
 	public void setTipoMemoriaRam(String tipoMemoriaRam) {
 		this.tipoMemoriaRam = tipoMemoriaRam;
 	}
-
-
-	public ArrayList<Componente> getConexionHD() {
-		return conexionHD;
-	}
-
-
-	public void setConexionHD(ArrayList<Componente> conexionHD) {
-		this.conexionHD = conexionHD;
-	}
-	
-	
-
 }

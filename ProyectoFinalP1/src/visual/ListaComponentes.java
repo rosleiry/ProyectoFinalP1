@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 
 import logico.Componente;
 import logico.HardDrive;
+import logico.MotherBoard;
+import logico.Processor;
+import logico.RAM;
 import logico.Tienda;
 
 import java.awt.Color;
@@ -49,6 +52,10 @@ public class ListaComponentes extends JFrame {
 	private static JTable tableRAM;
 	private static JTable tableProcesador;
 	private static JTable tableTarjetaMadre;
+	private static DefaultTableModel tableModelDiscosDuros;
+	private static DefaultTableModel tableModelRAM;
+	private static DefaultTableModel tableModelProcesador;
+	private static DefaultTableModel tableModelTarjetaMadre;
 
 
 	/**
@@ -97,6 +104,7 @@ public class ListaComponentes extends JFrame {
 				panelRAM.setVisible(false);
 				panelTarjetaMadre.setVisible(false);
 				panelProcesador.setVisible(false);
+				cargarDiscoduro();
 	
 			}
 		});
@@ -112,6 +120,7 @@ public class ListaComponentes extends JFrame {
 				panelRAM.setVisible(true);
 				panelTarjetaMadre.setVisible(false);
 				panelProcesador.setVisible(false);
+				cargarRam();
 			}
 		});
 		btnMemoriasRam.setHorizontalAlignment(SwingConstants.LEFT);
@@ -127,6 +136,7 @@ public class ListaComponentes extends JFrame {
 				panelRAM.setVisible(false);
 				panelTarjetaMadre.setVisible(false);
 				panelProcesador.setVisible(true);
+				cargarProcesador();
 			}
 		});
 		btnProcesadores.setHorizontalAlignment(SwingConstants.LEFT);
@@ -142,6 +152,7 @@ public class ListaComponentes extends JFrame {
 				panelRAM.setVisible(false);
 				panelTarjetaMadre.setVisible(true);
 				panelProcesador.setVisible(false);
+				cargarMotherBoard();
 			}
 		});
 		btnTarjetasMadre.setHorizontalAlignment(SwingConstants.LEFT);
@@ -216,12 +227,10 @@ public class ListaComponentes extends JFrame {
 		);
 		
 		tableDiscosDuros = new JTable();
-		DefaultTableModel tablemodelDiscoDuro = new DefaultTableModel();
-		String[] columnDiscoDuro = {
-				"N\u00FAm serie:", "Disponibles:", "Precio:", "Marca:", "Modelo:", "Almacenamiento:", "Tipo conexi\u00F3n:"
-			};
-		tablemodelDiscoDuro.setColumnIdentifiers(columnDiscoDuro);
-		cargarDiscoduro(tablemodelDiscoDuro);
+		tableModelDiscosDuros = new DefaultTableModel();
+		String[] columnDiscoDuro = {"N\u00FAm serie:", "Disponibles:", "Precio:", "Marca:", "Modelo:", "Almacenamiento:", "Tipo conexi\u00F3n:"};
+		tableModelDiscosDuros.setColumnIdentifiers(columnDiscoDuro);
+		cargarDiscoduro();
 		
 		scrollPane.setViewportView(tableDiscosDuros);
 		panelDiscoDuro.setLayout(gl_panelDiscoDuro);
@@ -242,13 +251,10 @@ public class ListaComponentes extends JFrame {
 		);
 		
 		tableRAM = new JTable();
-		tableRAM.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:", "Cant memoria:", "Tipo memoria:"
-			}
-		));
+		tableModelRAM = new DefaultTableModel();
+		String[] columnRam = {"N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:", "Cant memoria:", "Tipo memoria:"};
+		tableModelRAM.setColumnIdentifiers(columnRam);
+		
 		scrollPane_1.setViewportView(tableRAM);
 		panelRAM.setLayout(gl_panelRAM);
 		
@@ -268,13 +274,10 @@ public class ListaComponentes extends JFrame {
 		);
 		
 		tableProcesador = new JTable();
-		tableProcesador.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:", "Modelo:", "Tipo socket:", "Velocidad:"
-			}
-		));
+		tableModelProcesador = new DefaultTableModel();
+		String[] columnProc = { "N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:", "Modelo:", "Tipo socket:", "Velocidad:"};
+		tableModelProcesador.setColumnIdentifiers(columnProc);
+		
 		scrollPane_2.setViewportView(tableProcesador);
 		panelProcesador.setLayout(gl_panelProcesador);
 		
@@ -294,13 +297,10 @@ public class ListaComponentes extends JFrame {
 		);
 		
 		tableTarjetaMadre = new JTable();
-		tableTarjetaMadre.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:", "Tipo socket:", "Modelo:", "Tipo RAM:", "Conexi\u00F3n:"
-			}
-		));
+		tableModelTarjetaMadre = new DefaultTableModel();
+		String[] columnMother = {"N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:","Modelo:", "Tipo socket:" , "Tipo RAM:", "Conexi\u00F3n Disco Duro:"};
+		tableModelTarjetaMadre.setColumnIdentifiers(columnMother);
+		
 		scrollPane_3.setViewportView(tableTarjetaMadre);
 		panelTarjetaMadre.setLayout(gl_panelTarjetaMadre);
 	}
@@ -311,27 +311,92 @@ public class ListaComponentes extends JFrame {
         this.dispose();
     }
     
-    public static void cargarDiscoduro (DefaultTableModel tablemodelDiscoDuro) {
+    public static void cargarDiscoduro () {
     	
-    	tablemodelDiscoDuro.setRowCount(0);
-    	fila = new Object[tablemodelDiscoDuro.getColumnCount()];
+    	tableModelDiscosDuros.setRowCount(0);
+    	fila = new Object[tableModelDiscosDuros.getColumnCount()];
     	for(Componente c : Tienda.getInstance().getComponentes()) {
-    		fila[0] = c.getNumSerie();
-    		fila[1] = c.getCantDisponible();
-    		fila[2] = c.getPrecioComp();
-    		fila[3] = c.getMarca();
+    		
     		if(c instanceof HardDrive) {
+    			fila[0] = c.getNumSerie();
+        		fila[1] = c.getCantDisponible();
+        		fila[2] = c.getPrecioComp();
+        		fila[3] = c.getMarca();
     			fila[4] = ((HardDrive) c).getModelo();
     			fila[5] = ((HardDrive) c).getCapacidadAl();
     			fila[6] = ((HardDrive) c).getTipoConexion();
     		}
+    		tableModelDiscosDuros.addRow(fila);
     	}
     	
-    	tableDiscosDuros.setModel(tablemodelDiscoDuro);
+    	tableDiscosDuros.setModel(tableModelDiscosDuros);
     	tableDiscosDuros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     	tableDiscosDuros.getTableHeader().setReorderingAllowed(false);
-    	TableColumnModel columnModel = tableDiscosDuros.getColumnModel();
+    	
     	
     }
-
+    public static void cargarRam () {
+    	tableModelRAM.setRowCount(0);
+    	fila = new Object[tableModelRAM.getColumnCount()];
+    	
+    	for(Componente c : Tienda.getInstance().getComponentes()) {
+    		if(c instanceof RAM) {
+    			fila[0] = c.getNumSerie();
+        		fila[1] = c.getCantDisponible();
+        		fila[2] = c.getPrecioComp();
+        		fila[3] = c.getMarca();
+    			fila[4] = ((RAM) c).getCantMemoria();
+    			fila[5] = ((RAM) c).getTipoMemoria();
+    		}
+    		tableModelRAM.addRow(fila);
+    	}
+    	
+    	tableRAM.setModel(tableModelRAM);
+    	tableRAM.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    	tableRAM.getTableHeader().setReorderingAllowed(false);
+    }
+    
+    public static void cargarProcesador () {
+    	tableModelProcesador.setRowCount(0);
+    	fila = new Object[tableModelProcesador.getColumnCount()];
+    	
+    	for(Componente c : Tienda.getInstance().getComponentes()) {
+    		if(c instanceof Processor) {
+    			fila[0] = c.getNumSerie();
+        		fila[1] = c.getCantDisponible();
+        		fila[2] = c.getPrecioComp();
+        		fila[3] = c.getMarca();
+    			fila[4] = ((Processor) c).getModelo();
+    			fila[5] = ((Processor) c).getTipoSocket();
+    			fila[6] = ((Processor) c).getVelDelProc();
+    		}
+    		tableModelProcesador.addRow(fila);
+    	}
+    	
+    	tableProcesador.setModel(tableModelProcesador);
+    	tableProcesador.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    	tableProcesador.getTableHeader().setReorderingAllowed(false);
+    }
+    
+    public static void cargarMotherBoard () {
+    	tableModelTarjetaMadre.setRowCount(0);
+    	fila = new Object[tableModelTarjetaMadre.getColumnCount()];
+    	
+    	for(Componente c : Tienda.getInstance().getComponentes()) {
+    		if(c instanceof MotherBoard) {
+    			fila[0] = c.getNumSerie();
+        		fila[1] = c.getCantDisponible();
+        		fila[2] = c.getPrecioComp();
+        		fila[3] = c.getMarca();
+    			fila[4] = ((MotherBoard) c).getTipoSocket();
+    			fila[5] = ((MotherBoard) c).getTipoMemoriaRam();
+    			fila[6] = ((MotherBoard) c).getConexionHD();
+    		}
+    		tableModelTarjetaMadre.addRow(fila);
+    	}
+    	
+    	tableTarjetaMadre.setModel(tableModelTarjetaMadre);
+    	tableTarjetaMadre.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    	tableTarjetaMadre.getTableHeader().setReorderingAllowed(false);
+    }
 }

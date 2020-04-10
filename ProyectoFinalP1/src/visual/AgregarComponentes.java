@@ -60,7 +60,6 @@ public class AgregarComponentes extends JFrame {
 	private JSpinner spnVelProcesador;
 	private JComboBox cmbTipoMemoriaMother;
 	private JComboBox cmbDiscos;
-	private JSpinner spnCantidadDiscos;
 	
 	/**
 	 * Launch the application.
@@ -109,6 +108,48 @@ public class AgregarComponentes extends JFrame {
 		panel_2.setBounds(10, 64, 634, 329);
 		panel.add(panel_2);
 		panel_2.setLayout(null);
+		
+		JPanel panelTarjetaMadre = new JPanel();
+		panelTarjetaMadre.setBounds(10, 148, 601, 143);
+		panel_2.add(panelTarjetaMadre);
+		panelTarjetaMadre.setLayout(null);
+		panelTarjetaMadre.setVisible(false);
+		
+		JLabel lblModelo = new JLabel("Modelo:");
+		lblModelo.setBounds(10, 11, 139, 14);
+		panelTarjetaMadre.add(lblModelo);
+		
+		txtModeloMother = new JTextField();
+		txtModeloMother.setColumns(10);
+		txtModeloMother.setBounds(58, 11, 533, 20);
+		panelTarjetaMadre.add(txtModeloMother);
+		
+		JLabel lblTipoSocket = new JLabel("Tipo de Socket:");
+		lblTipoSocket.setBounds(10, 52, 162, 14);
+		panelTarjetaMadre.add(lblTipoSocket);
+		
+		txtTipoSocket = new JTextField();
+		txtTipoSocket.setBounds(102, 49, 119, 20);
+		panelTarjetaMadre.add(txtTipoSocket);
+		txtTipoSocket.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Tipo de memoria compatible:");
+		lblNewLabel_1.setBounds(231, 52, 191, 14);
+		panelTarjetaMadre.add(lblNewLabel_1);
+		
+		cmbTipoMemoriaMother = new JComboBox();
+		cmbTipoMemoriaMother.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "DDR1", "DDR2", "DDR3", "DDR4"}));
+		cmbTipoMemoriaMother.setBounds(404, 48, 187, 22);
+		panelTarjetaMadre.add(cmbTipoMemoriaMother);
+		
+		JLabel lblDiscoDuro = new JLabel("Conexiones de Discos Duros:");
+		lblDiscoDuro.setBounds(10, 90, 263, 14);
+		panelTarjetaMadre.add(lblDiscoDuro);
+		
+		cmbDiscos = new JComboBox();
+		cmbDiscos.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "IDE", "SATA", "SATA-2", "SATA-3", "M.2"}));
+		cmbDiscos.setBounds(177, 86, 137, 22);
+		panelTarjetaMadre.add(cmbDiscos);
 		
 		JPanel panelDiscoDuro = new JPanel();
 		panelDiscoDuro.setBounds(10, 148, 601, 143);
@@ -213,56 +254,6 @@ public class AgregarComponentes extends JFrame {
 		txtTipoSocketProcesador.setBounds(401, 72, 139, 20);
 		panelProcesador.add(txtTipoSocketProcesador);
 		txtTipoSocketProcesador.setColumns(10);
-		
-		JPanel panelTarjetaMadre = new JPanel();
-		panelTarjetaMadre.setBounds(10, 148, 601, 143);
-		panel_2.add(panelTarjetaMadre);
-		panelTarjetaMadre.setLayout(null);
-		panelTarjetaMadre.setVisible(false);
-		
-		JLabel lblModelo = new JLabel("Modelo:");
-		lblModelo.setBounds(10, 11, 139, 14);
-		panelTarjetaMadre.add(lblModelo);
-		
-		txtModeloMother = new JTextField();
-		txtModeloMother.setColumns(10);
-		txtModeloMother.setBounds(58, 11, 533, 20);
-		panelTarjetaMadre.add(txtModeloMother);
-		
-		JLabel lblTipoSocket = new JLabel("Tipo de Socket:");
-		lblTipoSocket.setBounds(10, 52, 162, 14);
-		panelTarjetaMadre.add(lblTipoSocket);
-		
-		txtTipoSocket = new JTextField();
-		txtTipoSocket.setBounds(102, 49, 119, 20);
-		panelTarjetaMadre.add(txtTipoSocket);
-		txtTipoSocket.setColumns(10);
-		
-		JLabel lblNewLabel_1 = new JLabel("Tipo de memoria compatible:");
-		lblNewLabel_1.setBounds(231, 52, 191, 14);
-		panelTarjetaMadre.add(lblNewLabel_1);
-		
-		cmbTipoMemoriaMother = new JComboBox();
-		cmbTipoMemoriaMother.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "DDR1", "DDR2", "DDR3", "DDR4"}));
-		cmbTipoMemoriaMother.setBounds(404, 48, 187, 22);
-		panelTarjetaMadre.add(cmbTipoMemoriaMother);
-		
-		JLabel lblDiscoDuro = new JLabel("Conexiones de Discos Duros:");
-		lblDiscoDuro.setBounds(10, 90, 263, 14);
-		panelTarjetaMadre.add(lblDiscoDuro);
-		
-		cmbDiscos = new JComboBox();
-		cmbDiscos.setBounds(177, 86, 137, 22);
-		panelTarjetaMadre.add(cmbDiscos);
-		
-		JLabel lblNewLabel_5 = new JLabel("Cantidad:");
-		lblNewLabel_5.setBounds(346, 90, 191, 14);
-		panelTarjetaMadre.add(lblNewLabel_5);
-		
-		spnCantidadDiscos = new JSpinner();
-		spnCantidadDiscos.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
-		spnCantidadDiscos.setBounds(404, 87, 60, 20);
-		panelTarjetaMadre.add(spnCantidadDiscos);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -432,8 +423,9 @@ public class AgregarComponentes extends JFrame {
 					String tipoSocket = txtTipoSocket.getText();
 					String modelo = txtModeloMother.getText();
 					String tipoMemoria = (String) cmbTipoMemoriaMother.getSelectedItem();
+					String tipoConexionDiscoDuro = (String) cmbDiscos.getSelectedItem();
 					
-					aux = new MotherBoard(cantidad, precio, marca, tipoSocket, modelo, tipoMemoria);
+					aux = new MotherBoard(cantidad, precio, marca, tipoSocket, modelo, tipoMemoria, tipoConexionDiscoDuro );
 				}
 				Tienda.getInstance().agregarComponente(aux);
 				JOptionPane.showMessageDialog(null, "Componente Guardado", "Notificación", JOptionPane.INFORMATION_MESSAGE);
