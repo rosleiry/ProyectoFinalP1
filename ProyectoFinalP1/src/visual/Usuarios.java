@@ -40,7 +40,7 @@ import java.awt.event.WindowEvent;
 public class Usuarios extends JFrame {
 
 	private JPanel contentPane;
-	private static JTable table;
+	private static JTable tableClientes;
 	private static Object[] fila;
 	private JTextField txtBuscarClientePor;
 	private static DefaultTableModel tableModel;
@@ -111,30 +111,30 @@ public class Usuarios extends JFrame {
 				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
 		);
 		
-		table = new JTable();
-		table.addMouseListener(new MouseAdapter() {
+		tableClientes = new JTable();
+		tableClientes.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
 			
-				if(table.getSelectedRow()>=0){
+				if(tableClientes.getSelectedRow()>=0){
 	
-					int index = table.getSelectedRow();
-					cedula = (int)table.getModel().getValueAt(index, 0);
+					int index = tableClientes.getSelectedRow();
+					cedula = (int)tableClientes.getModel().getValueAt(index, 0);
 					
 				}
 			}
 		});
 		tableModel = new DefaultTableModel();
-		table.setModel(new DefaultTableModel(
+		tableClientes.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
 				"C\u00E9dula:", "Nombre:", "Tel\u00E9fono:", "Direcci\u00F3n:"
 			}
 		));
-		cargar(0);
-		scrollPane.setViewportView(table);
+		cargarUsuarios(0);
+		scrollPane.setViewportView(tableClientes);
 		panel_3.setLayout(gl_panel_3);
 
 		JButton btnVolverMenu = new JButton("VOLVER");
@@ -164,7 +164,7 @@ public class Usuarios extends JFrame {
         this.dispose();
     }
     
-	public static void cargar(int selection) {
+	public static void cargarUsuarios(int selection) {
 		tableModel.setRowCount(0);
 		fila = new Object[tableModel.getColumnCount()];
 		switch (selection) {
@@ -177,10 +177,10 @@ public class Usuarios extends JFrame {
 				tableModel.addRow(fila);
 			}
 
-		table.setModel(tableModel);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		table.getTableHeader().setReorderingAllowed(false);
-		TableColumnModel columnModel = table.getColumnModel();
+		tableClientes.setModel(tableModel);
+		tableClientes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tableClientes.getTableHeader().setReorderingAllowed(false);
+		TableColumnModel columnModel = tableClientes.getColumnModel();
 		
 		 columnModel.getColumn(0).setPreferredWidth(60);
 		 columnModel.getColumn(1).setPreferredWidth(180);

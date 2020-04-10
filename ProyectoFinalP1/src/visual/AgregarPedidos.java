@@ -29,7 +29,9 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+
 import javax.swing.DefaultListModel;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
@@ -129,6 +131,34 @@ public class AgregarPedidos extends JFrame {
 		panel_3.add(txtCedula);
 		txtCedula.setColumns(10);
 		
+		JButton btnBuscarCliente = new JButton("BUSCAR");
+		btnBuscarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) { //VALIDAR CLIENTE AL HACER PEDIDO
+				String cedula = txtCedula.getText();
+				Usuario aux = Tienda.getInstance().buscarUsuariobyCedula(cedula);
+				if(aux != null) {
+					txtNombreCliente.setText(aux.getNombre().toString()); 
+					txtNombreCliente.setEditable(false);
+					txtDireccionCliente.setText(aux.getDireccion().toString());
+					txtDireccionCliente.setEditable(false);
+					txtTelefonoCliente.setText(aux.getTelefono().toString());
+					txtTelefonoCliente.setEditable(false);
+					JOptionPane.showMessageDialog(null, "Cliente existente", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {
+					txtNombreCliente.setEnabled(true);
+					txtDireccionCliente.setEnabled(true);
+					txtNombreCliente.setText("");
+					txtDireccionCliente.setText("");
+					JOptionPane.showMessageDialog(null, "Cliente no existe.\n Por favor ingrese los datos", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+				}
+				
+			}
+		});
+		
+		btnBuscarCliente.setBounds(245, 17, 89, 23);
+		panel_3.add(btnBuscarCliente);
+		
 		txtNombreCliente = new JTextField();
 		txtNombreCliente.setBounds(66, 43, 268, 20);
 		panel_3.add(txtNombreCliente);
@@ -140,31 +170,14 @@ public class AgregarPedidos extends JFrame {
 		txtDireccionCliente.setColumns(10);
 		
 		//txtTelefonoCliente = new JTextField();
-		MaskFormatter mask = new MaskFormatter("(###) ### - ####");
-		JFormattedTextField txtTelefonoCliente = new JFormattedTextField(mask);
+		MaskFormatter mask2 = new MaskFormatter("(###) ### - ####");
+		JFormattedTextField txtTelefonoCliente = new JFormattedTextField(mask2);
 		txtTelefonoCliente.setBounds(400, 43, 204, 20);
 		panel_3.add(txtTelefonoCliente);
 		txtTelefonoCliente.setColumns(10);
 		
-		
-		
-		JButton btnBuscarCliente = new JButton("BUSCAR");
-		btnBuscarCliente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				Usuario u = Tienda.getInstance().buscarUsuariobyCedula(txtCedula.getText());
-				
-				if(u != null) {
-					txtNombreCliente.setText(u.getNombre());
-					txtDireccionCliente.setText(u.getDireccion());
-					txtTelefonoCliente.setText(u.getTelefono());
-				}else {
-					JOptionPane.showMessageDialog(null, "Usuario no encontrado", "Notificaci�n", JOptionPane.INFORMATION_MESSAGE);
-				}
-			}
-		});
-		btnBuscarCliente.setBounds(245, 17, 89, 23);
-		panel_3.add(btnBuscarCliente);
+
+
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(null, "FACTURA", TitledBorder.LEADING, TitledBorder.TOP, null, null));
