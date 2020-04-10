@@ -76,7 +76,7 @@ public class ListaComponentes extends JFrame {
 		setTitle("Tienda de computadoras RORO/Listar componentes");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaComponentes.class.getResource("/iconos/logo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 432);
+		setBounds(100, 100, 833, 601);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 0, 51));
@@ -187,7 +187,7 @@ public class ListaComponentes extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(204, 204, 204));
-		panel_2.setBounds(164, 64, 470, 329);
+		panel_2.setBounds(164, 64, 653, 498);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -206,12 +206,12 @@ public class ListaComponentes extends JFrame {
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(204, 204, 204));
-		panel_3.setBounds(0, 44, 470, 285);
+		panel_3.setBounds(0, 44, 653, 454);
 		panel_2.add(panel_3);
 		panel_3.setLayout(null);
 		
 		//JPanel panelDiscoDuro = new JPanel();
-		panelDiscoDuro.setBounds(0, 0, 470, 285);
+		panelDiscoDuro.setBounds(0, 0, 653, 455);
 		panel_3.add(panelDiscoDuro);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -219,11 +219,11 @@ public class ListaComponentes extends JFrame {
 		GroupLayout gl_panelDiscoDuro = new GroupLayout(panelDiscoDuro);
 		gl_panelDiscoDuro.setHorizontalGroup(
 			gl_panelDiscoDuro.createParallelGroup(Alignment.LEADING)
-				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
 		);
 		gl_panelDiscoDuro.setVerticalGroup(
 			gl_panelDiscoDuro.createParallelGroup(Alignment.LEADING)
-				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
 		);
 		
 		tableDiscosDuros = new JTable();
@@ -236,7 +236,7 @@ public class ListaComponentes extends JFrame {
 		panelDiscoDuro.setLayout(gl_panelDiscoDuro);
 		
 		//JPanel panelRAM = new JPanel();
-		panelRAM.setBounds(0, 0, 470, 285);
+		panelRAM.setBounds(0, 0, 653, 455);
 		panel_3.add(panelRAM);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -251,6 +251,7 @@ public class ListaComponentes extends JFrame {
 		);
 		
 		tableRAM = new JTable();
+		tableRAM.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tableModelRAM = new DefaultTableModel();
 		String[] columnRam = {"N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:", "Cant memoria:", "Tipo memoria:"};
 		tableModelRAM.setColumnIdentifiers(columnRam);
@@ -259,21 +260,22 @@ public class ListaComponentes extends JFrame {
 		panelRAM.setLayout(gl_panelRAM);
 		
 		//JPanel panelProcesador = new JPanel();
-		panelProcesador.setBounds(0, 0, 470, 285);
+		panelProcesador.setBounds(0, 0, 653, 455);
 		panel_3.add(panelProcesador);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
 		GroupLayout gl_panelProcesador = new GroupLayout(panelProcesador);
 		gl_panelProcesador.setHorizontalGroup(
 			gl_panelProcesador.createParallelGroup(Alignment.LEADING)
-				.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+				.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
 		);
 		gl_panelProcesador.setVerticalGroup(
 			gl_panelProcesador.createParallelGroup(Alignment.LEADING)
-				.addComponent(scrollPane_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+				.addComponent(scrollPane_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
 		);
 		
 		tableProcesador = new JTable();
+		tableProcesador.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tableModelProcesador = new DefaultTableModel();
 		String[] columnProc = { "N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:", "Modelo:", "Tipo socket:", "Velocidad:"};
 		tableModelProcesador.setColumnIdentifiers(columnProc);
@@ -282,7 +284,7 @@ public class ListaComponentes extends JFrame {
 		panelProcesador.setLayout(gl_panelProcesador);
 		
 		//JPanel panelTarjetaMadre = new JPanel();
-		panelTarjetaMadre.setBounds(0, 0, 470, 285);
+		panelTarjetaMadre.setBounds(0, 0, 653, 455);
 		panel_3.add(panelTarjetaMadre);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
@@ -297,6 +299,7 @@ public class ListaComponentes extends JFrame {
 		);
 		
 		tableTarjetaMadre = new JTable();
+		tableTarjetaMadre.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tableModelTarjetaMadre = new DefaultTableModel();
 		String[] columnMother = {"N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:","Modelo:", "Tipo socket:" , "Tipo RAM:", "Conexi\u00F3n Disco Duro:"};
 		tableModelTarjetaMadre.setColumnIdentifiers(columnMother);
@@ -388,9 +391,10 @@ public class ListaComponentes extends JFrame {
         		fila[1] = c.getCantDisponible();
         		fila[2] = c.getPrecioComp();
         		fila[3] = c.getMarca();
-    			fila[4] = ((MotherBoard) c).getTipoSocket();
-    			fila[5] = ((MotherBoard) c).getTipoMemoriaRam();
-    			fila[6] = ((MotherBoard) c).getConexionHD();
+        		fila[4] = ((MotherBoard) c).getModelo();
+    			fila[5] = ((MotherBoard) c).getTipoSocket();
+    			fila[6] = ((MotherBoard) c).getTipoMemoriaRam();
+    			fila[7] = ((MotherBoard) c).getConexionHD();
     		}
     		tableModelTarjetaMadre.addRow(fila);
     	}
@@ -398,5 +402,7 @@ public class ListaComponentes extends JFrame {
     	tableTarjetaMadre.setModel(tableModelTarjetaMadre);
     	tableTarjetaMadre.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     	tableTarjetaMadre.getTableHeader().setReorderingAllowed(false);
+    	
+    	
     }
 }
