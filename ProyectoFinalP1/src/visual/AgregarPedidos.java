@@ -17,6 +17,7 @@ import javax.swing.text.MaskFormatter;
 
 import logico.Componente;
 import logico.HardDrive;
+import logico.Pedido;
 import logico.Processor;
 import logico.RAM;
 import logico.Tienda;
@@ -39,17 +40,21 @@ import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.List;
+import javax.swing.JScrollPane;
 
 public class AgregarPedidos extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtCedula;
+	private JFormattedTextField txtCedula;
 	private JTextField txtNombreCliente;
 	private JTextField txtDireccionCliente;
-	private JTextField txtTelefonoCliente;
+	private JFormattedTextField txtTelefonoCliente;
 	private JTextField tfTotalPedido;
 	private JTextField txtManoObra;
 	private JTextField txtNumFactura;
+	private List listaCarrito;
+	private List listaComponentes;
 
 	/**
 	 * Launch the application.
@@ -126,7 +131,7 @@ public class AgregarPedidos extends JFrame {
 		
 		//txtCedula = new JTextField();
 		MaskFormatter maskCedula = new MaskFormatter("###-#######-#");
-		JFormattedTextField txtCedula = new JFormattedTextField(maskCedula);
+		txtCedula = new JFormattedTextField(maskCedula);
 		txtCedula.setBounds(66, 18, 169, 20);
 		panel_3.add(txtCedula);
 		txtCedula.setColumns(10);
@@ -137,20 +142,20 @@ public class AgregarPedidos extends JFrame {
 				String cedula = txtCedula.getText();
 				Usuario aux = Tienda.getInstance().buscarUsuariobyCedula(cedula);
 				if(aux != null) {
-					txtNombreCliente.setText(aux.getNombre().toString()); 
-					txtNombreCliente.setEditable(false);
-					txtDireccionCliente.setText(aux.getDireccion().toString());
-					txtDireccionCliente.setEditable(false);
-					txtTelefonoCliente.setText(aux.getTelefono().toString());
-					txtTelefonoCliente.setEditable(false);
-					JOptionPane.showMessageDialog(null, "Cliente existente", "NotificaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
+					txtNombreCliente.setText(aux.getNombre()); 
+					//txtNombreCliente.setEditable(false);
+					txtDireccionCliente.setText(aux.getDireccion());
+					//txtDireccionCliente.setEditable(false);
+					txtTelefonoCliente.setText(aux.getTelefono());
+					//txtTelefonoCliente.setEditable(false);
+					JOptionPane.showMessageDialog(null, "Cliente existente", "Notificación", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
 					txtNombreCliente.setEnabled(true);
 					txtDireccionCliente.setEnabled(true);
 					txtNombreCliente.setText("");
 					txtDireccionCliente.setText("");
-					JOptionPane.showMessageDialog(null, "Cliente no existe.\n Por favor ingrese los datos", "NotificaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Cliente no existe.\n Por favor ingrese los datos", "Notificación", JOptionPane.INFORMATION_MESSAGE);
 				}
 				
 			}
@@ -171,7 +176,7 @@ public class AgregarPedidos extends JFrame {
 		
 		//txtTelefonoCliente = new JTextField();
 		MaskFormatter mask2 = new MaskFormatter("(###) ### - ####");
-		JFormattedTextField txtTelefonoCliente = new JFormattedTextField(mask2);
+		txtTelefonoCliente = new JFormattedTextField(mask2);
 		txtTelefonoCliente.setBounds(400, 43, 204, 20);
 		panel_3.add(txtTelefonoCliente);
 		txtTelefonoCliente.setColumns(10);
@@ -186,6 +191,14 @@ public class AgregarPedidos extends JFrame {
 		panel_4.setLayout(null);
 		
 		JButton btnMoverACarrito = new JButton(">");
+		btnMoverACarrito.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String seleccionado = listaComponentes.getSelectedItem().toString();
+				listaCarrito.add(seleccionado);
+				listaComponentes.remove(listaComponentes.getSelectedItem());
+				setTotal();
+			}
+		});
 		btnMoverACarrito.setBounds(279, 42, 54, 23);
 		panel_4.add(btnMoverACarrito);
 		
@@ -202,40 +215,6 @@ public class AgregarPedidos extends JFrame {
 		lblComponentesCarrito.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		lblComponentesCarrito.setBounds(450, 17, 46, 14);
 		panel_4.add(lblComponentesCarrito);
-		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(10, 35, 259, 93);
-		panel_4.add(panel_5);
-		
-	
-		
-		JList listComponentesDisp = new JList();
-		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
-		gl_panel_5.setHorizontalGroup(
-			gl_panel_5.createParallelGroup(Alignment.LEADING)
-				.addComponent(listComponentesDisp, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-		);
-		gl_panel_5.setVerticalGroup(
-			gl_panel_5.createParallelGroup(Alignment.LEADING)
-				.addComponent(listComponentesDisp, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-		);
-		panel_5.setLayout(gl_panel_5);
-	
-		JPanel panel_6 = new JPanel();
-		panel_6.setBounds(343, 35, 261, 93);
-		panel_4.add(panel_6);
-		
-		JList listComponentesCarrito = new JList();
-		GroupLayout gl_panel_6 = new GroupLayout(panel_6);
-		gl_panel_6.setHorizontalGroup(
-			gl_panel_6.createParallelGroup(Alignment.LEADING)
-				.addComponent(listComponentesCarrito, GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-		);
-		gl_panel_6.setVerticalGroup(
-			gl_panel_6.createParallelGroup(Alignment.LEADING)
-				.addComponent(listComponentesCarrito, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-		);
-		panel_6.setLayout(gl_panel_6);
 		
 		tfTotalPedido = new JTextField();
 		tfTotalPedido.setEditable(false);
@@ -282,10 +261,53 @@ public class AgregarPedidos extends JFrame {
 		txtNumFactura = new JTextField();
 		txtNumFactura.setEditable(false);
 		txtNumFactura.setBounds(127, 165, 142, 20);
+		txtNumFactura.setText(Integer.toString(Tienda.getInstance().getIDpedido()));
 		panel_4.add(txtNumFactura);
 		txtNumFactura.setColumns(10);
 		
+		listaComponentes = new List();
+		listaComponentes.setBounds(10, 37, 259, 91);
+		panel_4.add(listaComponentes);
+		for ( Componente c : Tienda.getInstance().getComponentes()) {
+			
+			String tipo;
+			if(c instanceof HardDrive) {
+				tipo = "Disco Duro";
+			}else if(c instanceof RAM) {
+				tipo = "Ram";
+			}else if(c instanceof Processor) {
+				tipo = "Procesador";
+			}else {
+				tipo = "Tarjeta Madre";
+			}
+			
+			
+			String aux = c.getNumSerie() + " - " + c.getMarca() + " - " + tipo;
+			listaComponentes.add(aux);
+		}
+		
+		
+		listaCarrito = new List();
+		listaCarrito.setBounds(344, 37, 260, 91);
+		panel_4.add(listaCarrito);
+		
 		JButton btnHacerPedido = new JButton("FACTURAR");
+		btnHacerPedido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cedula = txtCedula.getText();
+				Usuario aux = Tienda.getInstance().buscarUsuariobyCedula(cedula);
+				
+				if(aux == null) {
+					String direccion = txtDireccionCliente.getText();
+					String nombre = txtNombreCliente.getText();
+					String telefono = txtTelefonoCliente.getText();
+					
+					aux = new Usuario(nombre, cedula, direccion, telefono);
+					Tienda.getInstance().agregarUsuario(aux);
+				}
+				agregarPedido();
+			}
+		});
 		btnHacerPedido.setBounds(535, 330, 89, 23);
 		panel_2.add(btnHacerPedido);
 		
@@ -299,7 +321,37 @@ public class AgregarPedidos extends JFrame {
 		panel_2.add(btnVolverMenuPedido);
 	}
 	
-	   private void btnVolverMenuPedidosActionPerformed(java.awt.event.ActionEvent evt) {
+	   private void setTotal() {
+		   float total = 0;
+			for(int i = 0; i< listaCarrito.getItemCount(); i++) {
+				int pos = listaCarrito.getItem(i).indexOf(" -");
+				String serial = listaCarrito.getItem(i).substring(0, pos);
+				Componente c = Tienda.getInstance().buscarComponentebySerial(Integer.parseInt(serial));
+				total += c.getPrecioComp();
+			}
+			
+			tfTotalPedido.setText(String.valueOf(total));
+		
+	}
+	   
+	   private void agregarPedido() {
+		   
+		   String cedula = txtCedula.getText();
+		   Pedido aux =new Pedido(cedula);
+		   
+		   for(int i = 0; i< listaCarrito.getItemCount(); i++) {
+				int pos = listaCarrito.getItem(i).indexOf(" -");
+				String serial = listaCarrito.getItem(i).substring(0, pos);
+				Componente c = Tienda.getInstance().buscarComponentebySerial(Integer.parseInt(serial));
+				aux.getComponentes().add(c);
+		   }
+		  
+		  Tienda.getInstance().agregarPedido(aux);
+		  JOptionPane.showMessageDialog(null, "Pedido Realizado", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+
+	   }
+
+	private void btnVolverMenuPedidosActionPerformed(java.awt.event.ActionEvent evt) {
 		   Pedidos volver = new Pedidos();
 		   volver.setVisible(true);
 	        this.dispose();

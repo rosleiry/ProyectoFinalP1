@@ -45,7 +45,10 @@ import javax.swing.table.TableColumnModel;
 
 public class ListaComponentes extends JFrame {
 
-	private static Object[] fila;
+	private static Object[] filaDisco;
+	private static Object[] filaMother;
+	private static Object[] filaProces;
+	private static Object[] filaRam;
 	private JPanel contentPane;
 	private JTextField txtBuscar;
 	private static JTable tableDiscosDuros;
@@ -317,19 +320,19 @@ public class ListaComponentes extends JFrame {
     public static void cargarDiscoduro () {
     	
     	tableModelDiscosDuros.setRowCount(0);
-    	fila = new Object[tableModelDiscosDuros.getColumnCount()];
+    	filaDisco = new Object[tableModelDiscosDuros.getColumnCount()];
     	for(Componente c : Tienda.getInstance().getComponentes()) {
     		
     		if(c instanceof HardDrive) {
-    			fila[0] = c.getNumSerie();
-        		fila[1] = c.getCantDisponible();
-        		fila[2] = c.getPrecioComp();
-        		fila[3] = c.getMarca();
-    			fila[4] = ((HardDrive) c).getModelo();
-    			fila[5] = ((HardDrive) c).getCapacidadAl();
-    			fila[6] = ((HardDrive) c).getTipoConexion();
+    			filaDisco[0] = c.getNumSerie();
+    			filaDisco[1] = c.getCantDisponible();
+        		filaDisco[2] = c.getPrecioComp();
+        		filaDisco[3] = c.getMarca();
+        		filaDisco[4] = ((HardDrive) c).getModelo();
+    			filaDisco[5] = ((HardDrive) c).getCapacidadAl();
+    			filaDisco[6] = ((HardDrive) c).getTipoConexion();
+    			tableModelDiscosDuros.addRow(filaDisco);
     		}
-    		tableModelDiscosDuros.addRow(fila);
     	}
     	
     	tableDiscosDuros.setModel(tableModelDiscosDuros);
@@ -340,18 +343,18 @@ public class ListaComponentes extends JFrame {
     }
     public static void cargarRam () {
     	tableModelRAM.setRowCount(0);
-    	fila = new Object[tableModelRAM.getColumnCount()];
+    	filaRam = new Object[tableModelRAM.getColumnCount()];
     	
     	for(Componente c : Tienda.getInstance().getComponentes()) {
     		if(c instanceof RAM) {
-    			fila[0] = c.getNumSerie();
-        		fila[1] = c.getCantDisponible();
-        		fila[2] = c.getPrecioComp();
-        		fila[3] = c.getMarca();
-    			fila[4] = ((RAM) c).getCantMemoria();
-    			fila[5] = ((RAM) c).getTipoMemoria();
+    			filaRam[0] = c.getNumSerie();
+    			filaRam[1] = c.getCantDisponible();
+        		filaRam[2] = c.getPrecioComp();
+        		filaRam[3] = c.getMarca();
+        		filaRam[4] = ((RAM) c).getCantMemoria();
+    			filaRam[5] = ((RAM) c).getTipoMemoria();
+    			tableModelRAM.addRow(filaRam);
     		}
-    		tableModelRAM.addRow(fila);
     	}
     	
     	tableRAM.setModel(tableModelRAM);
@@ -361,19 +364,19 @@ public class ListaComponentes extends JFrame {
     
     public static void cargarProcesador () {
     	tableModelProcesador.setRowCount(0);
-    	fila = new Object[tableModelProcesador.getColumnCount()];
+    	filaProces= new Object[tableModelProcesador.getColumnCount()];
     	
     	for(Componente c : Tienda.getInstance().getComponentes()) {
     		if(c instanceof Processor) {
-    			fila[0] = c.getNumSerie();
-        		fila[1] = c.getCantDisponible();
-        		fila[2] = c.getPrecioComp();
-        		fila[3] = c.getMarca();
-    			fila[4] = ((Processor) c).getModelo();
-    			fila[5] = ((Processor) c).getTipoSocket();
-    			fila[6] = ((Processor) c).getVelDelProc();
+    			filaProces[0] = c.getNumSerie();
+    			filaProces[1] = c.getCantDisponible();
+    			filaProces[2] = c.getPrecioComp();
+    			filaProces[3] = c.getMarca();
+    			filaProces[4] = ((Processor) c).getModelo();
+    			filaProces[5] = ((Processor) c).getTipoSocket();
+    			filaProces[6] = ((Processor) c).getVelDelProc();
+    			tableModelProcesador.addRow(filaProces);
     		}
-    		tableModelProcesador.addRow(fila);
     	}
     	
     	tableProcesador.setModel(tableModelProcesador);
@@ -383,20 +386,20 @@ public class ListaComponentes extends JFrame {
     
     public static void cargarMotherBoard () {
     	tableModelTarjetaMadre.setRowCount(0);
-    	fila = new Object[tableModelTarjetaMadre.getColumnCount()];
+    	filaMother = new Object[tableModelTarjetaMadre.getColumnCount()];
     	
     	for(Componente c : Tienda.getInstance().getComponentes()) {
     		if(c instanceof MotherBoard) {
-    			fila[0] = c.getNumSerie();
-        		fila[1] = c.getCantDisponible();
-        		fila[2] = c.getPrecioComp();
-        		fila[3] = c.getMarca();
-        		fila[4] = ((MotherBoard) c).getModelo();
-    			fila[5] = ((MotherBoard) c).getTipoSocket();
-    			fila[6] = ((MotherBoard) c).getTipoMemoriaRam();
-    			fila[7] = ((MotherBoard) c).getConexionHD();
+    			filaMother[0] = c.getNumSerie();
+    			filaMother[1] = c.getCantDisponible();
+    			filaMother[2] = c.getPrecioComp();
+    			filaMother[3] = c.getMarca();
+    			filaMother[4] = ((MotherBoard) c).getModelo();
+    			filaMother[5] = ((MotherBoard) c).getTipoSocket();
+    			filaMother[6] = ((MotherBoard) c).getTipoMemoriaRam();
+    			filaMother[7] = ((MotherBoard) c).getConexionHD();
+    			tableModelTarjetaMadre.addRow(filaMother);
     		}
-    		tableModelTarjetaMadre.addRow(fila);
     	}
     	
     	tableTarjetaMadre.setModel(tableModelTarjetaMadre);

@@ -126,14 +126,10 @@ public class Usuarios extends JFrame {
 			}
 		});
 		tableModel = new DefaultTableModel();
-		tableClientes.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"C\u00E9dula:", "Nombre:", "Tel\u00E9fono:", "Direcci\u00F3n:"
-			}
-		));
-		cargarUsuarios(0);
+		String[] columnClientes = {"C\u00E9dula:", "Nombre:", "Tel\u00E9fono:", "Direcci\u00F3n:"};
+		tableModel.setColumnIdentifiers(columnClientes);
+		cargarUsuarios();
+		
 		scrollPane.setViewportView(tableClientes);
 		panel_3.setLayout(gl_panel_3);
 
@@ -164,31 +160,27 @@ public class Usuarios extends JFrame {
         this.dispose();
     }
     
-	public static void cargarUsuarios(int selection) {
+	public static void cargarUsuarios() {
 		tableModel.setRowCount(0);
 		fila = new Object[tableModel.getColumnCount()];
-		switch (selection) {
-		case 0:
-			for (Usuario aux : Tienda.getInstance().getUsuarios()) {
-				fila[0] = aux.getCedula();
-				fila[1] = aux.getNombre();
-				fila[2] = aux.getTelefono();
-				fila[3] = aux.getDireccion();
-				tableModel.addRow(fila);
-			}
-
+		
+		for (Usuario aux : Tienda.getInstance().getUsuarios()) {
+			fila[0] = aux.getCedula();
+			fila[1] = aux.getNombre();
+			fila[2] = aux.getTelefono();
+			fila[3] = aux.getDireccion();
+			tableModel.addRow(fila);
+		}
 		tableClientes.setModel(tableModel);
 		tableClientes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tableClientes.getTableHeader().setReorderingAllowed(false);
 		TableColumnModel columnModel = tableClientes.getColumnModel();
 		
-		 columnModel.getColumn(0).setPreferredWidth(60);
-		 columnModel.getColumn(1).setPreferredWidth(180);
+		 columnModel.getColumn(0).setPreferredWidth(100);
+		 columnModel.getColumn(1).setPreferredWidth(150);
 		 columnModel.getColumn(2).setPreferredWidth(150);
-		 columnModel.getColumn(3).setPreferredWidth(150);
+		 columnModel.getColumn(3).setPreferredWidth(200);
 		
-		
-		
-	}
 	}
 }
+

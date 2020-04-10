@@ -20,8 +20,7 @@ public class Tienda implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Pedido> pedidosPagados;
-	private ArrayList<Pedido> pedidosPendientes;
+	private ArrayList<Pedido> pedidos;
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<Componente> componentes;
 	private static Tienda tienda = null;
@@ -31,8 +30,7 @@ public class Tienda implements Serializable{
 	
 	public Tienda() {
 		super();
-		this.pedidosPagados = new ArrayList<Pedido>();
-		this.pedidosPendientes = new ArrayList<Pedido>();
+		this.pedidos = new ArrayList<Pedido>();
 		this.usuarios = new ArrayList<Usuario>();
 		this.componentes = new ArrayList<Componente>();
 		
@@ -66,14 +64,7 @@ public class Tienda implements Serializable{
 		return tienda;
 	}
 	
-	public ArrayList<Pedido> getPedidosPendientes() {
-		return pedidosPendientes;
-	}
-
-
-	public void setPedidosPendientes(ArrayList<Pedido> pedidosPendientes) {
-		this.pedidosPendientes = pedidosPendientes;
-	}
+	
 
 
 	public static Tienda getTienda() {
@@ -86,23 +77,13 @@ public class Tienda implements Serializable{
 	}
 
 
-	public ArrayList<Pedido> getPedidosPagados() {
-		return pedidosPagados;
+	public ArrayList<Pedido> getPedidos() {
+		return pedidos;
 	}
 
 
-	public void setPedidosPagados(ArrayList<Pedido> pedidosPagados) {
-		this.pedidosPagados = pedidosPagados;
-	}
-
-
-	public ArrayList<Pedido> getPedidosEnDeuda() {
-		return pedidosPendientes;
-	}
-
-
-	public void setPedidosEnDeuda(ArrayList<Pedido> pedidosPendientes) {
-		this.pedidosPendientes = pedidosPendientes;
+	public void setPedidos(ArrayList<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 
@@ -130,17 +111,9 @@ public class Tienda implements Serializable{
 	
 		
 		nuevoPedido.setIDpedido(IDpedido);
-		
-		if(nuevoPedido.getEstadoPedido().equalsIgnoreCase("Pagado")) {
-			pedidosPagados.add(nuevoPedido);
-			guardarDatos();
-		} else if(nuevoPedido.getEstadoPedido().equalsIgnoreCase("Pendiente")) {
-			pedidosPendientes.add(nuevoPedido);
-			guardarDatos();
-		}	
-		
+		this.pedidos.add(nuevoPedido);
 		IDpedido++;
-		
+		guardarDatos();
 	}
 	
 	
@@ -151,16 +124,9 @@ public class Tienda implements Serializable{
 	
 	public void agregarComponente(Componente nuevoComponente) {
 		
-		Componente c = buscarComponentebySerial(nuevoComponente.getNumSerie());
-		
-		if(c == null) {
-			nuevoComponente.setNumSerie(serialComponente);
-			componentes.add(nuevoComponente);
-			serialComponente++;
-		}else {
-			c.setCantDisponible(c.getCantDisponible() + nuevoComponente.getCantDisponible());
-		}
-		
+		nuevoComponente.setNumSerie(serialComponente);
+		componentes.add(nuevoComponente);
+		serialComponente++;
 		guardarDatos();
 	}
 	
@@ -183,7 +149,7 @@ public class Tienda implements Serializable{
 	public Pedido buscarPedidobyID(int ID) {
 		
 		boolean encontrado = false;
-		Iterator<Pedido> i = pedidosPagados.iterator();
+		Iterator<Pedido> i = pedidos.iterator();
 		Pedido aux = null;
 		
 		while(!encontrado && i.hasNext()) {
@@ -192,7 +158,7 @@ public class Tienda implements Serializable{
 				encontrado = true;
 		}
 		
-		i = pedidosPendientes.iterator();
+		i = pedidos.iterator();
 		
 		while(!encontrado && i.hasNext()) {
 			aux = i.next();

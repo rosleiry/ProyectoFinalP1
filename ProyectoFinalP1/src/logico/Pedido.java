@@ -14,8 +14,7 @@ public class Pedido implements Serializable {
 	private float precioPedido;
 	private String cedulaUsuario;
 	private int IDpedido;
-	private float precioManodeObra;
-	private String estadoPedido;
+	
 	
 	public Pedido(String cedulaUsuario) {
 		super();
@@ -23,8 +22,6 @@ public class Pedido implements Serializable {
 		this.precioPedido = 0;
 		this.cedulaUsuario = cedulaUsuario;
 		this.IDpedido = 0;
-		this.precioManodeObra = 0;
-		this.estadoPedido = "";
 	}
 	public ArrayList<Componente> getComponentes() {
 		return componentes;
@@ -48,29 +45,12 @@ public class Pedido implements Serializable {
 	public void setIDpedido(int iDpedido) {
 		IDpedido = iDpedido;
 	}
-	public float getPrecioManodeObra() {
-		return precioManodeObra;
-	}
-	public void setPrecioManodeObra(float precioManodeObra) {
-		this.precioManodeObra = precioManodeObra;
-	}
 	
-	public String getEstadoPedido() {
-		return estadoPedido;
-	}
-	public void setEstadoPedido(String estadoPedido) {
-		this.estadoPedido = estadoPedido;
-	}
 	public void agregarComponente(Componente nuevoComponente) {
 		componentes.add(nuevoComponente);
 	}
 	
-	public void isBuilded(boolean aux) {
-		
-		if(aux)
-			this.precioManodeObra = 500;
-		
-	}
+	
 	
 	public float getPrecioPedido() {
 		float aux = 0;
@@ -78,8 +58,6 @@ public class Pedido implements Serializable {
 		for (Componente componente : componentes) {
 			aux += componente.getPrecioComp();
 		}
-		
-		aux += precioManodeObra;
 		
 		return aux;
 	}
