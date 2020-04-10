@@ -37,6 +37,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -299,11 +300,11 @@ public class AgregarPedidos extends JFrame {
 		listaCarrito = new List();
 		listaCarrito.setBounds(344, 37, 260, 91);
 		panel_4.add(listaCarrito);
-		
+
 		JButton btnHacerPedido = new JButton("FACTURAR");
 		btnHacerPedido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String cedula = txtCedula.getText();
+				/*String cedula = txtCedula.getText();
 				Usuario aux = Tienda.getInstance().buscarUsuariobyCedula(cedula);
 				
 				if(aux == null) {
@@ -313,7 +314,20 @@ public class AgregarPedidos extends JFrame {
 					
 					aux = new Usuario(nombre, cedula, direccion, telefono);
 					Tienda.getInstance().agregarUsuario(aux);
+				}*/
+				
+				if(txtNombreCliente.getText().equalsIgnoreCase("")|| txtDireccionCliente.getText().equalsIgnoreCase("") || txtTelefonoCliente.getText().equalsIgnoreCase("") || txtCedula.getText().equalsIgnoreCase(""))
+				{
+					JOptionPane.showMessageDialog(null, "Campos del cliente vacios", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+
+				}else {
+				Usuario aux = Tienda.getInstance().buscarUsuariobyCedula(txtCedula.getText());
+				if(aux != null) {
+					if(tfTotalPedido.getText().equalsIgnoreCase("0.0")) {
+						JOptionPane.showMessageDialog(null, "No se agregó ningún artículo al carrito", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+					}
 				}
+			}
 				agregarPedido();
 			}
 		});
@@ -365,4 +379,12 @@ public class AgregarPedidos extends JFrame {
 		   volver.setVisible(true);
 	        this.dispose();
 	    }
+	
+	private void clean() {
+		txtCedula.setText("");
+		txtDireccionCliente.setText("");
+		txtNombreCliente.setText("");
+		txtTelefonoCliente.setText("");
+		
+	}
 }
