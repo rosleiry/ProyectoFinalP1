@@ -28,7 +28,7 @@ public class Pedido implements Serializable {
 	
 	
 	
-	public float isManoDeObra() {
+	public float getManoDeObra() {
 		return manoDeObra;
 	}
 

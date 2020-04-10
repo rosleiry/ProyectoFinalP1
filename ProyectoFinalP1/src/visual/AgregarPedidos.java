@@ -17,6 +17,7 @@ import javax.swing.text.MaskFormatter;
 
 import logico.Componente;
 import logico.HardDrive;
+import logico.MotherBoard;
 import logico.Pedido;
 import logico.Processor;
 import logico.RAM;
@@ -308,19 +309,24 @@ public class AgregarPedidos extends JFrame {
 		panel_4.add(listaComponentes);
 		for ( Componente c : Tienda.getInstance().getComponentes()) {
 			
-			String tipo;
+			String tipo = "";
+			String detalle = "";
 			if(c instanceof HardDrive) {
 				tipo = "Disco Duro";
+				detalle = ((HardDrive) c).getModelo();
 			}else if(c instanceof RAM) {
 				tipo = "Ram";
+				detalle = String.valueOf(((RAM) c).getCantMemoria());
 			}else if(c instanceof Processor) {
 				tipo = "Procesador";
-			}else {
+				detalle = ((Processor) c).getModelo();
+			}else if(c instanceof MotherBoard){
 				tipo = "Tarjeta Madre";
+				detalle = ((MotherBoard) c).getModelo();
 			}
 			
 			
-			String aux = c.getNumSerie() + " - " + c.getMarca() + " - " + tipo;
+			String aux = c.getNumSerie() + " - " + c.getMarca() + " - " + detalle + " - " + tipo;
 			listaComponentes.add(aux);
 		}
 		

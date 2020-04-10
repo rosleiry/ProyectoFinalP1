@@ -17,6 +17,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import logico.Pedido;
 import logico.Tienda;
 
 import javax.swing.JScrollPane;
@@ -24,12 +25,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.NumberFormat;
 
 public class ListaPedidos extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTable table;
+	private DefaultTableModel tableModelPedidos;
+	private Object[] fila;
 
 	/**
 	 * Launch the application.
@@ -111,18 +115,45 @@ public class ListaPedidos extends JFrame {
 		);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"ID:", "Componente:", "C\u00E9dula cliente:", "Precio:", "Mano de obra:"
+		tableModelPedidos = new DefaultTableModel() {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
 			}
-		));
+		};
+		
+		String[] columnas = {"ID:", "C\u00E9dula cliente:", "Precio:", "Mano de obra:"};
+		tableModelPedidos.setColumnIdentifiers(columnas);
+		cargarPedidos();
+		
 		scrollPane.setViewportView(table);
 		panel_2.setLayout(gl_panel_2);
 	}
 	
-	   private void btnVolverMenuPedidosActionPerformed(java.awt.event.ActionEvent evt) {
+	  
+
+	private void cargarPedidos() {
+		tableModelPedidos.setRowCount(0);
+		fila = new Object[tableModelPedidos.getColumnCount()];
+		NumberFormat formatter = NumberFormat.getCurrencyInstance();
+		if(Tienda.getInstance().getPedidos().get(0) != null) {
+			for(Pedido p: Tienda.getInstance().getPedidos()) {
+				String precio = formatter.format(p.getPrecioPedido());
+				fila[0] = p.getIDpedido();
+				fila[1] = p.getCedulaUsuario();
+				fila[2] = precio;
+				fila[3] = p.getManoDeObra();
+				tableModelPedidos.addRow(fila);
+			}
+		}	
+		table.setModel(tableModelPedidos);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.getTableHeader().setReorderingAllowed(false);
+	}
+
+
+
+	private void btnVolverMenuPedidosActionPerformed(java.awt.event.ActionEvent evt) {
 		   Pedidos volver = new Pedidos();
 		   volver.setVisible(true);
 	        this.dispose();

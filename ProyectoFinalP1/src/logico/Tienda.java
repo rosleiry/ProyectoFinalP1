@@ -20,7 +20,7 @@ public class Tienda implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Pedido> pedidos;
+	private ArrayList<Pedido> pedidos  = new ArrayList<Pedido>();;
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<Componente> componentes;
 	private static Tienda tienda = null;
@@ -29,7 +29,7 @@ public class Tienda implements Serializable{
 	
 	
 	public Tienda() {
-		this.pedidos = new ArrayList<Pedido>();
+		
 		this.usuarios = new ArrayList<Usuario>();
 		this.componentes = new ArrayList<Componente>();
 		
