@@ -92,7 +92,7 @@ public class ListaPedidos extends JFrame {
 		panel_1.add(btnVolver);
 		
 		JButton btnCancelarPedido = new JButton("CANCELAR PEDIDO");
-		btnCancelarPedido.setBounds(384, 294, 141, 23);
+		btnCancelarPedido.setBounds(357, 294, 168, 23);
 		panel_1.add(btnCancelarPedido);
 		
 		JPanel panel_2 = new JPanel();

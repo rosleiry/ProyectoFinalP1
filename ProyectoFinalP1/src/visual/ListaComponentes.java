@@ -95,7 +95,7 @@ public class ListaComponentes extends JFrame {
 		JPanel panelBotones = new JPanel();
 		panelBotones.setBackground(Color.LIGHT_GRAY);
 		panelBotones.setForeground(new Color(47, 79, 79));
-		panelBotones.setBounds(0, 64, 166, 329);
+		panelBotones.setBounds(0, 64, 166, 498);
 		contentPane.add(panelBotones);
 		panelBotones.setLayout(null);
 		
@@ -113,7 +113,7 @@ public class ListaComponentes extends JFrame {
 		});
 		btnDiscosDuros.setIcon(new ImageIcon(ListaComponentes.class.getResource("/iconos/harddrive.png")));
 		btnDiscosDuros.setFont(new Font("Times New Roman", Font.BOLD, 11));
-		btnDiscosDuros.setBounds(0, 0, 166, 65);
+		btnDiscosDuros.setBounds(0, 0, 166, 99);
 		panelBotones.add(btnDiscosDuros);
 		
 		JButton btnMemoriasRam = new JButton("MEMORIAS RAM");
@@ -129,7 +129,7 @@ public class ListaComponentes extends JFrame {
 		btnMemoriasRam.setHorizontalAlignment(SwingConstants.LEFT);
 		btnMemoriasRam.setIcon(new ImageIcon(ListaComponentes.class.getResource("/iconos/ram-memory.png")));
 		btnMemoriasRam.setFont(new Font("Times New Roman", Font.BOLD, 11));
-		btnMemoriasRam.setBounds(0, 65, 166, 65);
+		btnMemoriasRam.setBounds(0, 99, 166, 99);
 		panelBotones.add(btnMemoriasRam);
 		
 		JButton btnProcesadores = new JButton("PROCESADORES");
@@ -145,7 +145,7 @@ public class ListaComponentes extends JFrame {
 		btnProcesadores.setHorizontalAlignment(SwingConstants.LEFT);
 		btnProcesadores.setIcon(new ImageIcon(ListaComponentes.class.getResource("/iconos/processor.png")));
 		btnProcesadores.setFont(new Font("Times New Roman", Font.BOLD, 11));
-		btnProcesadores.setBounds(0, 130, 166, 66);
+		btnProcesadores.setBounds(0, 198, 166, 100);
 		panelBotones.add(btnProcesadores);
 		
 		JButton btnTarjetasMadre = new JButton("TARJETAS MADRE");
@@ -161,7 +161,7 @@ public class ListaComponentes extends JFrame {
 		btnTarjetasMadre.setHorizontalAlignment(SwingConstants.LEFT);
 		btnTarjetasMadre.setIcon(new ImageIcon(ListaComponentes.class.getResource("/iconos/motherboard.png")));
 		btnTarjetasMadre.setFont(new Font("Times New Roman", Font.BOLD, 11));
-		btnTarjetasMadre.setBounds(0, 196, 166, 66);
+		btnTarjetasMadre.setBounds(0, 298, 166, 99);
 		panelBotones.add(btnTarjetasMadre);
 		
 		JButton btnVolverAMenu = new JButton("");
@@ -173,12 +173,12 @@ public class ListaComponentes extends JFrame {
 		});
 		btnVolverAMenu.setHorizontalAlignment(SwingConstants.LEFT);
 		btnVolverAMenu.setFont(new Font("Times New Roman", Font.BOLD, 11));
-		btnVolverAMenu.setBounds(0, 262, 166, 65);
+		btnVolverAMenu.setBounds(0, 397, 166, 99);
 		panelBotones.add(btnVolverAMenu);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(0, 0, 51));
-		panel_1.setBounds(0, 0, 634, 65);
+		panel_1.setBounds(0, 0, 817, 65);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -243,6 +243,7 @@ public class ListaComponentes extends JFrame {
 		panel_3.add(panelRAM);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setEnabled(false);
 		GroupLayout gl_panelRAM = new GroupLayout(panelRAM);
 		gl_panelRAM.setHorizontalGroup(
 			gl_panelRAM.createParallelGroup(Alignment.LEADING)
@@ -254,7 +255,7 @@ public class ListaComponentes extends JFrame {
 		);
 		
 		tableRAM = new JTable();
-		tableRAM.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tableRAM.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		tableModelRAM = new DefaultTableModel();
 		String[] columnRam = {"N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:", "Cant memoria:", "Tipo memoria:"};
 		tableModelRAM.setColumnIdentifiers(columnRam);
@@ -267,6 +268,7 @@ public class ListaComponentes extends JFrame {
 		panel_3.add(panelProcesador);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setEnabled(false);
 		GroupLayout gl_panelProcesador = new GroupLayout(panelProcesador);
 		gl_panelProcesador.setHorizontalGroup(
 			gl_panelProcesador.createParallelGroup(Alignment.LEADING)
@@ -278,7 +280,7 @@ public class ListaComponentes extends JFrame {
 		);
 		
 		tableProcesador = new JTable();
-		tableProcesador.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tableProcesador.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		tableModelProcesador = new DefaultTableModel();
 		String[] columnProc = { "N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:", "Modelo:", "Tipo socket:", "Velocidad:"};
 		tableModelProcesador.setColumnIdentifiers(columnProc);
@@ -291,6 +293,7 @@ public class ListaComponentes extends JFrame {
 		panel_3.add(panelTarjetaMadre);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setEnabled(false);
 		GroupLayout gl_panelTarjetaMadre = new GroupLayout(panelTarjetaMadre);
 		gl_panelTarjetaMadre.setHorizontalGroup(
 			gl_panelTarjetaMadre.createParallelGroup(Alignment.TRAILING)
@@ -302,7 +305,7 @@ public class ListaComponentes extends JFrame {
 		);
 		
 		tableTarjetaMadre = new JTable();
-		tableTarjetaMadre.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tableTarjetaMadre.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		tableModelTarjetaMadre = new DefaultTableModel();
 		String[] columnMother = {"N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:","Modelo:", "Tipo socket:" , "Tipo RAM:", "Conexi\u00F3n Disco Duro:"};
 		tableModelTarjetaMadre.setColumnIdentifiers(columnMother);
@@ -336,7 +339,7 @@ public class ListaComponentes extends JFrame {
     	}
     	
     	tableDiscosDuros.setModel(tableModelDiscosDuros);
-    	tableDiscosDuros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    	tableDiscosDuros.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     	tableDiscosDuros.getTableHeader().setReorderingAllowed(false);
     	
     	

@@ -108,7 +108,7 @@ public class Usuarios extends JFrame {
 		);
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
 		);
 		
 		tableClientes = new JTable();
@@ -172,7 +172,7 @@ public class Usuarios extends JFrame {
 			tableModel.addRow(fila);
 		}
 		tableClientes.setModel(tableModel);
-		tableClientes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tableClientes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		tableClientes.getTableHeader().setReorderingAllowed(false);
 		TableColumnModel columnModel = tableClientes.getColumnModel();
 		
