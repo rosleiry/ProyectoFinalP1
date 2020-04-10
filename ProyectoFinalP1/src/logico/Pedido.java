@@ -14,15 +14,32 @@ public class Pedido implements Serializable {
 	private float precioPedido;
 	private String cedulaUsuario;
 	private int IDpedido;
+	private float manoDeObra;
 	
 	
-	public Pedido(String cedulaUsuario) {
+	public Pedido(String cedulaUsuario, float manoDeObra) {
 		super();
 		this.componentes = new ArrayList<Componente>();
 		this.precioPedido = 0;
 		this.cedulaUsuario = cedulaUsuario;
 		this.IDpedido = 0;
+		this.manoDeObra = manoDeObra;
 	}
+	
+	
+	
+	public float isManoDeObra() {
+		return manoDeObra;
+	}
+
+
+
+	public void setManoDeObra(float manoDeObra) {
+		this.manoDeObra = manoDeObra;
+	}
+
+
+
 	public ArrayList<Componente> getComponentes() {
 		return componentes;
 	}
@@ -59,6 +76,6 @@ public class Pedido implements Serializable {
 			aux += componente.getPrecioComp();
 		}
 		
-		return aux;
+		return aux + manoDeObra;
 	}
 }

@@ -109,6 +109,53 @@ public class AgregarComponentes extends JFrame {
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
+		JPanel panelDiscoDuro = new JPanel();
+		panelDiscoDuro.setBounds(10, 148, 601, 143);
+		panel_2.add(panelDiscoDuro);
+		panelDiscoDuro.setLayout(null);
+		panelDiscoDuro.setVisible(true);
+		
+		
+		JLabel lblModeloDiscoDuro = new JLabel("Modelo:");
+		lblModeloDiscoDuro.setBounds(10, 11, 82, 14);
+		panelDiscoDuro.add(lblModeloDiscoDuro);
+		
+		txtModelo = new JTextField();
+		txtModelo.setBounds(58, 8, 533, 20);
+		panelDiscoDuro.add(txtModelo);
+		txtModelo.setColumns(10);
+		
+		JLabel lblNewLabel_6 = new JLabel("Almacenamiento:");
+		lblNewLabel_6.setBounds(10, 50, 127, 14);
+		panelDiscoDuro.add(lblNewLabel_6);
+		
+		txtAlmacenamiento = new JTextField();
+		txtAlmacenamiento.setBounds(116, 47, 142, 20);
+		panelDiscoDuro.add(txtAlmacenamiento);
+		txtAlmacenamiento.setColumns(10);
+		
+		JLabel lblNewLabel_7 = new JLabel("Tipo:");
+		lblNewLabel_7.setBounds(323, 50, 43, 14);
+		panelDiscoDuro.add(lblNewLabel_7);
+		
+		cmbTipoDrive = new JComboBox();
+		cmbTipoDrive.setBounds(359, 46, 111, 22);
+		panelDiscoDuro.add(cmbTipoDrive);
+		cmbTipoDrive.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "SSD", "HDD"}));
+		
+		JLabel lblNewLabel_8 = new JLabel("Conexion:");
+		lblNewLabel_8.setBounds(10, 89, 98, 14);
+		panelDiscoDuro.add(lblNewLabel_8);
+		
+		cmbConexion = new JComboBox();
+		cmbConexion.setBounds(75, 85, 127, 22);
+		panelDiscoDuro.add(cmbConexion);
+		cmbConexion.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "IDE", "SATA", "SATA-2", "SATA-3", "M.2"}));
+		
+		JLabel lblNewLabel_5 = new JLabel("Gb");
+		lblNewLabel_5.setBounds(267, 50, 46, 14);
+		panelDiscoDuro.add(lblNewLabel_5);
+		
 		JPanel panelTarjetaMadre = new JPanel();
 		panelTarjetaMadre.setBounds(10, 148, 601, 143);
 		panel_2.add(panelTarjetaMadre);
@@ -150,49 +197,6 @@ public class AgregarComponentes extends JFrame {
 		cmbDiscos.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "IDE", "SATA", "SATA-2", "SATA-3", "M.2"}));
 		cmbDiscos.setBounds(177, 86, 137, 22);
 		panelTarjetaMadre.add(cmbDiscos);
-		
-		JPanel panelDiscoDuro = new JPanel();
-		panelDiscoDuro.setBounds(10, 148, 601, 143);
-		panel_2.add(panelDiscoDuro);
-		panelDiscoDuro.setLayout(null);
-		panelDiscoDuro.setVisible(true);
-		
-		
-		JLabel lblModeloDiscoDuro = new JLabel("Modelo:");
-		lblModeloDiscoDuro.setBounds(10, 11, 82, 14);
-		panelDiscoDuro.add(lblModeloDiscoDuro);
-		
-		txtModelo = new JTextField();
-		txtModelo.setBounds(58, 8, 533, 20);
-		panelDiscoDuro.add(txtModelo);
-		txtModelo.setColumns(10);
-		
-		JLabel lblNewLabel_6 = new JLabel("Almacenamiento:");
-		lblNewLabel_6.setBounds(10, 50, 127, 14);
-		panelDiscoDuro.add(lblNewLabel_6);
-		
-		txtAlmacenamiento = new JTextField();
-		txtAlmacenamiento.setBounds(116, 47, 173, 20);
-		panelDiscoDuro.add(txtAlmacenamiento);
-		txtAlmacenamiento.setColumns(10);
-		
-		JLabel lblNewLabel_7 = new JLabel("Tipo:");
-		lblNewLabel_7.setBounds(323, 50, 43, 14);
-		panelDiscoDuro.add(lblNewLabel_7);
-		
-		cmbTipoDrive = new JComboBox();
-		cmbTipoDrive.setBounds(359, 46, 111, 22);
-		panelDiscoDuro.add(cmbTipoDrive);
-		cmbTipoDrive.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "SSD", "HDD"}));
-		
-		JLabel lblNewLabel_8 = new JLabel("Conexion:");
-		lblNewLabel_8.setBounds(10, 89, 98, 14);
-		panelDiscoDuro.add(lblNewLabel_8);
-		
-		cmbConexion = new JComboBox();
-		cmbConexion.setBounds(75, 85, 127, 22);
-		panelDiscoDuro.add(cmbConexion);
-		cmbConexion.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "IDE", "SATA", "SATA-2", "SATA-3", "M.2"}));
 		
 		JPanel panelRAM = new JPanel();
 		panelRAM.setBounds(10, 148, 601, 143);
@@ -312,7 +316,7 @@ public class AgregarComponentes extends JFrame {
 		JButton btnAgregar = new JButton("AGREGAR");
 		
 		btnAgregar.setFont(new Font("Times New Roman", Font.BOLD, 10));
-		btnAgregar.setBounds(535, 295, 89, 23);
+		btnAgregar.setBounds(522, 295, 89, 23);
 		panel_2.add(btnAgregar);
 		
 		JButton btnVolverMenu = new JButton("VOLVER");
@@ -322,7 +326,7 @@ public class AgregarComponentes extends JFrame {
 			}
 		});
 		btnVolverMenu.setFont(new Font("Times New Roman", Font.BOLD, 10));
-		btnVolverMenu.setBounds(443, 295, 89, 23);
+		btnVolverMenu.setBounds(423, 295, 89, 23);
 		panel_2.add(btnVolverMenu);
 		
 		JPanel panel_5 = new JPanel();
@@ -393,7 +397,7 @@ public class AgregarComponentes extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Componente aux = null;
 				
-				float precio = Float.valueOf(txtPrecio.getText());
+				float precio = Float.parseFloat(txtPrecio.getText());
 				String marca = txtMarca.getText();
 				int cantidad = Integer.valueOf(txtCantidad.getText());
 				

@@ -16,6 +16,7 @@ import logico.Tienda;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.SystemColor;
@@ -33,9 +34,13 @@ import java.awt.Window;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.NumberFormat;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
@@ -50,7 +55,6 @@ public class ListaComponentes extends JFrame {
 	private static Object[] filaProces;
 	private static Object[] filaRam;
 	private JPanel contentPane;
-	private JTextField txtBuscar;
 	private static JTable tableDiscosDuros;
 	private static JTable tableRAM;
 	private static JTable tableProcesador;
@@ -59,7 +63,11 @@ public class ListaComponentes extends JFrame {
 	private static DefaultTableModel tableModelRAM;
 	private static DefaultTableModel tableModelProcesador;
 	private static DefaultTableModel tableModelTarjetaMadre;
-
+	private JButton btnInfo;
+	private JButton btnBorrar;
+	private Componente c = null;
+	private int selectedRow = -1;
+	private JLabel lblTitulo;
 
 	/**
 	 * Launch the application.
@@ -79,7 +87,7 @@ public class ListaComponentes extends JFrame {
 		setTitle("Tienda de computadoras RORO/Listar componentes");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaComponentes.class.getResource("/iconos/logo.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 833, 601);
+		setBounds(100, 100, 916, 601);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 0, 51));
@@ -103,12 +111,14 @@ public class ListaComponentes extends JFrame {
 		btnDiscosDuros.setHorizontalAlignment(SwingConstants.LEFT);
 		btnDiscosDuros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				lblTitulo.setText("Discos Duros");
+				btnInfo.setEnabled(false);
 				panelDiscoDuro.setVisible(true);
 				panelRAM.setVisible(false);
 				panelTarjetaMadre.setVisible(false);
 				panelProcesador.setVisible(false);
 				cargarDiscoduro();
-	
+				
 			}
 		});
 		btnDiscosDuros.setIcon(new ImageIcon(ListaComponentes.class.getResource("/iconos/harddrive.png")));
@@ -119,6 +129,8 @@ public class ListaComponentes extends JFrame {
 		JButton btnMemoriasRam = new JButton("MEMORIAS RAM");
 		btnMemoriasRam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				lblTitulo.setText("Memorias Ram");
+				btnInfo.setEnabled(false);
 				panelDiscoDuro.setVisible(false);
 				panelRAM.setVisible(true);
 				panelTarjetaMadre.setVisible(false);
@@ -135,6 +147,8 @@ public class ListaComponentes extends JFrame {
 		JButton btnProcesadores = new JButton("PROCESADORES");
 		btnProcesadores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblTitulo.setText("Procesadores");
+				btnInfo.setEnabled(false);
 				panelDiscoDuro.setVisible(false);
 				panelRAM.setVisible(false);
 				panelTarjetaMadre.setVisible(false);
@@ -151,6 +165,8 @@ public class ListaComponentes extends JFrame {
 		JButton btnTarjetasMadre = new JButton("TARJETAS MADRE");
 		btnTarjetasMadre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblTitulo.setText("Tarjetas Madre");
+				btnInfo.setEnabled(false);
 				panelDiscoDuro.setVisible(false);
 				panelRAM.setVisible(false);
 				panelTarjetaMadre.setVisible(true);
@@ -190,31 +206,18 @@ public class ListaComponentes extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(204, 204, 204));
-		panel_2.setBounds(164, 64, 653, 498);
+		panel_2.setBounds(164, 64, 736, 498);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
-		txtBuscar = new JTextField();
-		txtBuscar.setEditable(false);
-		txtBuscar.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		txtBuscar.setBounds(10, 11, 310, 25);
-		panel_2.add(txtBuscar);
-		txtBuscar.setColumns(10);
-		
-		JComboBox cbxFiltrar = new JComboBox();
-		//comboBox.setModel(new DefaultComboBoxModel(new String[] {"Ordenar por", "Precio menor a mayor", "Precio mayor a menor", "Recomendados", "Popular"}));
-		cbxFiltrar.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		cbxFiltrar.setBounds(330, 13, 130, 20);
-		panel_2.add(cbxFiltrar);
-		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(204, 204, 204));
-		panel_3.setBounds(0, 44, 653, 454);
+		panel_3.setBounds(0, 44, 735, 454);
 		panel_2.add(panel_3);
 		panel_3.setLayout(null);
 		
 		//JPanel panelDiscoDuro = new JPanel();
-		panelDiscoDuro.setBounds(0, 0, 653, 455);
+		panelDiscoDuro.setBounds(0, 0, 738, 455);
 		panel_3.add(panelDiscoDuro);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -226,20 +229,37 @@ public class ListaComponentes extends JFrame {
 		);
 		gl_panelDiscoDuro.setVerticalGroup(
 			gl_panelDiscoDuro.createParallelGroup(Alignment.LEADING)
-				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
 		);
 		
 		tableDiscosDuros = new JTable();
-		tableModelDiscosDuros = new DefaultTableModel();
+		tableModelDiscosDuros = new DefaultTableModel(){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return column == 2 || column == 1;
+			}
+			
+		};
 		String[] columnDiscoDuro = {"N\u00FAm serie:", "Disponibles:", "Precio:", "Marca:", "Modelo:", "Almacenamiento:", "Tipo conexi\u00F3n:"};
 		tableModelDiscosDuros.setColumnIdentifiers(columnDiscoDuro);
+		tableDiscosDuros.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				selectedRow = tableDiscosDuros.getSelectedRow();
+				if(selectedRow > -1) {
+					btnInfo.setEnabled(true);
+					btnBorrar.setEnabled(true);
+					c = Tienda.getInstance().buscarComponentebySerial((int) tableDiscosDuros.getValueAt(selectedRow, 0));
+				}
+			}
+		});
 		cargarDiscoduro();
 		
 		scrollPane.setViewportView(tableDiscosDuros);
 		panelDiscoDuro.setLayout(gl_panelDiscoDuro);
 		
 		//JPanel panelRAM = new JPanel();
-		panelRAM.setBounds(0, 0, 653, 455);
+		panelRAM.setBounds(0, 0, 738, 455);
 		panel_3.add(panelRAM);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -256,15 +276,32 @@ public class ListaComponentes extends JFrame {
 		
 		tableRAM = new JTable();
 		tableRAM.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		tableModelRAM = new DefaultTableModel();
+		tableModelRAM = new DefaultTableModel(){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return column == 2 || column == 1;
+			}
+			
+		};
 		String[] columnRam = {"N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:", "Cant memoria:", "Tipo memoria:"};
 		tableModelRAM.setColumnIdentifiers(columnRam);
+		tableRAM.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				selectedRow = tableRAM.getSelectedRow();
+				if(selectedRow > -1) {
+					btnInfo.setEnabled(true);
+					btnBorrar.setEnabled(true);
+					c = Tienda.getInstance().buscarComponentebySerial((int) tableRAM.getValueAt(selectedRow, 0));
+				}
+			}
+		});
 		
 		scrollPane_1.setViewportView(tableRAM);
 		panelRAM.setLayout(gl_panelRAM);
 		
 		//JPanel panelProcesador = new JPanel();
-		panelProcesador.setBounds(0, 0, 653, 455);
+		panelProcesador.setBounds(0, 0, 738, 455);
 		panel_3.add(panelProcesador);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
@@ -281,15 +318,32 @@ public class ListaComponentes extends JFrame {
 		
 		tableProcesador = new JTable();
 		tableProcesador.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		tableModelProcesador = new DefaultTableModel();
+		tableModelProcesador = new DefaultTableModel() {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return column == 2 || column == 1;
+			}
+			
+		};
 		String[] columnProc = { "N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:", "Modelo:", "Tipo socket:", "Velocidad:"};
 		tableModelProcesador.setColumnIdentifiers(columnProc);
+		tableProcesador.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				selectedRow = tableProcesador.getSelectedRow();
+				if(selectedRow > -1) {
+					btnInfo.setEnabled(true);
+					btnBorrar.setEnabled(true);
+					c = Tienda.getInstance().buscarComponentebySerial((int) tableProcesador.getValueAt(selectedRow, 0));
+				}
+			}
+		});
 		
 		scrollPane_2.setViewportView(tableProcesador);
 		panelProcesador.setLayout(gl_panelProcesador);
 		
 		//JPanel panelTarjetaMadre = new JPanel();
-		panelTarjetaMadre.setBounds(0, 0, 653, 455);
+		panelTarjetaMadre.setBounds(0, 0, 738, 455);
 		panel_3.add(panelTarjetaMadre);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
@@ -306,12 +360,72 @@ public class ListaComponentes extends JFrame {
 		
 		tableTarjetaMadre = new JTable();
 		tableTarjetaMadre.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		tableModelTarjetaMadre = new DefaultTableModel();
+		tableModelTarjetaMadre = new DefaultTableModel(){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return column == 2 || column == 1;
+			}
+			
+		};
 		String[] columnMother = {"N\u00FAm serie:", "Cantidad:", "Precio:", "Marca:","Modelo:", "Tipo socket:" , "Tipo RAM:", "Conexi\u00F3n Disco Duro:"};
 		tableModelTarjetaMadre.setColumnIdentifiers(columnMother);
+		tableTarjetaMadre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				selectedRow = tableTarjetaMadre.getSelectedRow();
+				if(selectedRow > -1) {
+					btnInfo.setEnabled(true);
+					btnBorrar.setEnabled(true);
+					c = Tienda.getInstance().buscarComponentebySerial((int) tableTarjetaMadre.getValueAt(selectedRow, 0));
+				}
+			}
+		});
+		
 		
 		scrollPane_3.setViewportView(tableTarjetaMadre);
 		panelTarjetaMadre.setLayout(gl_panelTarjetaMadre);
+		
+		btnInfo = new JButton("Editar");
+		btnInfo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Para editar un Componente de doble click en la cantidad o el precio.", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		btnInfo.setBounds(496, 10, 110, 23);
+		btnInfo.setEnabled(false);
+		panel_2.add(btnInfo);
+		
+		btnBorrar = new JButton("Borrar");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int option = JOptionPane.showConfirmDialog(null, "Esta seguro desea eliminar este Componente: ", "Eliminar", JOptionPane.WARNING_MESSAGE);
+				if(option == 0) {
+					Tienda.getInstance().getComponentes().remove(c);
+					
+					if(panelDiscoDuro.isVisible()) {
+						cargarDiscoduro();
+					}else if(panelRAM.isVisible()) {
+						cargarRam();
+					}else if(panelProcesador.isVisible()) {
+						cargarProcesador();
+					}else {
+						cargarMotherBoard();
+					}
+					
+					btnBorrar.setEnabled(false);
+					btnInfo.setEnabled(false);
+				}
+			}
+		});
+		btnBorrar.setEnabled(false);
+		btnBorrar.setBounds(616, 10, 110, 23);
+		
+		panel_2.add(btnBorrar);
+		
+		lblTitulo = new JLabel("Discos Duros");
+		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblTitulo.setBounds(25, 10, 435, 23);
+		panel_2.add(lblTitulo);
 	}
 	
     private void btnVolverAMenuActionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,12 +438,13 @@ public class ListaComponentes extends JFrame {
     	
     	tableModelDiscosDuros.setRowCount(0);
     	filaDisco = new Object[tableModelDiscosDuros.getColumnCount()];
-    	for(Componente c : Tienda.getInstance().getComponentes()) {
-    		
+    	NumberFormat formatter = NumberFormat.getCurrencyInstance();
+    	for(Componente c : Tienda.getInstance().getComponentes()) {	
     		if(c instanceof HardDrive) {
+    			String precio = formatter.format(c.getPrecioComp());
     			filaDisco[0] = c.getNumSerie();
     			filaDisco[1] = c.getCantDisponible();
-        		filaDisco[2] = c.getPrecioComp();
+        		filaDisco[2] = precio;
         		filaDisco[3] = c.getMarca();
         		filaDisco[4] = ((HardDrive) c).getModelo();
     			filaDisco[5] = ((HardDrive) c).getCapacidadAl();
@@ -347,12 +462,13 @@ public class ListaComponentes extends JFrame {
     public static void cargarRam () {
     	tableModelRAM.setRowCount(0);
     	filaRam = new Object[tableModelRAM.getColumnCount()];
-    	
+    	NumberFormat formatter = NumberFormat.getCurrencyInstance();
     	for(Componente c : Tienda.getInstance().getComponentes()) {
     		if(c instanceof RAM) {
+    			String precio = formatter.format(c.getPrecioComp());
     			filaRam[0] = c.getNumSerie();
     			filaRam[1] = c.getCantDisponible();
-        		filaRam[2] = c.getPrecioComp();
+        		filaRam[2] = precio;
         		filaRam[3] = c.getMarca();
         		filaRam[4] = ((RAM) c).getCantMemoria();
     			filaRam[5] = ((RAM) c).getTipoMemoria();
@@ -361,19 +477,20 @@ public class ListaComponentes extends JFrame {
     	}
     	
     	tableRAM.setModel(tableModelRAM);
-    	tableRAM.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    	tableRAM.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     	tableRAM.getTableHeader().setReorderingAllowed(false);
     }
     
     public static void cargarProcesador () {
     	tableModelProcesador.setRowCount(0);
     	filaProces= new Object[tableModelProcesador.getColumnCount()];
-    	
+    	NumberFormat formatter = NumberFormat.getCurrencyInstance();
     	for(Componente c : Tienda.getInstance().getComponentes()) {
     		if(c instanceof Processor) {
+    			String precio = formatter.format(c.getPrecioComp());
     			filaProces[0] = c.getNumSerie();
     			filaProces[1] = c.getCantDisponible();
-    			filaProces[2] = c.getPrecioComp();
+    			filaProces[2] = precio;
     			filaProces[3] = c.getMarca();
     			filaProces[4] = ((Processor) c).getModelo();
     			filaProces[5] = ((Processor) c).getTipoSocket();
@@ -383,19 +500,20 @@ public class ListaComponentes extends JFrame {
     	}
     	
     	tableProcesador.setModel(tableModelProcesador);
-    	tableProcesador.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    	tableProcesador.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     	tableProcesador.getTableHeader().setReorderingAllowed(false);
     }
     
     public static void cargarMotherBoard () {
     	tableModelTarjetaMadre.setRowCount(0);
     	filaMother = new Object[tableModelTarjetaMadre.getColumnCount()];
-    	
+    	NumberFormat formatter = NumberFormat.getCurrencyInstance();
     	for(Componente c : Tienda.getInstance().getComponentes()) {
     		if(c instanceof MotherBoard) {
+    			String precio = formatter.format(c.getPrecioComp());
     			filaMother[0] = c.getNumSerie();
     			filaMother[1] = c.getCantDisponible();
-    			filaMother[2] = c.getPrecioComp();
+    			filaMother[2] = precio;
     			filaMother[3] = c.getMarca();
     			filaMother[4] = ((MotherBoard) c).getModelo();
     			filaMother[5] = ((MotherBoard) c).getTipoSocket();
@@ -406,7 +524,7 @@ public class ListaComponentes extends JFrame {
     	}
     	
     	tableTarjetaMadre.setModel(tableModelTarjetaMadre);
-    	tableTarjetaMadre.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    	tableTarjetaMadre.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     	tableTarjetaMadre.getTableHeader().setReorderingAllowed(false);
     	
     	

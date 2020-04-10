@@ -29,7 +29,6 @@ public class Tienda implements Serializable{
 	
 	
 	public Tienda() {
-		super();
 		this.pedidos = new ArrayList<Pedido>();
 		this.usuarios = new ArrayList<Usuario>();
 		this.componentes = new ArrayList<Componente>();
@@ -109,11 +108,11 @@ public class Tienda implements Serializable{
 	
 	public void agregarPedido(Pedido nuevoPedido) {
 	
-		
 		nuevoPedido.setIDpedido(IDpedido);
 		this.pedidos.add(nuevoPedido);
 		IDpedido++;
 		guardarDatos();
+		
 	}
 	
 	

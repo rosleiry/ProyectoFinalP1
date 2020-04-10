@@ -43,6 +43,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.List;
 import javax.swing.JScrollPane;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
 
 public class AgregarPedidos extends JFrame {
 
@@ -56,6 +58,7 @@ public class AgregarPedidos extends JFrame {
 	private JTextField txtNumFactura;
 	private List listaCarrito;
 	private List listaComponentes;
+	private boolean manoDeObra;
 
 	/**
 	 * Launch the application.
@@ -72,6 +75,8 @@ public class AgregarPedidos extends JFrame {
 				Tienda.getInstance().guardarDatos();
 			}
 		});
+		
+		manoDeObra = false;
 		setTitle("Tienda de computadoras RORO/Hacer pedido");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AgregarPedidos.class.getResource("/iconos/logo256.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -197,7 +202,7 @@ public class AgregarPedidos extends JFrame {
 				String seleccionado = listaComponentes.getSelectedItem().toString();
 				listaCarrito.add(seleccionado);
 				listaComponentes.remove(listaComponentes.getSelectedItem());
-				setTotal();
+				setTotal(Float.parseFloat(txtManoObra.getText()));
 			}
 		});
 		btnMoverACarrito.setBounds(279, 42, 54, 23);
@@ -210,7 +215,7 @@ public class AgregarPedidos extends JFrame {
 				String selected = listaCarrito.getSelectedItem().toString();
 				listaComponentes.add(selected);
 				listaCarrito.remove(listaCarrito.getSelectedItem());
-				setTotal();
+				setTotal(Float.parseFloat(txtManoObra.getText()));
 			}
 		});
 		btnQuitarDeCarrito.setBounds(279, 76, 54, 23);
@@ -231,6 +236,7 @@ public class AgregarPedidos extends JFrame {
 		tfTotalPedido.setBounds(497, 165, 107, 20);
 		panel_4.add(tfTotalPedido);
 		tfTotalPedido.setColumns(10);
+		tfTotalPedido.setText("0.00");
 		
 		JLabel lblTotal = new JLabel("Total:");
 		lblTotal.setFont(new Font("Times New Roman", Font.BOLD, 12));
@@ -243,11 +249,27 @@ public class AgregarPedidos extends JFrame {
 		panel_4.add(lblPreguntaEnsamblado);
 		
 		JButton btnSi = new JButton("");
+		btnSi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtManoObra.setEditable(true);
+				txtManoObra.setText("");
+				manoDeObra = true;
+				setTotal(Float.parseFloat(txtManoObra.getText()));
+			}
+		});
 		btnSi.setBackground(new Color(0, 204, 0));
 		btnSi.setBounds(200, 135, 26, 23);
 		panel_4.add(btnSi);
 		
 		JButton btnNo = new JButton("");
+		btnNo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtManoObra.setEditable(false);
+				txtManoObra.setText("0.00");
+				manoDeObra = false;
+				setTotal(0);
+			}
+		});
 		btnNo.setBackground(new Color(255, 0, 0));
 		btnNo.setBounds(236, 135, 26, 23);
 		panel_4.add(btnNo);
@@ -258,10 +280,16 @@ public class AgregarPedidos extends JFrame {
 		panel_4.add(lblManoObra);
 		
 		txtManoObra = new JTextField();
+		txtManoObra.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setTotal(Float.parseFloat(txtManoObra.getText()));
+			}
+		});
 		txtManoObra.setEditable(false);
 		txtManoObra.setBounds(497, 134, 107, 20);
 		panel_4.add(txtManoObra);
 		txtManoObra.setColumns(10);
+		txtManoObra.setText("0.00");
 		
 		JLabel lblNumFactura = new JLabel("N\u00FAmero de factura:");
 		lblNumFactura.setFont(new Font("Times New Roman", Font.BOLD, 12));
@@ -323,7 +351,7 @@ public class AgregarPedidos extends JFrame {
 				}else {
 				Usuario aux = Tienda.getInstance().buscarUsuariobyCedula(txtCedula.getText());
 				if(aux != null) {
-					if(tfTotalPedido.getText().equalsIgnoreCase("0.0")) {
+					if(tfTotalPedido.getText().equalsIgnoreCase("0.00")) {
 						JOptionPane.showMessageDialog(null, "No se agregó ningún artículo al carrito", "Notificación", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
@@ -331,7 +359,7 @@ public class AgregarPedidos extends JFrame {
 				agregarPedido();
 			}
 		});
-		btnHacerPedido.setBounds(535, 330, 89, 23);
+		btnHacerPedido.setBounds(518, 330, 106, 23);
 		panel_2.add(btnHacerPedido);
 		
 		JButton btnVolverMenuPedido = new JButton("VOLVER");
@@ -340,12 +368,14 @@ public class AgregarPedidos extends JFrame {
 				btnVolverMenuPedidosActionPerformed(e);
 			}
 		});
-		btnVolverMenuPedido.setBounds(436, 330, 89, 23);
+		btnVolverMenuPedido.setBounds(402, 330, 106, 23);
 		panel_2.add(btnVolverMenuPedido);
 	}
 	
-	   private void setTotal() {
+	   private void setTotal(float precioManoDeObra) {
 		   float total = 0;
+		   
+		  
 			for(int i = 0; i< listaCarrito.getItemCount(); i++) {
 				int pos = listaCarrito.getItem(i).indexOf(" -");
 				String serial = listaCarrito.getItem(i).substring(0, pos);
@@ -353,14 +383,22 @@ public class AgregarPedidos extends JFrame {
 				total += c.getPrecioComp();
 			}
 			
-			tfTotalPedido.setText(String.valueOf(total));
-		
+			if(!manoDeObra) {
+				precioManoDeObra = 0;
+			}
+			
+			
+			if(total > 0) {
+				tfTotalPedido.setText(String.valueOf(total + precioManoDeObra));
+			}else {
+				tfTotalPedido.setText("0.00");
+			}
 	}
 	   
 	   private void agregarPedido() {
 		   
 		   String cedula = txtCedula.getText();
-		   Pedido aux =new Pedido(cedula);
+		   Pedido aux =new Pedido(cedula,Float.parseFloat(txtManoObra.getText()));
 		   
 		   for(int i = 0; i< listaCarrito.getItemCount(); i++) {
 				int pos = listaCarrito.getItem(i).indexOf(" -");
