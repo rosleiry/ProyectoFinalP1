@@ -202,7 +202,16 @@ public class AgregarPedidos extends JFrame {
 		btnMoverACarrito.setBounds(279, 42, 54, 23);
 		panel_4.add(btnMoverACarrito);
 		
+
 		JButton btnQuitarDeCarrito = new JButton("<");
+		btnQuitarDeCarrito.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String selected = listaCarrito.getSelectedItem().toString();
+				listaComponentes.add(selected);
+				listaCarrito.remove(listaCarrito.getSelectedItem());
+				setTotal();
+			}
+		});
 		btnQuitarDeCarrito.setBounds(279, 76, 54, 23);
 		panel_4.add(btnQuitarDeCarrito);
 		
