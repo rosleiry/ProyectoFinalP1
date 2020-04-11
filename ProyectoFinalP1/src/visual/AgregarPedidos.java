@@ -307,29 +307,7 @@ public class AgregarPedidos extends JFrame {
 		listaComponentes = new List();
 		listaComponentes.setBounds(10, 37, 259, 91);
 		panel_4.add(listaComponentes);
-		for ( Componente c : Tienda.getInstance().getComponentes()) {
-			
-			String tipo = "";
-			String detalle = "";
-			if(c instanceof HardDrive) {
-				tipo = "Disco Duro";
-				detalle = ((HardDrive) c).getModelo();
-			}else if(c instanceof RAM) {
-				tipo = "Ram";
-				detalle = String.valueOf(((RAM) c).getCantMemoria());
-			}else if(c instanceof Processor) {
-				tipo = "Procesador";
-				detalle = ((Processor) c).getModelo();
-			}else if(c instanceof MotherBoard){
-				tipo = "Tarjeta Madre";
-				detalle = ((MotherBoard) c).getModelo();
-			}
-			
-			
-			String aux = c.getNumSerie() + " - " + c.getMarca() + " - " + detalle + " - " + tipo;
-			listaComponentes.add(aux);
-		}
-		
+		cargarlistacomponente();
 		
 		listaCarrito = new List();
 		listaCarrito.setBounds(344, 37, 260, 91);
@@ -338,33 +316,30 @@ public class AgregarPedidos extends JFrame {
 		JButton btnHacerPedido = new JButton("FACTURAR");
 		btnHacerPedido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*String cedula = txtCedula.getText();
-				Usuario aux = Tienda.getInstance().buscarUsuariobyCedula(cedula);
-				
-				if(aux == null) {
-					String direccion = txtDireccionCliente.getText();
-					String nombre = txtNombreCliente.getText();
-					String telefono = txtTelefonoCliente.getText();
-					
-					aux = new Usuario(nombre, cedula, direccion, telefono);
-					Tienda.getInstance().agregarUsuario(aux);
-				}*/
 				
 				if(txtNombreCliente.getText().equalsIgnoreCase("")|| txtDireccionCliente.getText().equalsIgnoreCase("") || txtTelefonoCliente.getText().equalsIgnoreCase("") || txtCedula.getText().equalsIgnoreCase(""))
 				{
 					JOptionPane.showMessageDialog(null, "Campos del cliente vacios", "Notificación", JOptionPane.INFORMATION_MESSAGE);
 
+				}else if(listaCarrito.getItemCount() == 0) {
+					JOptionPane.showMessageDialog(null, "No se agregó ningún artículo al carrito", "Notificación", JOptionPane.INFORMATION_MESSAGE);
 				}else {
-				Usuario aux = Tienda.getInstance().buscarUsuariobyCedula(txtCedula.getText());
-				if(aux != null) {
-					if(tfTotalPedido.getText().equalsIgnoreCase("0.00")) {
-						JOptionPane.showMessageDialog(null, "No se agregó ningún artículo al carrito", "Notificación", JOptionPane.INFORMATION_MESSAGE);
-					}
+					String cedula = txtCedula.getText();
+					Usuario aux = Tienda.getInstance().buscarUsuariobyCedula(cedula);
+						if(aux == null) {
+							String direccion = txtDireccionCliente.getText();
+							String nombre = txtNombreCliente.getText();
+							String telefono = txtTelefonoCliente.getText();
+							aux = new Usuario(nombre, cedula, direccion, telefono);
+							Tienda.getInstance().agregarUsuario(aux);
+							
+						}
+					agregarPedido();
+					clean();
 				}
 			}
-				agregarPedido();
-			}
 		});
+		
 		btnHacerPedido.setBounds(518, 330, 106, 23);
 		panel_2.add(btnHacerPedido);
 		
@@ -378,7 +353,34 @@ public class AgregarPedidos extends JFrame {
 		panel_2.add(btnVolverMenuPedido);
 	}
 	
-	   private void setTotal(float precioManoDeObra) {
+	   private void cargarlistacomponente() {
+			for ( Componente c : Tienda.getInstance().getComponentes()) {
+				
+				String tipo = "";
+				String detalle = "";
+				if(c instanceof HardDrive) {
+					tipo = "Disco Duro";
+					detalle = ((HardDrive) c).getModelo();
+				}else if(c instanceof RAM) {
+					tipo = "Ram";
+					detalle = String.valueOf(((RAM) c).getCantMemoria());
+				}else if(c instanceof Processor) {
+					tipo = "Procesador";
+					detalle = ((Processor) c).getModelo();
+				}else if(c instanceof MotherBoard){
+					tipo = "Tarjeta Madre";
+					detalle = ((MotherBoard) c).getModelo();
+				}
+				
+				
+				String aux = c.getNumSerie() + " - " + c.getMarca() + " - " + detalle + " - " + tipo;
+				listaComponentes.add(aux);
+			}
+			
+		
+	}
+
+	private void setTotal(float precioManoDeObra) {
 		   float total = 0;
 		   
 		  
@@ -429,6 +431,9 @@ public class AgregarPedidos extends JFrame {
 		txtDireccionCliente.setText("");
 		txtNombreCliente.setText("");
 		txtTelefonoCliente.setText("");
+		txtNumFactura.setText(Integer.toString(Tienda.getInstance().getIDpedido()));
+		listaCarrito.removeAll();
+		cargarlistacomponente();
 		
 	}
 }
