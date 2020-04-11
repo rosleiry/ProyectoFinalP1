@@ -48,6 +48,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import logico.Grafica;
+
 public class ListaComponentes extends JFrame {
 
 	private static Object[] filaDisco;
@@ -189,7 +191,7 @@ public class ListaComponentes extends JFrame {
 		});
 		btnVolverAMenu.setHorizontalAlignment(SwingConstants.LEFT);
 		btnVolverAMenu.setFont(new Font("Times New Roman", Font.BOLD, 11));
-		btnVolverAMenu.setBounds(0, 397, 166, 99);
+		btnVolverAMenu.setBounds(0, 399, 166, 99);
 		panelBotones.add(btnVolverAMenu);
 		
 		JPanel panel_1 = new JPanel();
@@ -426,6 +428,15 @@ public class ListaComponentes extends JFrame {
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblTitulo.setBounds(25, 10, 435, 23);
 		panel_2.add(lblTitulo);
+		
+		JButton btnNewButton = new JButton("Ver gr\u00E1fico");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				GraficaActionPerformed(arg0);
+			}
+		});
+		btnNewButton.setBounds(376, 10, 110, 23);
+		panel_2.add(btnNewButton);
 	}
 	
     private void btnVolverAMenuActionPerformed(java.awt.event.ActionEvent evt) {
@@ -528,5 +539,10 @@ public class ListaComponentes extends JFrame {
     	tableTarjetaMadre.getTableHeader().setReorderingAllowed(false);
     	
     	
+    }
+    
+    private void GraficaActionPerformed(java.awt.event.ActionEvent evt) {
+        Grafica graf = new Grafica();
+        this.dispose();
     }
 }
