@@ -2,7 +2,7 @@ package logico;
 
 import java.io.Serializable;
 
-public abstract class Componente implements Serializable {
+public abstract class Componente implements Serializable,Cloneable {
 
 	/**
 	 * 
@@ -20,7 +20,11 @@ public abstract class Componente implements Serializable {
 		this.precioComp = precioComp;
 		this.marca = marca;
 	}
-
+	
+	public Object clone()throws CloneNotSupportedException{  
+		return super.clone();  
+	}  
+	
 	public int getCantDisponible() {
 		return cantDisponible;
 	}

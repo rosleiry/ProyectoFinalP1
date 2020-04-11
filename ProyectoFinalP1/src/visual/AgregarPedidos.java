@@ -60,6 +60,7 @@ public class AgregarPedidos extends JFrame {
 	private static List listaCarrito;
 	private static List listaComponentes;
 	private boolean manoDeObra;
+	private ArrayList<Componente> componentesPedido;
 
 	/**
 	 * Launch the application.
@@ -77,6 +78,7 @@ public class AgregarPedidos extends JFrame {
 			}
 		});
 		
+		componentesPedido = new ArrayList<Componente>();		
 		manoDeObra = false;
 		setTitle("Tienda de computadoras RORO/Hacer pedido");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AgregarPedidos.class.getResource("/iconos/logo256.png")));
@@ -150,11 +152,11 @@ public class AgregarPedidos extends JFrame {
 				Usuario aux = Tienda.getInstance().buscarUsuariobyCedula(cedula);
 				if(aux != null) {
 					txtNombreCliente.setText(aux.getNombre()); 
-					//txtNombreCliente.setEditable(false);
+					txtNombreCliente.setEditable(false);
 					txtDireccionCliente.setText(aux.getDireccion());
-					//txtDireccionCliente.setEditable(false);
+					txtDireccionCliente.setEditable(false);
 					txtTelefonoCliente.setText(aux.getTelefono());
-					//txtTelefonoCliente.setEditable(false);
+					txtTelefonoCliente.setEditable(false);
 					JOptionPane.showMessageDialog(null, "Cliente existente", "Notificación", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
@@ -200,10 +202,57 @@ public class AgregarPedidos extends JFrame {
 		JButton btnMoverACarrito = new JButton(">");
 		btnMoverACarrito.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String seleccionado = listaComponentes.getSelectedItem().toString();
-				listaCarrito.add(seleccionado);
-				listaComponentes.remove(listaComponentes.getSelectedItem());
-				setTotal(Float.parseFloat(txtManoObra.getText()));
+				
+				int pos = listaComponentes.getSelectedItem().indexOf(" -");
+				String serial = listaComponentes.getSelectedItem().substring(0, pos);
+				Componente c = Tienda.getInstance().buscarComponentebySerial(Integer.parseInt(serial));
+				int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Agregue la cantidad que desea: "));
+				
+				if(cantidad<=c.getCantDisponible()) {
+					Componente aux = null;
+					try {
+						aux = (Componente) c.clone();
+					} catch (CloneNotSupportedException e1) {
+						e1.printStackTrace();
+					}
+					aux.setCantDisponible(cantidad);
+				
+					String itemAux = getStringByComponente(aux); 
+				
+					listaCarrito.add(itemAux);
+					componentesPedido.add(aux);
+					
+					if(cantidad == c.getCantDisponible()) { 
+						listaComponentes.remove(listaComponentes.getSelectedItem());
+					}
+					setTotal(Float.parseFloat(txtManoObra.getText()));
+				}else {
+					JOptionPane.showMessageDialog(null, "La cantidad de componentes que desea no es válida", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+
+			private String getStringByComponente(Componente aux) {
+				
+				String tipo = "";
+				String detalle = "";
+				if(aux instanceof HardDrive) {
+					tipo = "Disco Duro";
+					detalle = ((HardDrive) aux).getModelo();
+				}else if(aux instanceof RAM) {
+					tipo = "Ram";
+					detalle = String.valueOf(((RAM) aux).getCantMemoria());
+				}else if(aux instanceof Processor) {
+					tipo = "Procesador";
+					detalle = ((Processor) aux).getModelo();
+				}else if(aux instanceof MotherBoard){
+					tipo = "Tarjeta Madre";
+					detalle = ((MotherBoard) aux).getModelo();
+				}
+				
+				
+				String auxItem = aux.getNumSerie() + " - " + aux.getMarca() + " - " + detalle + " - " + tipo + " - " + aux.getCantDisponible();
+				
+				return auxItem;
 			}
 		});
 		btnMoverACarrito.setBounds(279, 42, 54, 23);
@@ -373,22 +422,19 @@ public class AgregarPedidos extends JFrame {
 				}
 				
 				
-				String aux = c.getNumSerie() + " - " + c.getMarca() + " - " + detalle + " - " + tipo;
+				String aux = c.getNumSerie() + " - " + c.getMarca() + " - " + detalle + " - " + tipo + " - " + c.getCantDisponible();
 				listaComponentes.add(aux);
 			}
-			
-		
 	}
+	   
+	
 
 	private void setTotal(float precioManoDeObra) {
 		   float total = 0;
 		   
 		  
-			for(int i = 0; i< listaCarrito.getItemCount(); i++) {
-				int pos = listaCarrito.getItem(i).indexOf(" -");
-				String serial = listaCarrito.getItem(i).substring(0, pos);
-				Componente c = Tienda.getInstance().buscarComponentebySerial(Integer.parseInt(serial));
-				total += c.getPrecioComp();
+			for(Componente aux : componentesPedido) {
+				total += (aux.getPrecioComp()*(aux.getCantDisponible()));
 			}
 			
 			if(!manoDeObra) {
