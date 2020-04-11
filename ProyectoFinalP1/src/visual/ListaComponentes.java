@@ -69,6 +69,7 @@ public class ListaComponentes extends JFrame {
 	private JButton btnBorrar;
 	private Componente c = null;
 	private int selectedRow = -1;
+	private int selectedColumn = -1;
 	private JLabel lblTitulo;
 
 	/**
@@ -247,6 +248,7 @@ public class ListaComponentes extends JFrame {
 		tableDiscosDuros.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				selectedColumn = tableDiscosDuros.getSelectedColumn();
 				selectedRow = tableDiscosDuros.getSelectedRow();
 				if(selectedRow > -1) {
 					btnInfo.setEnabled(true);
@@ -291,6 +293,7 @@ public class ListaComponentes extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				selectedRow = tableRAM.getSelectedRow();
+				selectedColumn = tableRAM.getSelectedColumn();
 				if(selectedRow > -1) {
 					btnInfo.setEnabled(true);
 					btnBorrar.setEnabled(true);
@@ -333,6 +336,7 @@ public class ListaComponentes extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				selectedRow = tableProcesador.getSelectedRow();
+				selectedColumn = tableProcesador.getSelectedColumn();
 				if(selectedRow > -1) {
 					btnInfo.setEnabled(true);
 					btnBorrar.setEnabled(true);
@@ -375,6 +379,7 @@ public class ListaComponentes extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				selectedRow = tableTarjetaMadre.getSelectedRow();
+				selectedColumn = tableTarjetaMadre.getSelectedColumn();
 				if(selectedRow > -1) {
 					btnInfo.setEnabled(true);
 					btnBorrar.setEnabled(true);
@@ -390,7 +395,34 @@ public class ListaComponentes extends JFrame {
 		btnInfo = new JButton("Editar");
 		btnInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Para editar un Componente de doble click en la cantidad o el precio.", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+				
+				if(panelDiscoDuro.isVisible()) {
+					if(selectedColumn == 1) {
+						c.setCantDisponible(Integer.parseInt((String) tableDiscosDuros.getValueAt(selectedRow, selectedColumn)));
+					}else if(selectedColumn == 2){
+						c.setPrecioComp(Integer.parseInt((String) tableDiscosDuros.getValueAt(selectedRow, selectedColumn)));
+					}
+				}else if(panelRAM.isVisible()) {
+					if(selectedColumn == 1) {
+						c.setCantDisponible(Integer.parseInt((String) tableRAM.getValueAt(selectedRow, selectedColumn)) );
+					}else if(selectedColumn == 2){
+						c.setPrecioComp(Integer.parseInt((String) tableRAM.getValueAt(selectedRow, selectedColumn)));
+					}
+				}else if(panelProcesador.isVisible()) {
+					if(selectedColumn == 1) {
+						c.setCantDisponible(Integer.parseInt((String) tableProcesador.getValueAt(selectedRow, selectedColumn)));
+					}else if(selectedColumn == 2){
+						c.setPrecioComp(Integer.parseInt((String) tableProcesador.getValueAt(selectedRow, selectedColumn)));
+					}
+				}else if(panelTarjetaMadre.isVisible()){
+					if(selectedColumn == 1) {
+						c.setCantDisponible(Integer.parseInt((String) tableTarjetaMadre.getValueAt(selectedRow, selectedColumn)));
+					}else if(selectedColumn == 2){
+						c.setPrecioComp(Integer.parseInt((String) tableTarjetaMadre.getValueAt(selectedRow, selectedColumn)));
+					}
+				}
+				
+				JOptionPane.showMessageDialog(null, "El componente ha sido editado", "Notificación", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnInfo.setBounds(496, 10, 110, 23);

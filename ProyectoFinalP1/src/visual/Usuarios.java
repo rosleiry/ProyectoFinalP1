@@ -42,7 +42,6 @@ public class Usuarios extends JFrame {
 	private JPanel contentPane;
 	private static JTable tableClientes;
 	private static Object[] fila;
-	private JTextField txtBuscarClientePor;
 	private static DefaultTableModel tableModel;
 	private int cedula;
 	
@@ -97,7 +96,7 @@ public class Usuarios extends JFrame {
 		panel_2.setLayout(null);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(10, 50, 614, 235);
+		panel_3.setBounds(10, 22, 614, 263);
 		panel_2.add(panel_3);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -142,16 +141,6 @@ public class Usuarios extends JFrame {
 		btnVolverMenu.setIcon(null);
 		btnVolverMenu.setBounds(534, 295, 90, 23);
 		panel_2.add(btnVolverMenu);
-		
-		txtBuscarClientePor = new JTextField();
-		txtBuscarClientePor.setBounds(10, 11, 204, 20);
-		panel_2.add(txtBuscarClientePor);
-		txtBuscarClientePor.setColumns(10);
-		
-		JButton btnBuscarCliente = new JButton("BUSCAR");
-		btnBuscarCliente.setIcon(null);
-		btnBuscarCliente.setBounds(220, 10, 89, 23);
-		panel_2.add(btnBuscarCliente);
 	}
 	
     private void btnVolverAMenuActionPerformed(java.awt.event.ActionEvent evt) {

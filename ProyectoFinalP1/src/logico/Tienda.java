@@ -233,7 +233,7 @@ public class Tienda implements Serializable{
 		return total;
 	}
 	
-	public ArrayList<Componente>  ordenarComponentesHightoLow() {
+	public ArrayList<Componente> ordenarComponentesHightoLow() {
 		
 		ArrayList<Componente> aux =	new ArrayList<Componente>();
 		aux = (ArrayList<Componente>) this.componentes.stream()

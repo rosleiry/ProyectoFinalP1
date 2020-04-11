@@ -44,7 +44,11 @@ public class Pedido implements Serializable {
 		return componentes;
 	}
 	public void setComponentes(ArrayList<Componente> componentes) {
-		this.componentes = componentes;
+		ArrayList<Componente> nuevosComponentes = new ArrayList<Componente>();
+		
+		nuevosComponentes = (ArrayList<Componente>) componentes.clone();
+		
+		this.componentes = nuevosComponentes;
 	}
 	
 	public void setPrecioPedido(float precioPedido) {

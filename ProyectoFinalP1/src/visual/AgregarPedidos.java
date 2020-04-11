@@ -60,7 +60,7 @@ public class AgregarPedidos extends JFrame {
 	private static List listaCarrito;
 	private static List listaComponentes;
 	private boolean manoDeObra;
-	private ArrayList<Componente> componentesPedido;
+	private static ArrayList<Componente> componentesPedido;
 
 	/**
 	 * Launch the application.
@@ -205,31 +205,67 @@ public class AgregarPedidos extends JFrame {
 				
 				int pos = listaComponentes.getSelectedItem().indexOf(" -");
 				String serial = listaComponentes.getSelectedItem().substring(0, pos);
+				Componente aux = buscarEnCarrito(Integer.parseInt(serial));
 				Componente c = Tienda.getInstance().buscarComponentebySerial(Integer.parseInt(serial));
-				int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Agregue la cantidad que desea: "));
+				int cantmaxima = 0;
 				
-				if(cantidad<=c.getCantDisponible()) {
-					Componente aux = null;
-					try {
-						aux = (Componente) c.clone();
-					} catch (CloneNotSupportedException e1) {
-						e1.printStackTrace();
-					}
-					aux.setCantDisponible(cantidad);
-				
-					String itemAux = getStringByComponente(aux); 
-				
-					listaCarrito.add(itemAux);
-					componentesPedido.add(aux);
-					
-					if(cantidad == c.getCantDisponible()) { 
-						listaComponentes.remove(listaComponentes.getSelectedItem());
-					}
-					setTotal(Float.parseFloat(txtManoObra.getText()));
+				if(aux != null) {
+					cantmaxima =  c.getCantDisponible() - aux.getCantDisponible();
 				}else {
-					JOptionPane.showMessageDialog(null, "La cantidad de componentes que desea no es válida", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+					cantmaxima = c.getCantDisponible();
 				}
+				
+				if(cantmaxima > 0) {
+					int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Agregue la cantidad que desea: "));
+					
+					if(cantidad <= cantmaxima && cantidad > 0) {
+						if(aux != null) {
+							aux.setCantDisponible(aux.getCantDisponible() + cantidad);
+						}else {
+							try {
+								aux = (Componente) c.clone();
+							} catch (CloneNotSupportedException e1) {
+								e1.printStackTrace();
+							}
+							aux.setCantDisponible(cantidad);
+							componentesPedido.add(aux);
+
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "La cantidad de componentes que desea no es válida", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+					}
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "No puede agregar más cantidad de este componente", "Notificación", JOptionPane.INFORMATION_MESSAGE);
+				}
+				
+				if(aux == null && cantmaxima > 0) {
+					String itemAux = getStringByComponente(aux);
+					listaCarrito.add(itemAux);
+				}
+				cargarlistaCarrito();
+				setTotal(Float.parseFloat(txtManoObra.getText()));
+				
+				
+				//Componente c = Tienda.getInstance().buscarComponentebySerial(Integer.parseInt(serial));
+				
+				//if(cantidad<=c.getCantDisponible()) {
+					//Componente aux = null;
+					
+				
+					// 
+				
+					//
+					
+					//if(cantidad == c.getCantDisponible()) { 
+						//listaComponentes.remove(listaComponentes.getSelectedItem());
+					//}
+					//setTotal(Float.parseFloat(txtManoObra.getText()));
+				//}else {
+				//}
 			}
+
+			
 
 			private String getStringByComponente(Componente aux) {
 				
@@ -262,9 +298,15 @@ public class AgregarPedidos extends JFrame {
 		JButton btnQuitarDeCarrito = new JButton("<");
 		btnQuitarDeCarrito.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String selected = listaCarrito.getSelectedItem().toString();
-				listaComponentes.add(selected);
-				listaCarrito.remove(listaCarrito.getSelectedItem());
+				
+				int pos = listaCarrito.getSelectedItem().indexOf(" -");
+				String serial = listaCarrito.getSelectedItem().substring(0, pos);
+				
+				Componente aux = buscarEnCarrito(Integer.parseInt(serial));
+				componentesPedido.remove(aux);
+				
+				cargarlistaCarrito();
+				
 				setTotal(Float.parseFloat(txtManoObra.getText()));
 			}
 		});
@@ -370,7 +412,7 @@ public class AgregarPedidos extends JFrame {
 				{
 					JOptionPane.showMessageDialog(null, "Campos del cliente vacios", "Notificación", JOptionPane.INFORMATION_MESSAGE);
 
-				}else if(listaCarrito.getItemCount() == 0) {
+				}else if(componentesPedido.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "No se agregó ningún artículo al carrito", "Notificación", JOptionPane.INFORMATION_MESSAGE);
 				}else {
 					String cedula = txtCedula.getText();
@@ -402,10 +444,37 @@ public class AgregarPedidos extends JFrame {
 		panel_2.add(btnVolverMenuPedido);
 	}
 	
-	   private void cargarlistacomponente() {
-			for ( Componente c : Tienda.getInstance().getComponentes()) {
+	 private void cargarlistaCarrito() {
+		 	listaCarrito.removeAll();
+			for ( Componente c : componentesPedido) {
 				
 				String tipo = "";
+				String detalle = "";
+				if(c instanceof HardDrive) {
+					tipo = "Disco Duro";
+					detalle = ((HardDrive) c).getModelo();
+				}else if(c instanceof RAM) {
+					tipo = "Ram";
+					detalle = String.valueOf(((RAM) c).getCantMemoria());
+				}else if(c instanceof Processor) {
+					tipo = "Procesador";
+					detalle = ((Processor) c).getModelo();
+				}else if(c instanceof MotherBoard){
+					tipo = "Tarjeta Madre";
+					detalle = ((MotherBoard) c).getModelo();
+				}
+				
+				
+				String aux = c.getNumSerie() + " - " + c.getMarca() + " - " + detalle + " - " + tipo + " - " + c.getCantDisponible();
+				listaCarrito.add(aux);
+			}
+	
+	 }	
+	   private void cargarlistacomponente() {
+		   listaComponentes.removeAll();
+		   for ( Componente c : Tienda.getInstance().getComponentes()) {
+				
+			   String tipo = "";
 				String detalle = "";
 				if(c instanceof HardDrive) {
 					tipo = "Disco Duro";
@@ -454,18 +523,37 @@ public class AgregarPedidos extends JFrame {
 		   String cedula = txtCedula.getText();
 		   Pedido aux =new Pedido(cedula,Float.parseFloat(txtManoObra.getText()));
 		   
-		   for(int i = 0; i< listaCarrito.getItemCount(); i++) {
-				int pos = listaCarrito.getItem(i).indexOf(" -");
-				String serial = listaCarrito.getItem(i).substring(0, pos);
-				Componente c = Tienda.getInstance().buscarComponentebySerial(Integer.parseInt(serial));
-				aux.getComponentes().add(c);
+		   aux.setComponentes(componentesPedido);
+		   
+		   Componente inventory = null;
+		   
+		   for (Componente componente : componentesPedido) {
+			   
+			   inventory = Tienda.getInstance().buscarComponentebySerial(componente.getNumSerie());
+			   inventory.setCantDisponible(inventory.getCantDisponible()-componente.getCantDisponible());
+			   
+			   if(inventory.getCantDisponible() == 0) {
+				   Tienda.getInstance().getComponentes().remove(inventory);
+			   }
 		   }
-		  
+		   
 		  Tienda.getInstance().agregarPedido(aux);
 		  JOptionPane.showMessageDialog(null, "Pedido Realizado", "Notificación", JOptionPane.INFORMATION_MESSAGE);
 
 	   }
-
+	   
+	   private Componente buscarEnCarrito(int parseInt) {
+			Componente aux = null;
+					
+				for (Componente componente : componentesPedido) {
+					if(componente.getNumSerie() == parseInt) {
+						aux = componente;
+					}
+				}
+					
+			return aux;
+		}
+	   
 	private void btnVolverMenuPedidosActionPerformed(java.awt.event.ActionEvent evt) {
 		   Pedidos volver = new Pedidos();
 		   volver.setVisible(true);
@@ -478,8 +566,9 @@ public class AgregarPedidos extends JFrame {
 		txtNombreCliente.setText("");
 		txtTelefonoCliente.setText("");
 		txtNumFactura.setText(Integer.toString(Tienda.getInstance().getIDpedido()));
-		listaCarrito.removeAll();
+		componentesPedido.clear();
 		cargarlistacomponente();
+		cargarlistaCarrito();
 		
 	}
 }
