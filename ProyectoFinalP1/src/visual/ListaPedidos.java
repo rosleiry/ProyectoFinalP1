@@ -16,6 +16,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import logico.Pedido;
 import logico.Tienda;
@@ -31,9 +32,9 @@ public class ListaPedidos extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTable table;
-	private DefaultTableModel tableModelPedidos;
-	private Object[] fila;
+	private static JTable table;
+	private static DefaultTableModel tableModelPedidos;
+	private static Object[] fila;
 
 	/**
 	 * Launch the application.
@@ -132,23 +133,26 @@ public class ListaPedidos extends JFrame {
 	
 	  
 
-	private void cargarPedidos() {
+	private static void cargarPedidos() {
 		tableModelPedidos.setRowCount(0);
 		fila = new Object[tableModelPedidos.getColumnCount()];
 		NumberFormat formatter = NumberFormat.getCurrencyInstance();
-		if(Tienda.getInstance().getPedidos().get(0) != null) {
-			for(Pedido p: Tienda.getInstance().getPedidos()) {
-				String precio = formatter.format(p.getPrecioPedido());
-				fila[0] = p.getIDpedido();
-				fila[1] = p.getCedulaUsuario();
-				fila[2] = precio;
-				fila[3] = p.getManoDeObra();
-				tableModelPedidos.addRow(fila);
-			}
-		}	
+		
+		for(Pedido p: Tienda.getInstance().getPedidos()) {
+			String precio = formatter.format(p.getPrecioPedido());
+			fila[0] = p.getIDpedido();
+			fila[1] = p.getCedulaUsuario();
+			fila[2] = precio;
+			fila[3] = p.getManoDeObra();
+			tableModelPedidos.addRow(fila);
+		}
+		
 		table.setModel(tableModelPedidos);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		table.getTableHeader().setReorderingAllowed(false);
+		TableColumnModel columnModel = table.getColumnModel();
+		
+		columnModel.getColumn(0).setPreferredWidth(10);
 	}
 
 

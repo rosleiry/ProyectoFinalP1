@@ -50,15 +50,15 @@ import java.awt.event.InputMethodEvent;
 public class AgregarPedidos extends JFrame {
 
 	private JPanel contentPane;
-	private JFormattedTextField txtCedula;
+	private static JFormattedTextField txtCedula;
 	private JTextField txtNombreCliente;
 	private JTextField txtDireccionCliente;
 	private JFormattedTextField txtTelefonoCliente;
 	private JTextField tfTotalPedido;
-	private JTextField txtManoObra;
+	private static JTextField txtManoObra;
 	private JTextField txtNumFactura;
-	private List listaCarrito;
-	private List listaComponentes;
+	private static List listaCarrito;
+	private static List listaComponentes;
 	private boolean manoDeObra;
 
 	/**
@@ -401,7 +401,7 @@ public class AgregarPedidos extends JFrame {
 			}
 	}
 	   
-	   private void agregarPedido() {
+	   private static void agregarPedido() {
 		   
 		   String cedula = txtCedula.getText();
 		   Pedido aux =new Pedido(cedula,Float.parseFloat(txtManoObra.getText()));
