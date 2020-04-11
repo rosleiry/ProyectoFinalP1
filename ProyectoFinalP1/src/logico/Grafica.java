@@ -24,7 +24,10 @@ import java.awt.SystemColor;
 
 public class Grafica {
 	private final JButton btnNewButton = new JButton("VOLVER");
-
+	
+	
+	private JFrame ventana;
+	
 	public Grafica() {
 		
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
@@ -66,7 +69,7 @@ public class Grafica {
 	
 		ChartPanel contenedor = new ChartPanel(grafica);
 		contenedor.setBackground(SystemColor.menu);
-		JFrame ventana = new JFrame("Tienda de computadoras RORO/Grafica");
+		ventana = new JFrame("Tienda de computadoras RORO/Grafica");
 		ventana.setIconImage(Toolkit.getDefaultToolkit().getImage(Grafica.class.getResource("/iconos/logo256.png")));
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventana.getContentPane().add(contenedor);
@@ -87,6 +90,7 @@ public class Grafica {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {
         ListaComponentes ped = new ListaComponentes();
         ped.setVisible(true);
+        ventana.dispose();
     }
 
 

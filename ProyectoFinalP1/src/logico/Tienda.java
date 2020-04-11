@@ -224,6 +224,15 @@ public class Tienda implements Serializable{
 		
 	}
 	
+	public int getCantComponentes() {
+		int total = 0;
+		
+		for(Componente c : componentes){
+			total += c.getCantDisponible();
+		}
+		return total;
+	}
+	
 	public ArrayList<Componente>  ordenarComponentesHightoLow() {
 		
 		ArrayList<Componente> aux =	new ArrayList<Componente>();
