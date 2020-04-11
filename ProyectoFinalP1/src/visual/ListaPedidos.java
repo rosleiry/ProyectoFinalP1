@@ -31,7 +31,6 @@ import java.text.NumberFormat;
 public class ListaPedidos extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
 	private static JTable table;
 	private static DefaultTableModel tableModelPedidos;
 	private static Object[] fila;
@@ -78,15 +77,6 @@ public class ListaPedidos extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 11, 249, 20);
-		panel_1.add(textField);
-		textField.setColumns(10);
-		
-		JButton btnBuscarPedido = new JButton("BUSCAR");
-		btnBuscarPedido.setBounds(269, 10, 89, 23);
-		panel_1.add(btnBuscarPedido);
-		
 		JButton btnVolver = new JButton("VOLVER");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,12 +86,8 @@ public class ListaPedidos extends JFrame {
 		btnVolver.setBounds(535, 294, 89, 23);
 		panel_1.add(btnVolver);
 		
-		JButton btnCancelarPedido = new JButton("CANCELAR PEDIDO");
-		btnCancelarPedido.setBounds(357, 294, 168, 23);
-		panel_1.add(btnCancelarPedido);
-		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(10, 42, 614, 241);
+		panel_2.setBounds(10, 11, 614, 272);
 		panel_1.add(panel_2);
 		
 		JScrollPane scrollPane = new JScrollPane();

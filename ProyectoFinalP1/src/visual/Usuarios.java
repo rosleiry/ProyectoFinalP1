@@ -124,7 +124,12 @@ public class Usuarios extends JFrame {
 				}
 			}
 		});
-		tableModel = new DefaultTableModel();
+		tableModel = new DefaultTableModel() {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		String[] columnClientes = {"C\u00E9dula:", "Nombre:", "Tel\u00E9fono:", "Direcci\u00F3n:"};
 		tableModel.setColumnIdentifiers(columnClientes);
 		cargarUsuarios();

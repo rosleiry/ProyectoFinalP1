@@ -21,6 +21,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Grafica {
 	private final JButton btnNewButton = new JButton("VOLVER");
@@ -70,6 +72,12 @@ public class Grafica {
 		ChartPanel contenedor = new ChartPanel(grafica);
 		contenedor.setBackground(SystemColor.menu);
 		ventana = new JFrame("Tienda de computadoras RORO/Grafica");
+		ventana.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Tienda.getInstance().guardarDatos();
+			}
+		});
 		ventana.setIconImage(Toolkit.getDefaultToolkit().getImage(Grafica.class.getResource("/iconos/logo256.png")));
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventana.getContentPane().add(contenedor);
