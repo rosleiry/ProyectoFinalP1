@@ -82,4 +82,6 @@ public class Pedido implements Serializable {
 		
 		return aux + manoDeObra;
 	}
+	
+	
 }
