@@ -218,7 +218,7 @@ public class Tienda implements Serializable{
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error: Clase no encontrada");
 		} catch(FileNotFoundException e) {
-			guardarDatos();
+			guardarDatos2();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
