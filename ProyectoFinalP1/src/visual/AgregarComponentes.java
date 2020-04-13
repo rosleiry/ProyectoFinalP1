@@ -65,7 +65,6 @@ public class AgregarComponentes extends JFrame {
 	 * Launch the application.
 	 */
 
-
 	/**
 	 * Create the frame.
 	 */
@@ -74,6 +73,7 @@ public class AgregarComponentes extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				Tienda.getInstance().guardarDatos();
+				Tienda.getInstance().guardarDatos2();
 			}
 		});
 		setResizable(false);

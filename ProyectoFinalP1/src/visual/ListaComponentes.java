@@ -85,6 +85,7 @@ public class ListaComponentes extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				Tienda.getInstance().guardarDatos();
+				Tienda.getInstance().guardarDatos2();
 			}
 		});
 		setTitle("Tienda de computadoras RORO/Listar componentes");

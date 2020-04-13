@@ -19,7 +19,7 @@ public class Cliente {
 		
 		ObjectOutputStream out = new ObjectOutputStream(cliente.getOutputStream());
 		
-		FileInputStream file = new FileInputStream("C:/Data/Tienda.dat");
+		FileInputStream file = new FileInputStream("C:/Data/respaldo.txt");
 		
 		byte[] buf = new byte[4096];
 		

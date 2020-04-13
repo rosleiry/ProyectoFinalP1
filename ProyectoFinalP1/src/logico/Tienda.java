@@ -204,11 +204,49 @@ public class Tienda implements Serializable{
 		}
 	}
 
+	public void cargarDatos2() {
+		try {
+			FileInputStream input = new FileInputStream("Data/respaldo.txt");
+			ObjectInputStream inputTienda = new ObjectInputStream(input);
+			
+			Tienda aux = (Tienda) inputTienda.readObject();
+			Tienda.setTienda(aux);
+			
+			inputTienda.close();
+			input.close();
+			
+		} catch (ClassNotFoundException e) {
+			System.out.println("Error: Clase no encontrada");
+		} catch(FileNotFoundException e) {
+			guardarDatos();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void guardarDatos() {
 		
 		try {	
 			 FileOutputStream output = new FileOutputStream("Data/Tienda.dat");
+			 ObjectOutputStream outputTienda = new ObjectOutputStream(output);
+			  
+			 outputTienda.writeObject(tienda);
+				
+			 outputTienda.close();
+			 output.close();
+		
+		}catch (FileNotFoundException e) {
+			System.out.println("Error: Archivo no Encontrado");
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void guardarDatos2() {
+		
+		try {	
+			 FileOutputStream output = new FileOutputStream("Data/respaldo.txt");
 			 ObjectOutputStream outputTienda = new ObjectOutputStream(output);
 			  
 			 outputTienda.writeObject(tienda);
