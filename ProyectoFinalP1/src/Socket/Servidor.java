@@ -17,7 +17,7 @@ public class Servidor {
 
 	public static void main(String[] args) throws IOException{
 		
-		ServerSocket servidor = new ServerSocket(1234);
+		ServerSocket servidor = new ServerSocket(9000);
 		
 		Socket sv = servidor.accept();
 		
